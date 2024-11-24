@@ -11,7 +11,7 @@ const Sidebar = () => {
     },
   ];
   return (
-    <div className="bg-[#212124] min-w-[240px] w-[240px] px-3 py-4 h-full overflow-hidden overflow-y-auto">
+    <div className="bg-[#212124] hidden sm:block sm:min-w-[150px]  md:min-w-[240px] md:w-[240px] px-3 py-4 h-full overflow-hidden overflow-y-auto">
       {/* Sidebar header */}
       <div className="flex items-center justify-between">
         <button className="bg-[#63676f] rounded-full p-1 hover:opacity-80 transition">

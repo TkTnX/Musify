@@ -21,7 +21,7 @@ export default function RootLayout({
         className={`${font.className} antialiased flex items-start bg-[#171719] text-white h-full`}
       >
         <Sidebar />
-        <div className="flex flex-col gap-5 px-12 py-4 w-full h-full">
+        <div className="flex flex-col gap-5 px-4 md:px-12 py-4 w-full h-full">
           <Header />
           {children}
         </div>

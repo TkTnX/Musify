@@ -16,7 +16,7 @@ const Header = () => {
 
   return (
     <header className="flex items-center w-full justify-between">
-      <div className="flex items-center gap-2">
+      <div className="hidden vsm:flex items-center gap-2">
         <button
           onClick={() => handleMovePage("back")}
           className=" rounded-full bg-[#1f1f22] border border-[#29292d] flex items-center justify-center w-10 h-10 hover:opacity-60 transition"
@@ -30,8 +30,8 @@ const Header = () => {
           <ChevronRight size={16} className="w-4 h-4" />
         </button>
       </div>
-      <div>
-        <form className="flex items-center bg-[#1f1f22] border border-[#29292d] pl-2 rounded-xl w-[390px]">
+      <div className="w-full vsm:w-auto">
+        <form className="flex items-center bg-[#1f1f22] border border-[#29292d] pl-2 rounded-xl lg:w-[390px] overflow-hidden">
           <Search size={16} className="text-white" />
           <input
             type="text"
