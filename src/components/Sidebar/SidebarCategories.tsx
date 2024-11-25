@@ -18,11 +18,11 @@ const SidebarCategories: React.FC<SidebarCategoriesProps> = ({
   if (items.length === 0) return null;
 
   return (
-    <div className="mt-8">
+    <div className="mt-8 text-center sm:text-left">
       <h4 className="text-[#9898a6] text-xs font-medium">{title}</h4>
 
       <nav className="mt-1">
-        <ul>
+        <ul className="flex flex-col justify-center items-center sm:block">
           {items.map((item) => (
             <li key={item.href}>
               <Link

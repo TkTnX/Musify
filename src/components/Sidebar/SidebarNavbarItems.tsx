@@ -8,7 +8,7 @@ const SidebarNavbarItems = () => {
   const pathname = usePathname();
   return (
     <nav className="mt-11">
-      <ul>
+      <ul className="flex items-center justify-center sm:block">
         {sidebarNavItems.map((item) => (
           <li key={item.href}>
             <Link

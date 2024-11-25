@@ -2,8 +2,9 @@ import { sidebarMyCollectionItems } from "@/constants";
 import { MoreHorizontal, User } from "lucide-react";
 import SidebarCategories from "./SidebarCategories";
 import SidebarNavbarItems from "./SidebarNavbarItems";
+import { cn } from "@/lib/utils";
 
-const Sidebar = () => {
+const Sidebar = ({isSmall}: {isSmall: boolean}) => {
   const userPlaylists = [
     {
       name: "Playlist 1",
@@ -11,7 +12,13 @@ const Sidebar = () => {
     },
   ];
   return (
-    <div className="bg-[#212124] hidden sm:block sm:min-w-[150px]  md:min-w-[240px] md:w-[240px] px-3 py-4 h-full overflow-hidden overflow-y-auto">
+    <div
+      className={cn(
+        "bg-[#212124]  sm:min-w-[150px]  md:min-w-[240px] md:w-[240px] px-3 py-4 h-full overflow-hidden overflow-y-auto scrollbar",
+        { "hidden sm:block": !isSmall },
+        { "fixed inset-0": isSmall }
+      )}
+    >
       {/* Sidebar header */}
       <div className="flex items-center justify-between">
         <button className="bg-[#63676f] rounded-full p-1 hover:opacity-80 transition">

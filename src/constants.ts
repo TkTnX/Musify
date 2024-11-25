@@ -37,3 +37,61 @@ export const sidebarMyCollectionItems = [
   },
 ];
 
+export const mainSectionItems = [
+  {
+    id: "1",
+    title: "After Hours",
+    image_url: "/images/01.jpg",
+    song_url: "",
+    author: "The Weekend",
+    album: null,
+  },
+  {
+    id: "2",
+    title: "After Hours",
+    image_url: "/images/01.jpg",
+    song_url: "",
+    author: "The Weekend",
+    album: null,
+  },
+  {
+    id: "3",
+    title: "After Hours",
+    image_url: "/images/01.jpg",
+    song_url: "",
+    author: "The Weekend",
+    album: null,
+  },
+  {
+    id: "4",
+    title: "After Hours",
+    image_url: "/images/01.jpg",
+    song_url: "",
+    author: "The Weekend",
+    album: null,
+  },
+  {
+    id: "5",
+    title: "After Hours",
+    image_url: "/images/01.jpg",
+    song_url: "",
+    author: "The Weekend",
+    album: null,
+  },
+  {
+    id: "6",
+    title: "After Hours",
+    image_url: "/images/01.jpg",
+    song_url: "",
+    author: "The Weekend",
+    album: null,
+  },
+  {
+    id: "7",
+    title: "After Hours",
+    image_url: "/images/01.jpg",
+    song_url: "",
+    author: "The Weekend",
+    album: null,
+  },
+];
