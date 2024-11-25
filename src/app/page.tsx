@@ -3,7 +3,7 @@ import { mainSectionItems } from "@/constants";
 
 export default function Home() {
   return (
-    <main className="overflow-hidden overflow-y-auto scrollbar">
+    <main className="">
       {/* Title section */}
       <MainSection title="Trending" items={mainSectionItems} isTitleSection />
 

@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const SidebarNavbarItems = () => {
+const SidebarNavbarItems = ({ onClick }: { onClick?: () => void }) => {
   const pathname = usePathname();
   return (
     <nav className="mt-11">
@@ -12,6 +12,7 @@ const SidebarNavbarItems = () => {
         {sidebarNavItems.map((item) => (
           <li key={item.href}>
             <Link
+              onClick={onClick}
               className={cn(
                 "leading-6 font-medium hover:bg-[#4c4e54] transition block w-full p-3 rounded-md",
                 {

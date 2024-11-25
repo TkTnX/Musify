@@ -7,11 +7,13 @@ import { usePathname } from "next/navigation";
 interface SidebarCategoriesProps {
   title: string;
   items: { name: string; href: string; icon?: string }[];
+  onClick?: () => void;
 }
 
 const SidebarCategories: React.FC<SidebarCategoriesProps> = ({
   title,
   items,
+  onClick,
 }) => {
   const pathname = usePathname();
 
@@ -26,6 +28,7 @@ const SidebarCategories: React.FC<SidebarCategoriesProps> = ({
           {items.map((item) => (
             <li key={item.href}>
               <Link
+                onClick={onClick}
                 href={item.href}
                 className={cn(
                   "leading-6 font-medium hover:bg-[#4c4e54] transition  w-full p-3 rounded-md flex items-center gap-2",

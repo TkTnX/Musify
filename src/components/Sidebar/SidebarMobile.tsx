@@ -1,18 +1,18 @@
 "use client";
-import { ChevronUp, User } from "lucide-react";
+import { ChevronUp } from "lucide-react";
 import Sidebar from "./Sidebar";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import SidebarUserButton from "./SidebarUserButton";
 
 const SidebarMobile = () => {
   const [open, setOpen] = useState(false);
   return (
     <div className="flex items-center gap-3 sm:hidden bg-[#212124] p-4 w-full">
       {/* Sidebar header */}
-      <div className="flex items-center justify-between w-full relative z-10">
-        <button className="bg-[#63676f] rounded-full p-1 hover:opacity-80 transition">
-          <User size={24} color="#6a6d75" />
-        </button>
+      <div className="flex items-center justify-between w-full relative z-20">
+        <SidebarUserButton />
+
         <button
           onClick={() => setOpen(!open)}
           className={cn(
@@ -23,7 +23,7 @@ const SidebarMobile = () => {
           <ChevronUp size={16} className="w-4 h-4" />
         </button>
       </div>
-      {open && <Sidebar isSmall={true} />}
+      {open && <Sidebar onClick={() => setOpen(false)} isSmall={true} />}
     </div>
   );
 };
