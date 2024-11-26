@@ -20,18 +20,20 @@ const Sidebar: React.FC<SidebarProps> = ({ isSmall, onClick }) => {
   return (
     <div
       className={cn(
-        "bg-[#212124]  sm:min-w-[150px]  md:min-w-[240px] md:w-[240px] px-3 py-4 h-full overflow-hidden overflow-y-auto scrollbar",
+        "bg-[#212124]  sm:min-w-[150px]  md:min-w-[240px] md:w-[240px] px-3 py-4 h-[calc(100%-100px)] sm:h-[calc(100%-93px)] overflow-hidden overflow-y-auto scrollbar",
         { "hidden sm:block": !isSmall },
         { "fixed inset-0 z-10": isSmall }
       )}
     >
       {/* Sidebar header */}
-      <div className="flex items-center justify-between">
-        <SidebarUserButton />
-        <button className="hover:opacity-80 transition">
-          <MoreHorizontal size={24} color="#fff" />
-        </button>
-      </div>
+      {!isSmall && (
+        <div className="flex items-center justify-between">
+          <SidebarUserButton />
+          <button className="hover:opacity-80 transition">
+            <MoreHorizontal size={24} color="#fff" />
+          </button>
+        </div>
+      )}
 
       {/* Sidebar navbar items */}
       <SidebarNavbarItems onClick={onClick} />
@@ -39,11 +41,16 @@ const Sidebar: React.FC<SidebarProps> = ({ isSmall, onClick }) => {
       {/* Sidebar my collection */}
       <SidebarCategories
         title="MY COLLECTION"
-        items={sidebarMyCollectionItems} onClick={onClick}
+        items={sidebarMyCollectionItems}
+        onClick={onClick}
       />
 
       {/* Sidebar my playlists */}
-      <SidebarCategories title="MY PLAYLISTS" items={userPlaylists} onClick={onClick} />
+      <SidebarCategories
+        title="MY PLAYLISTS"
+        items={userPlaylists}
+        onClick={onClick}
+      />
     </div>
   );
 };

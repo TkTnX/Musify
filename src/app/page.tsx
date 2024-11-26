@@ -3,7 +3,7 @@ import { mainSectionItems } from "@/constants";
 
 export default function Home() {
   return (
-    <main className="">
+    <main >
       {/* Title section */}
       <MainSection title="Trending" items={mainSectionItems} isTitleSection />
 

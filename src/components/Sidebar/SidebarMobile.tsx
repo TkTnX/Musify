@@ -16,8 +16,8 @@ const SidebarMobile = () => {
         <button
           onClick={() => setOpen(!open)}
           className={cn(
-            " rounded-full bg-[#1f1f22] border  flex items-center justify-center w-10 h-10 hover:opacity-60 transition",
-            { "rotate-180": open }
+            " rounded-full bg-[#1f1f22] border  flex items-center justify-center w-10 h-10 hover:opacity-60 transition rotate-180",
+            { "rotate-0": open }
           )}
         >
           <ChevronUp size={16} className="w-4 h-4" />

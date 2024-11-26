@@ -11,6 +11,9 @@
   "dependencies": {
     "@clerk/nextjs": "^6.5.0",
     "@clerk/themes": "^2.1.48",
+    "@radix-ui/react-dialog": "^1.1.2",
+    "@radix-ui/react-slider": "^1.2.1",
+    "@radix-ui/react-tooltip": "^1.1.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.460.0",
@@ -19,7 +22,8 @@
     "react-dom": "19.0.0-rc-66855b96-20241106",
     "swiper": "^11.1.15",
     "tailwind-merge": "^2.5.4",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zustand": "^5.0.1"
   },
   "devDependencies": {
     "@types/node": "^20",
