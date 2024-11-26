@@ -1,0 +1,72 @@
+datasource db {
+    provider  = "postgresql"
+    url       = env("DATABASE_URL")
+    directUrl = env("DIRECT_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model User {
+    id        Int     @id @default(autoincrement())
+    avatar_url String?
+    email     String  @unique
+    name      String?
+
+    playlists  Playlist[]
+    likedSongs Song[]
+    createdAt  DateTime   @default(now())
+    updatedAt  DateTime   @updatedAt
+}
+
+model Playlist {
+    id     Int    @id @default(autoincrement())
+    title  String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId Int
+    songs  Song[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Album {
+    id    Int    @id @default(autoincrement())
+    title String
+    songs Song[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    artist    Artist?  @relation(fields: [artistId], references: [id])
+    artistId  Int?
+}
+
+model Song {
+    id         Int       @id @default(autoincrement())
+    title      String
+    image_url  String
+    song_url   String
+    album      Album?    @relation(fields: [albumId], references: [id], onDelete: Cascade)
+    playlist   Playlist? @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+    playlistId Int?
+    albumId    Int?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    user     User[]
+    artist   Artist @relation(fields: [artistId], references: [id])
+    artistId Int
+}
+
+model Artist {
+    id        Int     @id @default(autoincrement())
+    name      String
+    avatar_url String
+    songs     Song[]
+    albums    Album[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}

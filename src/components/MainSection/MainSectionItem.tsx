@@ -1,12 +1,12 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { SongType } from "@/types";
+import { SongWithAllDependencies } from "@/types";
 import { PlayIcon } from "lucide-react";
 import Image from "next/image";
 
 interface MainSectionItemProps {
-  song: SongType;
+  song: SongWithAllDependencies;
   isTitleSection: boolean;
 }
 
@@ -47,8 +47,13 @@ const MainSectionItem: React.FC<MainSectionItemProps> = ({
           {song.title}
         </h5>
         <p className="font-semibold text-sm leading-5 text-[#9898a6] relative z-10 mt-1">
-          {song.author}
+          {song.artist.name}
         </p>
+        {song.album && (
+          <p className="font-semibold text-sm leading-5 text-[#9898a6] relative z-10 mt-1">
+            {song.album.title}
+          </p>
+        )}
       </div>
     </div>
   );

@@ -1,15 +1,15 @@
 "use client";
-import { SongType } from "@/types";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import MainSectionItem from "./MainSectionItem";
 import { useRef } from "react";
 import { cn } from "@/lib/utils";
+import { SongWithAllDependencies } from "@/types";
 
 interface MainSectionProps {
   title: string;
-  items: SongType[];
+  items: SongWithAllDependencies[];
   isTitleSection?: boolean;
 }
 

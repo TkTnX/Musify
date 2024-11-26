@@ -1,14 +1,17 @@
 import MainSection from "@/components/MainSection/MainSection";
-import { mainSectionItems } from "@/constants";
+import { prisma } from "@/prisma/prismaClient";
 
-export default function Home() {
+export default async function Home() {
+  const songs = await prisma.song.findMany({
+    include: { artist: true, album: true, playlist: true },
+  });
   return (
-    <main >
+    <main>
       {/* Title section */}
-      <MainSection title="Trending" items={mainSectionItems} isTitleSection />
+      <MainSection title="Trending" items={songs} isTitleSection />
 
       {/* Albums section */}
-      <MainSection title="Albums" items={mainSectionItems} />
+      <MainSection title="Albums" items={songs} />
     </main>
   );
 }

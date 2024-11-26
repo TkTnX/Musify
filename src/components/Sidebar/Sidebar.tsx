@@ -4,6 +4,7 @@ import SidebarCategories from "./SidebarCategories";
 import SidebarNavbarItems from "./SidebarNavbarItems";
 import { cn } from "@/lib/utils";
 import SidebarUserButton from "./SidebarUserButton";
+import SidebarHeaderSettings from "./SidebarHeaderSettings";
 
 interface SidebarProps {
   isSmall: boolean;
@@ -29,9 +30,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isSmall, onClick }) => {
       {!isSmall && (
         <div className="flex items-center justify-between">
           <SidebarUserButton />
-          <button className="hover:opacity-80 transition">
-            <MoreHorizontal size={24} color="#fff" />
-          </button>
+          <SidebarHeaderSettings>
+            <button className="hover:opacity-80 transition">
+              <MoreHorizontal size={24} color="#fff" />
+            </button>
+          </SidebarHeaderSettings>
         </div>
       )}
 

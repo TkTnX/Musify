@@ -1,8 +1,8 @@
-export type SongType = {
-  id: string;
-  title: string;
-  image_url: string;
-  song_url: string;
-  author: string;
-  album: string | null;
-};
+import { Album, Artist, Playlist, Song } from "@prisma/client";
+
+export type SongWithAllDependencies = Song & {
+  artist: Artist,
+  album: Album | null,
+  playlist: Playlist | null,
+
+}
