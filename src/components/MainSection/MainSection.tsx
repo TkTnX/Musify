@@ -18,6 +18,7 @@ const MainSection: React.FC<MainSectionProps> = ({
   items,
   isTitleSection = false,
 }) => {
+
   const sliderRef = useRef(null);
   return (
     <div className={cn("mt-14", { "mt-5": isTitleSection })}>

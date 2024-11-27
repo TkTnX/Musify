@@ -1,5 +1,7 @@
 import MainSection from "@/components/MainSection/MainSection";
-import { prisma } from "@/prisma/prismaClient";
+import prisma from "@/prisma/prismaClient";
+
+export const revalidate = 0;
 
 export default async function Home() {
   const songs = await prisma.song.findMany({

@@ -47,9 +47,9 @@ model Song {
     title      String
     image_url  String
     song_url   String
-    album      Album?    @relation(fields: [albumId], references: [id], onDelete: Cascade)
     playlist   Playlist? @relation(fields: [playlistId], references: [id], onDelete: Cascade)
     playlistId Int?
+    album      Album?    @relation(fields: [albumId], references: [id], onDelete: Cascade)
     albumId    Int?
 
     createdAt DateTime @default(now())
