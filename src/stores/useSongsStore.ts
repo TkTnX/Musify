@@ -1,6 +1,6 @@
 import { addSongData } from "@/lib/addSongData";
 import { getSongData } from "@/lib/getSongData";
-import { AddSongFormType } from "@/types";
+import { AddSongFormType, SongWithAllDependencies } from "@/types";
 import { Song } from "@prisma/client";
 import axios from "axios";
 import { create } from "zustand";
@@ -9,29 +9,14 @@ interface UseSongsStoreType {
   loading: boolean;
   error: boolean;
 
-  //   fetchArtists: () => Promise<void>;
   addSong: (data: AddSongFormType) => Promise<void>;
+  fetchSong: (id: number) => Promise<SongWithAllDependencies>;
 }
 
 export const useSongsStore = create<UseSongsStoreType>((set) => ({
   songs: [],
   loading: false,
   error: false,
-  //   fetchArtists: async () => {
-  //     try {
-  //       set({ loading: true });
-  //       const artists = await axios.get("/api/artists");
-
-  //       if (!artists) throw new Error("Artists not found");
-
-  //       set({ artists: artists.data });
-  //     } catch (error) {
-  //       console.log(error);
-  //       set({ error: true });
-  //     } finally {
-  //       set({ loading: false });
-  //     }
-  //   },
 
   addSong: async (data) => {
     try {
@@ -63,6 +48,25 @@ export const useSongsStore = create<UseSongsStoreType>((set) => ({
         image_url: imagePublicUrl,
         song_url: songPublicUrl,
       });
+    } catch (error) {
+      console.log(error);
+      set({ error: true });
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  fetchSong: async (id) => {
+    try {
+      console.log(id);
+      set({ loading: true });
+      if (!id) throw new Error("Id not found");
+
+      const song = await axios.get(`/api/song/${id}`);
+
+      if (!song) throw new Error("Song not found");
+
+      return song.data;
     } catch (error) {
       console.log(error);
       set({ error: true });

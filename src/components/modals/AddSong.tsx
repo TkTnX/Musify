@@ -68,7 +68,9 @@ const AddSong: React.FC<AddSongProps> = ({ children, open, setOpen }) => {
 
   const onSubmit = async (data: AddSongFormType) => {
     try {
-      
+      if (!artistId) {
+        return toast.error("Please select an artist");
+      }
       await addSong({ ...data, artistId });
 
       if (error) {

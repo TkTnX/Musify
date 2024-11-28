@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -7,9 +6,10 @@ import {
 } from "../ui/tooltip";
 import { Slider } from "../ui/slider";
 import { Volume1, Volume2, VolumeX } from "lucide-react";
+import { usePlayerStore } from "@/stores/usePlayerStore";
 
 const PlayerSettingsVolume = () => {
-  const [volume, setVolume] = useState([1]);
+  const { volume, setVolume } = usePlayerStore();
 
   const VolumeIcon =
     volume[0] === 0 ? VolumeX : volume[0] < 0.5 ? Volume1 : Volume2;

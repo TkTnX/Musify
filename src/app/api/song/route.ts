@@ -5,7 +5,7 @@ export async function POST(req: NextRequest) {
   const data = await req.json();
   try {
     if (!data) {
-      throw new Error("Data not found");
+      return NextResponse.json({ message: "Data not found" });
     }
 
     await prisma.song.create({

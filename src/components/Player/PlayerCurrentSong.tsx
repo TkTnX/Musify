@@ -1,9 +1,9 @@
-import { SongType } from "@/types";
+import { SongWithAllDependencies } from "@/types";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 
 interface PlayerCurrentSongProps {
-  song: SongType;
+  song: SongWithAllDependencies;
 }
 
 const PlayerCurrentSong: React.FC<PlayerCurrentSongProps> = ({ song }) => {
@@ -27,11 +27,11 @@ const PlayerCurrentSong: React.FC<PlayerCurrentSongProps> = ({ song }) => {
           </button>
         </div>
         <p className="font-semibold text-sm leading-5 text-[#afafb0]">
-          {song.author}
+          {song.artist.name}
         </p>
         {song.album && (
           <p className="font-semibold text-[10px] leading-5 text-[#afafb0]">
-            PLAYING FROM: {song.album}
+            PLAYING FROM: {song.album.title}
           </p>
         )}
       </div>
