@@ -11,5 +11,5 @@ export type AddSongFormType = {
   image_url: File[];
   song_url: File[];
   albumId: null;
-  artistId: number;
+  artistId: number | null;
 };

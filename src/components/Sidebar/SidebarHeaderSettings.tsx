@@ -8,7 +8,8 @@ import {
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
 import AddSong from "../modals/AddSong";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAuth } from "@clerk/nextjs";
 
 interface SidebarHeaderSettingsProps {
   children: React.ReactNode;
@@ -17,7 +18,16 @@ interface SidebarHeaderSettingsProps {
 const SidebarHeaderSettings: React.FC<SidebarHeaderSettingsProps> = ({
   children,
 }) => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
+  const user = useAuth();
+
+  useEffect(() => {
+    if (!user.sessionId) {
+      setOpen(false);
+      return;
+    }
+  }, [user]);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>

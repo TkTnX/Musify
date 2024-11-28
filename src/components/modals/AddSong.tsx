@@ -1,4 +1,11 @@
-import { Loader2, Plus } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+
+import { useForm } from "react-hook-form";
+import { useArtistsStore } from "@/stores/useArtistsStore";
+import { useSongsStore } from "@/stores/useSongsStore";
+
 import {
   Dialog,
   DialogContent,
@@ -7,15 +14,17 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { Input } from "../ui/input";
-import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
-import { getSongData } from "@/lib/getSongData";
-import { addSongData } from "@/lib/addSongData";
-import { AddSongFormType } from "@/types";
-import axios from "axios";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { Loader2, Plus } from "lucide-react";
+import { AddSongFormType } from "@/types";
 
 interface AddSongProps {
   children: React.ReactNode;
@@ -24,7 +33,16 @@ interface AddSongProps {
 }
 
 const AddSong: React.FC<AddSongProps> = ({ children, open, setOpen }) => {
-  const [loading, setLoading] = useState(false);
+  const [artistId, setArtistId] = useState<number | null>(null);
+  const {
+    fetchArtists,
+    artists,
+    loading: artistsLoading,
+    error,
+  } = useArtistsStore();
+
+  const { addSong, loading } = useSongsStore();
+
   const router = useRouter();
   const {
     register,
@@ -36,48 +54,34 @@ const AddSong: React.FC<AddSongProps> = ({ children, open, setOpen }) => {
       image_url: [],
       song_url: [],
       albumId: null,
-      artistId: 1,
+      artistId: null,
     },
   });
 
+  useEffect(() => {
+    fetchArtists();
+
+    if (error) {
+      toast.error(error);
+    }
+  }, [fetchArtists, error]);
+
   const onSubmit = async (data: AddSongFormType) => {
     try {
-      setLoading(true);
-      //   GETTING IMAGE
-      const imageFile = data.image_url[0] ?? null;
-      const imagePath = await addSongData("images", imageFile);
+      
+      await addSong({ ...data, artistId });
 
-      //   GETTING SONG
-      const songFile = data.song_url[0] ?? null;
-      const songPath = await addSongData("songs", songFile);
-
-      if (!imagePath || !songPath) {
-        console.log("Error uploading files");
-        return;
+      if (error) {
+        throw new Error("Error adding song");
       }
 
-      const imagePublicUrl = await getSongData("images", imagePath);
-      const songPublicUrl = await getSongData("songs", songPath);
-
-      if (!imagePublicUrl || !songPublicUrl) {
-        console.log("Error getting public url");
-        return;
-      }
-
-      await axios.post("/api/song", {
-        ...data,
-        image_url: imagePublicUrl,
-        song_url: songPublicUrl,
-      });
       toast.success("Song added successfully! ");
-      setOpen(false);
 
+      setOpen(false);
       router.refresh();
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -92,9 +96,33 @@ const AddSong: React.FC<AddSongProps> = ({ children, open, setOpen }) => {
           {errors.title && (
             <p className="text-red-500">{errors.title.message}</p>
           )}
-          <Input placeholder="Album" {...register("albumId")} />
-          {errors.albumId && (
-            <p className="text-red-500">{errors.albumId.message}</p>
+          <Select
+            disabled={loading || artistsLoading}
+            onValueChange={(value) => setArtistId(Number(value))}
+            name="artistId"
+          >
+            <SelectTrigger className="w-full h-auto disabled:opacity-50 disabled:pointer-events-none">
+              <SelectValue placeholder="Choose an Artist" />
+            </SelectTrigger>
+            <SelectContent>
+              {artists.map((artist) => (
+                <SelectItem value={String(artist.id)} key={artist.id}>
+                  <div className="flex items-center gap-3 cursor-pointer">
+                    <Image
+                      src={artist.avatar_url}
+                      alt={artist.name}
+                      width={40}
+                      height={40}
+                      className="rounded-full object-cover"
+                    />
+                    <p>{artist.name}</p>
+                  </div>
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          {errors.artistId && (
+            <p className="text-red-500">{errors.artistId.message}</p>
           )}
 
           <div className="flex items-center ">
@@ -124,7 +152,7 @@ const AddSong: React.FC<AddSongProps> = ({ children, open, setOpen }) => {
             </label>
           </div>
           <Button
-            disabled={loading}
+            disabled={loading || artistsLoading}
             type="submit"
             className="w-full flex items-center justify-center"
           >
