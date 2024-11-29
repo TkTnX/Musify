@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { usePlayerStore } from "@/stores/usePlayerStore";
 import { SongWithAllDependencies } from "@/types";
-import { PlayIcon } from "lucide-react";
+import { Pause, PlayIcon } from "lucide-react";
 import Image from "next/image";
 
 interface MainSectionItemProps {
@@ -18,11 +18,18 @@ const MainSectionItem: React.FC<MainSectionItemProps> = ({
   const usePlayer = usePlayerStore();
 
   const handlePlay = () => {
-    usePlayer.setCurrentSongId(song.id);
-    usePlayer.setCurrentSongIds([...usePlayer.currentSongIds, song.id]);
-    usePlayer.setIsPlaying(true);
-
+    if (usePlayer.isPlaying) {
+      usePlayer.setIsPlaying(false);
+    } else {
+      usePlayer.setCurrentSongId(song.id);
+      usePlayer.setIsPlaying(true);
+    }
   };
+
+  const Icon =
+    usePlayer.isPlaying && usePlayer.currentSongId === song.id
+      ? Pause
+      : PlayIcon;
 
   return (
     <div
@@ -48,7 +55,7 @@ const MainSectionItem: React.FC<MainSectionItemProps> = ({
           onClick={handlePlay}
           className="bg-white rounded-full p-3 absolute top-0 right-0 z-10 -translate-x-1/2 -translate-y-[60%] opacity-0 group-hover:opacity-100 group-hover:-translate-y-1/2 transition hover:scale-110"
         >
-          <PlayIcon size={16} color="#000" fill="#000" />
+          <Icon size={16} color="#000" fill="#000" />
         </button>
         <Image
           src={song.image_url}

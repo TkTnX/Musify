@@ -27,7 +27,7 @@ const PlayerSettingsVolume = () => {
   };
   return (
     <TooltipProvider>
-      <Tooltip>
+      <Tooltip delayDuration={0}>
         <TooltipTrigger onClick={handleClick}>
           <VolumeIcon size={24} />
         </TooltipTrigger>
@@ -40,7 +40,7 @@ const PlayerSettingsVolume = () => {
             max={1}
             min={0}
             defaultValue={volume}
-            className="bg-[#4c4e54]"
+            className="p-5"
           />
         </TooltipContent>
       </Tooltip>

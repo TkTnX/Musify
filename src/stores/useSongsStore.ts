@@ -58,7 +58,7 @@ export const useSongsStore = create<UseSongsStoreType>((set) => ({
 
   fetchSong: async (id) => {
     try {
-      console.log(id);
+  
       set({ loading: true });
       if (!id) throw new Error("Id not found");
 

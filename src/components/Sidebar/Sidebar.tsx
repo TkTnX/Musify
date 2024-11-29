@@ -6,15 +6,12 @@ import SidebarNavbarItems from "./SidebarNavbarItems";
 import { cn } from "@/lib/utils";
 import SidebarUserButton from "./SidebarUserButton";
 import SidebarHeaderSettings from "./SidebarHeaderSettings";
-import { usePlayerStore } from "@/stores/usePlayerStore";
-
 interface SidebarProps {
   isSmall: boolean;
   onClick?: () => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isSmall, onClick }) => {
-  const currentSongId = usePlayerStore((state) => state.currentSongId);
   const userPlaylists = [
     {
       name: "Playlist 1",
@@ -24,10 +21,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isSmall, onClick }) => {
   return (
     <div
       className={cn(
-        "bg-[#212124]  sm:min-w-[150px]  md:min-w-[240px] md:w-[240px] px-3 py-4 h-[calc(100%-100px)] sm:h-[calc(100%-93px)] overflow-hidden overflow-y-auto scrollbar",
+        "bg-[#212124]  sm:min-w-[150px]  md:min-w-[240px] md:w-[240px] px-3 py-4 h-[calc(100%-100px)] sm:h-full overflow-hidden overflow-y-auto scrollbar",
         { "hidden sm:block": !isSmall },
-        { "fixed inset-0 z-10": isSmall },
-        { "h-full sm:h-full": !currentSongId }
+        { "fixed inset-0 z-10": isSmall }
       )}
     >
       {/* Sidebar header */}

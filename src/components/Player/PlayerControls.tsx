@@ -3,8 +3,12 @@ import { Slider } from "../ui/slider";
 import { usePlayerStore } from "@/stores/usePlayerStore";
 import { Song } from "@prisma/client";
 import { useSound } from "use-sound";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+
+
 const PlayerControls = ({ song }: { song: Song }) => {
+  const [currentTime, setCurrentTime] = useState(0);
   const usePlayer = usePlayerStore();
 
   const PlayerIcon = usePlayer.isPlaying ? Pause : Play;
@@ -14,7 +18,12 @@ const PlayerControls = ({ song }: { song: Song }) => {
     onplay: () => usePlayer.setIsPlaying(true),
     onend: () => {
       usePlayer.setIsPlaying(false);
-      handlePlayNext();
+      if (usePlayer.currentSongIds.length > 0) {
+        handlePlayNext();
+      } else {
+        handlePlayPrev();
+      }
+      setCurrentTime(0);
     },
     onpause: () => usePlayer.setIsPlaying(false),
     format: ["mp3"],
@@ -35,6 +44,16 @@ const PlayerControls = ({ song }: { song: Song }) => {
       play();
     }
   };
+
+  useEffect(() => {
+    if (!sound) return;
+
+    const interval = setInterval(() => {
+      setCurrentTime(sound.seek() || 0);
+    });
+
+    return () => clearInterval(interval);
+  }, [sound, usePlayer]);
 
   const handlePlayNext = () => {
     if (usePlayer.currentSongIds.length === 0) {
@@ -72,8 +91,6 @@ const PlayerControls = ({ song }: { song: Song }) => {
     usePlayer.setCurrentSongId(prevIndex);
   };
 
-  console.log(sound)
-
   return (
     <div className="flex flex-row sm:flex-col items-center justify-center gap-6 w-full sm:w-auto">
       {/* TOP */}
@@ -105,10 +122,13 @@ const PlayerControls = ({ song }: { song: Song }) => {
       <div className="rounded-full w-full sm:w-[300px] lg:w-[515px] h-[4px] bg-[#4c4e54]">
         <Slider
           className="rounded-full cursor-pointer"
-          value={[12]}
+          value={[currentTime]}
           defaultValue={[0]}
           step={1}
-          max={sound?.duration}
+          onValueChange={(values) => {
+            if (sound) sound.seek(values[0]);
+          }}
+          max={sound?.duration()}
         />
       </div>
     </div>
