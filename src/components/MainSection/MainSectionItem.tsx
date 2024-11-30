@@ -1,9 +1,12 @@
 "use client";
 
+import { usePlayerControls } from "@/hooks/usePlayerControls";
 import { cn } from "@/lib/utils";
+import { usePlayerStore } from "@/stores/usePlayerStore";
 import { SongWithAllDependencies } from "@/types";
+import { Play } from "lucide-react";
 import Image from "next/image";
-import PlayButton from "../ui/playButton";
+import { useEffect } from "react";
 
 interface MainSectionItemProps {
   song: SongWithAllDependencies;
@@ -14,6 +17,14 @@ const MainSectionItem: React.FC<MainSectionItemProps> = ({
   song,
   isTitleSection,
 }) => {
+  const usePlayer = usePlayerStore();
+
+
+  const togglePlayer = () => {
+    usePlayer.setCurrentSong(song);
+    usePlayer.setCurrentSongIds([...usePlayer.currentSongIds, song.id]);
+    usePlayer.setIsPlaying(true);
+  };
 
   return (
     <div
@@ -35,7 +46,14 @@ const MainSectionItem: React.FC<MainSectionItemProps> = ({
         />
       </div>
       <div className="p-4 relative">
-        <PlayButton  song={song} isMain={true} />
+        <button
+          onClick={togglePlayer}
+          className={
+            "bg-white rounded-full p-3 absolute top-0 right-0 z-10 -translate-x-1/2 -translate-y-[60%] opacity-0 group-hover:opacity-100 group-hover:-translate-y-1/2 transition hover:scale-110"
+          }
+        >
+          <Play fill="#000" />
+        </button>
         <Image
           src={song.image_url}
           alt={song.title}
