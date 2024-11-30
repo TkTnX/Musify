@@ -38,7 +38,7 @@ export default function RootLayout({
             <Sidebar isSmall={false} />
             <SidebarMobile />
 
-            <div className="flex flex-col gap-5 px-4 md:px-12 py-4 mb-[100px] sm:mb-0  h-full w-full sm:w-[calc(100%-150px)] md:w-[calc(100%-240px)] overflow-hidden overflow-y-auto scrollbar">
+            <div className="flex flex-col gap-5 px-4 md:px-12 py-4  sm:mb-0  h-full w-full sm:w-[calc(100%-150px)] md:w-[calc(100%-240px)] overflow-hidden overflow-y-auto scrollbar">
               <Header />
               {children}
               <Player />

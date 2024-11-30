@@ -1,31 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { usePlayerStore } from "@/stores/usePlayerStore";
 
 import PlayerControls from "./PlayerControls";
 import PlayerCurrentSong from "./PlayerCurrentSong";
 import PlayerSettings from "./PlayerSettings";
 
-import { useSongsStore } from "@/stores/useSongsStore";
-import { usePlayerStore } from "@/stores/usePlayerStore";
-import { SongWithAllDependencies } from "@/types";
-
 const Player = () => {
-  const [song, setSong] = useState<SongWithAllDependencies | null>(null);
-  const usePlayer = usePlayerStore();
-  const fetchSong = useSongsStore((state) => state.fetchSong);
-
-  useEffect(() => {
-    if (usePlayer.currentSongId) {
-      const fetchSongFunc = async (id: number) => {
-        const song = await fetchSong(id);
-
-        setSong(song);
-      };
-
-      fetchSongFunc(usePlayer.currentSongId);
-    }
-  }, [fetchSong, usePlayer.currentSongId, usePlayer.currentSongIds]);
+  const song = usePlayerStore((state) => state.currentSong);
 
   if (!song) return null;
 

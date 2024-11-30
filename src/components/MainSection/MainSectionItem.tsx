@@ -1,10 +1,9 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { usePlayerStore } from "@/stores/usePlayerStore";
 import { SongWithAllDependencies } from "@/types";
-import { Pause, PlayIcon } from "lucide-react";
 import Image from "next/image";
+import PlayButton from "../ui/playButton";
 
 interface MainSectionItemProps {
   song: SongWithAllDependencies;
@@ -15,21 +14,6 @@ const MainSectionItem: React.FC<MainSectionItemProps> = ({
   song,
   isTitleSection,
 }) => {
-  const usePlayer = usePlayerStore();
-
-  const handlePlay = () => {
-    if (usePlayer.isPlaying) {
-      usePlayer.setIsPlaying(false);
-    } else {
-      usePlayer.setCurrentSongId(song.id);
-      usePlayer.setIsPlaying(true);
-    }
-  };
-
-  const Icon =
-    usePlayer.isPlaying && usePlayer.currentSongId === song.id
-      ? Pause
-      : PlayIcon;
 
   return (
     <div
@@ -51,12 +35,7 @@ const MainSectionItem: React.FC<MainSectionItemProps> = ({
         />
       </div>
       <div className="p-4 relative">
-        <button
-          onClick={handlePlay}
-          className="bg-white rounded-full p-3 absolute top-0 right-0 z-10 -translate-x-1/2 -translate-y-[60%] opacity-0 group-hover:opacity-100 group-hover:-translate-y-1/2 transition hover:scale-110"
-        >
-          <Icon size={16} color="#000" fill="#000" />
-        </button>
+        <PlayButton  song={song} isMain={true} />
         <Image
           src={song.image_url}
           alt={song.title}

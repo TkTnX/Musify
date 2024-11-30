@@ -1,4 +1,3 @@
-import { SongType } from "@/types";
 import {
   Sheet,
   SheetContent,
@@ -7,10 +6,11 @@ import {
   SheetTrigger,
 } from "../ui/sheet";
 import Image from "next/image";
+import { SongWithAllDependencies } from "@/types";
 
 interface PlayerBigSongProps {
   children: React.ReactNode;
-  song: SongType;
+  song: SongWithAllDependencies;
 }
 
 const PlayerBigSong: React.FC<PlayerBigSongProps> = ({ children, song }) => {
@@ -33,8 +33,8 @@ const PlayerBigSong: React.FC<PlayerBigSongProps> = ({ children, song }) => {
         </div>
         <SheetTitle className="text-white">{song.title}</SheetTitle>
         <SheetDescription></SheetDescription>
-        <p>{song.author}</p>
-        {song.album && <p>PLAYING FROM: {song.album}</p>}
+        <p>{song.artist.name}</p>
+        {song.album && <p>PLAYING FROM: {song.album.title}</p>}
       </SheetContent>
     </Sheet>
   );

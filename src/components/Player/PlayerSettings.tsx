@@ -1,9 +1,9 @@
 import { ChevronUp, ListMusic } from "lucide-react";
 import PlayerSettingsVolume from "./PlayerSettingsVolume";
 import PlayerBigSong from "./PlayerBigSong";
-import { Song } from "@prisma/client";
+import { SongWithAllDependencies } from "@/types";
 
-const PlayerSettings = ({ song }: { song: Song }) => {
+const PlayerSettings = ({ song }: { song: SongWithAllDependencies }) => {
   return (
     <div className="hidden sm:flex items-center gap-4 md:gap-8">
       <PlayerSettingsVolume />

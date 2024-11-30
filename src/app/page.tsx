@@ -8,7 +8,7 @@ export default async function Home() {
     include: { artist: true, album: true, playlist: true },
   });
   return (
-    <main>
+    <main className="mb-[100px]">
       {/* Title section */}
       <MainSection title="Trending" items={songs} isTitleSection />
 
