@@ -12,7 +12,7 @@ const PlayerSettingsVolume = () => {
   const { volume, setVolume } = usePlayerStore();
 
   const VolumeIcon =
-    volume[0] === 0 ? VolumeX : volume[0] < 0.5 ? Volume1 : Volume2;
+    volume[0] === 0 ? VolumeX : volume[0] < 50 ? Volume1 : Volume2;
 
   const handleValueChange = (values: number[]) => {
     setVolume(values);
@@ -20,7 +20,7 @@ const PlayerSettingsVolume = () => {
 
   const handleClick = () => {
     if (volume[0] === 0) {
-      setVolume([1]);
+      setVolume([100]);
     } else {
       setVolume([0]);
     }
@@ -36,8 +36,8 @@ const PlayerSettingsVolume = () => {
           <Slider
             value={volume}
             onValueChange={handleValueChange}
-            step={0.1}
-            max={1}
+            step={1}
+            max={100}
             min={0}
             defaultValue={volume}
             className="p-5"

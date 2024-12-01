@@ -98,3 +98,45 @@ html body[data-scroll-locked] {
   margin-right: 0px !important;
 }
 
+.rap-container {
+  background-color: transparent !important;
+  flex-direction: column;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.rap-pp-button {
+  position: relative;
+  z-index: 2;
+}
+
+.rap-pp-button svg {
+  width: 16px;
+  height: 16px;
+
+}
+
+.rap-pp-button svg path {
+  fill: #fff;
+
+}
+
+.rap-controls {
+  width: 515px !important;
+}
+
+.rap-slider {
+  background-color: #4c4e54 !important;
+}
+
+.rap-slider .rap-progress {
+  background-color: #1c1d1f !important;
+}
+
+.rap-pin {
+  background-color: #303036 !important;
+}
+
+.rap-volume {
+  display: none;
+}

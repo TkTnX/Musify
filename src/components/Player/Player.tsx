@@ -1,7 +1,6 @@
 "use client";
 
 import { usePlayerStore } from "@/stores/usePlayerStore";
-
 import PlayerControls from "./PlayerControls";
 import PlayerCurrentSong from "./PlayerCurrentSong";
 import PlayerSettings from "./PlayerSettings";

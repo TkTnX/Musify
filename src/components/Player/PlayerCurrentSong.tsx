@@ -8,7 +8,7 @@ interface PlayerCurrentSongProps {
 
 const PlayerCurrentSong: React.FC<PlayerCurrentSongProps> = ({ song }) => {
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-4 ">
       <div className="relative w-8 sm:w-16 h-8 sm:h-16">
         <Image
           src={song.image_url}

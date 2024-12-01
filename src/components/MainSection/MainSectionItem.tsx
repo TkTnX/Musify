@@ -1,12 +1,10 @@
 "use client";
 
-import { usePlayerControls } from "@/hooks/usePlayerControls";
 import { cn } from "@/lib/utils";
 import { usePlayerStore } from "@/stores/usePlayerStore";
 import { SongWithAllDependencies } from "@/types";
-import { Play } from "lucide-react";
+import { Pause, Play } from "lucide-react";
 import Image from "next/image";
-import { useEffect } from "react";
 
 interface MainSectionItemProps {
   song: SongWithAllDependencies;
@@ -18,12 +16,18 @@ const MainSectionItem: React.FC<MainSectionItemProps> = ({
   isTitleSection,
 }) => {
   const usePlayer = usePlayerStore();
-
-
+  const PlayerIcon =
+    usePlayer.isPlaying && usePlayer.currentSong?.id === song.id ? Pause : Play;
   const togglePlayer = () => {
+    if (usePlayer.isPlaying && usePlayer.currentSong?.id === song.id) {
+      usePlayer.setIsPlaying(false);
+      usePlayer.audioPlayerRef?.current?.pause();
+    } else {
+      usePlayer.setIsPlaying(true);
+      usePlayer.audioPlayerRef?.current?.play();
+    }
     usePlayer.setCurrentSong(song);
     usePlayer.setCurrentSongIds([...usePlayer.currentSongIds, song.id]);
-    usePlayer.setIsPlaying(true);
   };
 
   return (
@@ -47,12 +51,13 @@ const MainSectionItem: React.FC<MainSectionItemProps> = ({
       </div>
       <div className="p-4 relative">
         <button
+          key={song.id}
           onClick={togglePlayer}
           className={
             "bg-white rounded-full p-3 absolute top-0 right-0 z-10 -translate-x-1/2 -translate-y-[60%] opacity-0 group-hover:opacity-100 group-hover:-translate-y-1/2 transition hover:scale-110"
           }
         >
-          <Play fill="#000" />
+          <PlayerIcon fill="#000" stroke="#000" />
         </button>
         <Image
           src={song.image_url}

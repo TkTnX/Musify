@@ -1,51 +1,54 @@
-import { SkipBack, SkipForward } from "lucide-react";
-import { Slider } from "../ui/slider";
 import { SongWithAllDependencies } from "@/types";
-import { usePlayerControls } from "@/hooks/usePlayerControls";
-import { useEffect } from "react";
+import { AudioPlayer, AudioPlayerRef } from "react-audio-play";
+import { usePlayerStore } from "@/stores/usePlayerStore";
+import { useEffect, useRef } from "react";
+import PlayerContolsButtons from "./PlayerContolsButtons";
 
-// TODO: Пофиксить ошибку TypeError: sound?.upload is not a function при смене трека при включении через MainSectionItem
-// TODO: В большой экран песни добавить controls
+// TODO: Включение прошлого трека
+// TODO: Включение следующего трека
 
 const PlayerControls = ({ song }: { song: SongWithAllDependencies }) => {
-  const { PlayerIcon, handlePlay, duration, sound, timing, setTiming } =
-    usePlayerControls(song);
+  const playerRef = useRef<AudioPlayerRef>(null);
+  const usePlayer = usePlayerStore();
+  const onPlayNext = () => {};
+  const onPlayPrev = () => {};
 
   useEffect(() => {
-    if (!sound) return;
-
-    const interval = setInterval(() => {
-      setTiming(sound.seek() || 0);
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [setTiming, sound]);
+    if (playerRef.current) {
+      usePlayer.setAudioPlayerRef(playerRef);
+    }
+  }, [playerRef]);
 
   return (
-    <div className="flex flex-row sm:flex-col items-center justify-center gap-6 w-full sm:w-auto">
+    <div
+      key={song.id}
+      className="flex flex-row sm:flex-col items-center justify-center gap-6 w-full sm:w-auto  mx-auto flex-1 absolute left-1/2 transform -translate-x-1/2"
+    >
+      <AudioPlayer
+        ref={playerRef}
+        src={song.song_url}
+        onPause={() => {
+          usePlayer.setIsPlaying(false);
+        }}
+        onPlay={() => {
+          usePlayer.setIsPlaying(true);
+        }}
+        autoPlay
+        volume={usePlayer.volume[0]}
+        width={"100%"}
+      />
       {/* TOP */}
-      <div className="flex items-center gap-8">
-        <button
-          type="button"
-          className="hidden sm:block hover:opacity-80 hover:scale-110 transition"
-        >
-          <SkipBack fill="#fff" size={16} />
-        </button>
-
-        <button onClick={handlePlay}>
-          <PlayerIcon size={16} color={"#fff"} fill={"#fff"} />
-        </button>
-
-        <button
-          type="button"
-          className="hidden sm:block hover:opacity-80 hover:scale-110 transition"
-        >
-          <SkipForward fill="#fff" size={16} />
-        </button>
+      <div className="flex items-center gap-20 absolute top-0 z-0">
+        <PlayerContolsButtons
+          songId={song.id}
+          isBigSong={false}
+          onPlayNext={onPlayNext}
+          onPlayPrev={onPlayPrev}
+        />
       </div>
 
       {/* BOTTOM */}
-      <div className="rounded-full w-full sm:w-[300px] lg:w-[515px] h-[4px] bg-[#4c4e54]">
+      {/* <div className="rounded-full w-full sm:w-[300px] lg:w-[515px] h-[4px] bg-[#4c4e54]">
         <Slider
           className="rounded-full cursor-pointer"
           defaultValue={[0]}
@@ -57,7 +60,7 @@ const PlayerControls = ({ song }: { song: SongWithAllDependencies }) => {
             setTiming(values[0]);
           }}
         />
-      </div>
+      </div> */}
     </div>
   );
 };
