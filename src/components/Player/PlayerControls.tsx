@@ -2,8 +2,9 @@ import { SongWithAllDependencies } from "@/types";
 import { AudioPlayer, AudioPlayerRef } from "react-audio-play";
 import { usePlayerStore } from "@/stores/usePlayerStore";
 import { useEffect, useRef } from "react";
-import PlayerContolsButtons from "./PlayerContolsButtons";
 import { usePlayerControls } from "@/hooks/usePlayerControls";
+import SongButtons from "../Song/SongButtons";
+
 
 const PlayerControls = ({ song }: { song: SongWithAllDependencies }) => {
   const playerRef = useRef<AudioPlayerRef>(null);
@@ -20,6 +21,7 @@ const PlayerControls = ({ song }: { song: SongWithAllDependencies }) => {
       key={song.id}
       className="flex flex-row sm:flex-col items-center justify-center gap-6 w-full sm:w-auto  mx-auto flex-1 absolute left-1/2 transform -translate-x-1/2"
     >
+      {/* AUDIO PLAYER */}
       <AudioPlayer
         ref={playerRef}
         src={song.song_url}
@@ -35,11 +37,10 @@ const PlayerControls = ({ song }: { song: SongWithAllDependencies }) => {
         }}
         autoPlay
         volume={usePlayer.volume[0]}
-        width={"100%"}
       />
       {/* TOP */}
       <div className="flex items-center gap-20 absolute top-0 z-0">
-        <PlayerContolsButtons
+        <SongButtons
           songId={song.id}
           isBigSong={false}
           onPlayNext={onPlayNext}

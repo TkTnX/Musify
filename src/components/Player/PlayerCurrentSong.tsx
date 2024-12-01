@@ -1,6 +1,6 @@
 import { SongWithAllDependencies } from "@/types";
-import { Heart } from "lucide-react";
 import Image from "next/image";
+import SongLikeButton from "../Song/SongLikeButton";
 
 interface PlayerCurrentSongProps {
   song: SongWithAllDependencies;
@@ -22,9 +22,7 @@ const PlayerCurrentSong: React.FC<PlayerCurrentSongProps> = ({ song }) => {
           <h6 className="font-semibold text-sm leading-[14px] tracking-tighter">
             {song.title}
           </h6>
-          <button>
-            <Heart size={16} />
-          </button>
+          <SongLikeButton songId={song.id} size="sm" />
         </div>
         <p className="font-semibold text-sm leading-5 text-[#afafb0]">
           {song.artist.name}

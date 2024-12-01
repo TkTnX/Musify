@@ -7,10 +7,10 @@ import {
 } from "../ui/sheet";
 import Image from "next/image";
 import { SongWithAllDependencies } from "@/types";
-import PlayerContolsButtons from "./PlayerContolsButtons";
 import { usePlayerStore } from "@/stores/usePlayerStore";
-import { Heart } from "lucide-react";
 import { usePlayerControls } from "@/hooks/usePlayerControls";
+import SongButtons from "../Song/SongButtons";
+import SongLikeButton from "../Song/SongLikeButton";
 
 interface PlayerBigSongProps {
   children: React.ReactNode;
@@ -48,16 +48,14 @@ const PlayerBigSong: React.FC<PlayerBigSongProps> = ({ children, song }) => {
           />
 
           <div className="flex items-center justify-center gap-8 absolute inset-0 bg-[#505050]/50 opacity-0 group-hover:opacity-100 transition duration-300 cursor-pointer">
-            <PlayerContolsButtons
+            <SongButtons
               songId={song.id}
               isBigSong={true}
               onClick={handlePlay}
               onPlayNext={onPlayNext}
               onPlayPrev={onPlayPrev}
             />
-            <button className="absolute bottom-2 hover:scale-110 transition  bg-[#0e0e0e]/60 p-3 rounded-full">
-              <Heart size={24} />
-            </button>
+            <SongLikeButton songId={song.id} size="lg" />
           </div>
         </div>
         <SheetTitle className="text-white">{song.title}</SheetTitle>

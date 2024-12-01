@@ -3,23 +3,25 @@
 import { cn } from "@/lib/utils";
 import { usePlayerStore } from "@/stores/usePlayerStore";
 import { SongWithAllDependencies } from "@/types";
+import { useUser } from "@clerk/nextjs";
 import { Pause, Play } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
-interface MainSectionItemProps {
+interface SongProps {
   song: SongWithAllDependencies;
   isTitleSection: boolean;
 }
 
-const MainSectionItem: React.FC<MainSectionItemProps> = ({
-  song,
-  isTitleSection,
-}) => {
+const Song: React.FC<SongProps> = ({ song, isTitleSection }) => {
+  const router = useRouter();
   const usePlayer = usePlayerStore();
+  const { user } = useUser();
 
   const PlayerIcon =
     usePlayer.isPlaying && usePlayer.currentSong?.id === song.id ? Pause : Play;
   const togglePlayer = () => {
+    if (!user) return router.push("/sign-in");
     if (usePlayer.isPlaying && usePlayer.currentSong?.id === song.id) {
       usePlayer.setIsPlaying(false);
       usePlayer.audioPlayerRef?.current?.pause();
@@ -29,9 +31,7 @@ const MainSectionItem: React.FC<MainSectionItemProps> = ({
     }
     usePlayer.setCurrentSong(song);
     usePlayer.setCurrentSongs([...usePlayer.currentSongs, song]);
-    console.log(usePlayer.currentSongs);
   };
-
   return (
     <div
       className={cn(
@@ -83,4 +83,4 @@ const MainSectionItem: React.FC<MainSectionItemProps> = ({
   );
 };
 
-export default MainSectionItem;
+export default Song;

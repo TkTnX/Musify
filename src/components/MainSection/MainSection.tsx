@@ -2,10 +2,10 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import MainSectionItem from "./MainSectionItem";
 import { useRef } from "react";
 import { cn } from "@/lib/utils";
 import { SongWithAllDependencies } from "@/types";
+import Song from "../Song/Song";
 
 interface MainSectionProps {
   title: string;
@@ -70,7 +70,7 @@ const MainSection: React.FC<MainSectionProps> = ({
       >
         {items.map((song) => (
           <SwiperSlide key={song.id}>
-            <MainSectionItem song={song} isTitleSection={isTitleSection} />
+            <Song song={song} isTitleSection={isTitleSection} />
           </SwiperSlide>
         ))}
       </Swiper>

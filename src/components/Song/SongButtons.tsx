@@ -4,15 +4,15 @@ import { Pause, Play, SkipBack, SkipForward } from "lucide-react";
 
 interface PlayerContolsButtonsProps {
   onPlayPrev?: () => void;
-    onPlayNext?: () => void;
-    onClick?: () => void;
+  onPlayNext?: () => void;
+  onClick?: () => void;
   isBigSong: boolean;
   songId: number;
 }
 
-const PlayerContolsButtons: React.FC<PlayerContolsButtonsProps> = ({
+const SongButtons: React.FC<PlayerContolsButtonsProps> = ({
   onPlayPrev,
-    onPlayNext,
+  onPlayNext,
   onClick,
   isBigSong,
   songId,
@@ -25,7 +25,10 @@ const PlayerContolsButtons: React.FC<PlayerContolsButtonsProps> = ({
       <button
         onClick={onPlayPrev}
         type="button"
-        className={cn("hidden sm:block hover:opacity-80 hover:scale-110 transition", {"bg-[#0e0e0e]/60 p-3 rounded-full": isBigSong})}
+        className={cn(
+          "hidden sm:block hover:opacity-80 hover:scale-110 transition",
+          { "bg-[#0e0e0e]/60 p-3 rounded-full": isBigSong }
+        )}
       >
         <SkipBack fill="#fff" size={isBigSong ? 24 : 16} />
       </button>
@@ -42,7 +45,10 @@ const PlayerContolsButtons: React.FC<PlayerContolsButtonsProps> = ({
       <button
         onClick={onPlayNext}
         type="button"
-        className={cn("hidden sm:block hover:opacity-80 hover:scale-110 transition", {"bg-[#0e0e0e]/60 p-3 rounded-full": isBigSong})}
+        className={cn(
+          "hidden sm:block hover:opacity-80 hover:scale-110 transition",
+          { "bg-[#0e0e0e]/60 p-3 rounded-full": isBigSong }
+        )}
       >
         <SkipForward fill="#fff" size={isBigSong ? 24 : 16} />
       </button>
@@ -50,4 +56,4 @@ const PlayerContolsButtons: React.FC<PlayerContolsButtonsProps> = ({
   );
 };
 
-export default PlayerContolsButtons;
+export default SongButtons;
