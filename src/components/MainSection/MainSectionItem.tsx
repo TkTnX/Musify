@@ -16,6 +16,7 @@ const MainSectionItem: React.FC<MainSectionItemProps> = ({
   isTitleSection,
 }) => {
   const usePlayer = usePlayerStore();
+
   const PlayerIcon =
     usePlayer.isPlaying && usePlayer.currentSong?.id === song.id ? Pause : Play;
   const togglePlayer = () => {
@@ -27,7 +28,8 @@ const MainSectionItem: React.FC<MainSectionItemProps> = ({
       usePlayer.audioPlayerRef?.current?.play();
     }
     usePlayer.setCurrentSong(song);
-    usePlayer.setCurrentSongIds([...usePlayer.currentSongIds, song.id]);
+    usePlayer.setCurrentSongs([...usePlayer.currentSongs, song]);
+    console.log(usePlayer.currentSongs);
   };
 
   return (

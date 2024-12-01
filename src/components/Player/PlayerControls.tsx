@@ -3,16 +3,12 @@ import { AudioPlayer, AudioPlayerRef } from "react-audio-play";
 import { usePlayerStore } from "@/stores/usePlayerStore";
 import { useEffect, useRef } from "react";
 import PlayerContolsButtons from "./PlayerContolsButtons";
-
-// TODO: Включение прошлого трека
-// TODO: Включение следующего трека
+import { usePlayerControls } from "@/hooks/usePlayerControls";
 
 const PlayerControls = ({ song }: { song: SongWithAllDependencies }) => {
   const playerRef = useRef<AudioPlayerRef>(null);
   const usePlayer = usePlayerStore();
-  const onPlayNext = () => {};
-  const onPlayPrev = () => {};
-
+  const { onPlayNext, onPlayPrev } = usePlayerControls({ song });
   useEffect(() => {
     if (playerRef.current) {
       usePlayer.setAudioPlayerRef(playerRef);
@@ -33,6 +29,10 @@ const PlayerControls = ({ song }: { song: SongWithAllDependencies }) => {
         onPlay={() => {
           usePlayer.setIsPlaying(true);
         }}
+        onEnd={() => {
+          usePlayer.setIsPlaying(false);
+          onPlayNext();
+        }}
         autoPlay
         volume={usePlayer.volume[0]}
         width={"100%"}
@@ -46,21 +46,6 @@ const PlayerControls = ({ song }: { song: SongWithAllDependencies }) => {
           onPlayPrev={onPlayPrev}
         />
       </div>
-
-      {/* BOTTOM */}
-      {/* <div className="rounded-full w-full sm:w-[300px] lg:w-[515px] h-[4px] bg-[#4c4e54]">
-        <Slider
-          className="rounded-full cursor-pointer"
-          defaultValue={[0]}
-          value={[timing]}
-          step={1}
-          max={duration}
-          onValueChange={(values) => {
-            if (sound) sound.seek(values[0]);
-            setTiming(values[0]);
-          }}
-        />
-      </div> */}
     </div>
   );
 };

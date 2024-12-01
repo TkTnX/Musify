@@ -10,6 +10,7 @@ import { SongWithAllDependencies } from "@/types";
 import PlayerContolsButtons from "./PlayerContolsButtons";
 import { usePlayerStore } from "@/stores/usePlayerStore";
 import { Heart } from "lucide-react";
+import { usePlayerControls } from "@/hooks/usePlayerControls";
 
 interface PlayerBigSongProps {
   children: React.ReactNode;
@@ -18,6 +19,7 @@ interface PlayerBigSongProps {
 
 const PlayerBigSong: React.FC<PlayerBigSongProps> = ({ children, song }) => {
   const usePlayer = usePlayerStore();
+  const { onPlayNext, onPlayPrev } = usePlayerControls({ song });
   const handlePlay = () => {
     if (usePlayer.isPlaying) {
       usePlayer.setIsPlaying(false);
@@ -50,6 +52,8 @@ const PlayerBigSong: React.FC<PlayerBigSongProps> = ({ children, song }) => {
               songId={song.id}
               isBigSong={true}
               onClick={handlePlay}
+              onPlayNext={onPlayNext}
+              onPlayPrev={onPlayPrev}
             />
             <button className="absolute bottom-2 hover:scale-110 transition  bg-[#0e0e0e]/60 p-3 rounded-full">
               <Heart size={24} />
