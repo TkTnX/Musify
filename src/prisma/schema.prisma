@@ -9,22 +9,25 @@ generator client {
 }
 
 model User {
-    id        Int     @id @default(autoincrement())
+    id         String  @id
     avatar_url String?
-    email     String  @unique
-    name      String?
+    email      String  @unique
+    name       String?
 
     playlists  Playlist[]
-    likedSongs Song[]
+    likedSongs LikedSongs[]
+    songs Song[]
     createdAt  DateTime   @default(now())
     updatedAt  DateTime   @updatedAt
+
+
 }
 
 model Playlist {
     id     Int    @id @default(autoincrement())
     title  String
     user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId Int
+    userId String
     songs  Song[]
 
     createdAt DateTime @default(now())
@@ -60,12 +63,21 @@ model Song {
     artistId Int
 }
 
+model LikedSongs {
+    id         Int     @id @default(autoincrement())
+    user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId     String
+    songId     Int
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+}
+
 model Artist {
-    id        Int     @id @default(autoincrement())
-    name      String
+    id         Int     @id @default(autoincrement())
+    name       String
     avatar_url String
-    songs     Song[]
-    albums    Album[]
+    songs      Song[]
+    albums     Album[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
