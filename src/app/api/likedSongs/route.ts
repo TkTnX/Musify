@@ -12,6 +12,14 @@ export const GET = async () => {
       where: {
         userId,
       },
+      include: {
+        song: {
+          include: {
+            artist: true,
+            album: true,
+          },
+        },
+      },
     });
 
     if (!likedSongs) throw new Error("Liked songs not found");

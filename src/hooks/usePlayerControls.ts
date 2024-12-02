@@ -1,5 +1,6 @@
 import { usePlayerStore } from "@/stores/usePlayerStore";
 import { SongWithAllDependencies } from "@/types";
+import { Pause, Play } from "lucide-react";
 
 export const usePlayerControls = ({
   song,
@@ -38,8 +39,24 @@ export const usePlayerControls = ({
     }
   };
 
+  const handlePlay = () => {
+    if (usePlayer.isPlaying) {
+      usePlayer.setIsPlaying(false);
+      usePlayer.audioPlayerRef?.current?.pause();
+    } else {
+      usePlayer.setIsPlaying(true);
+      usePlayer.setCurrentSong(song);
+      usePlayer.audioPlayerRef?.current?.play();
+    }
+  };
+
+   const PlayerIcon =
+     usePlayer.isPlaying && usePlayer.currentSong?.id === song.id ? Pause : Play;
+
   return {
     onPlayNext,
     onPlayPrev,
+    handlePlay,
+    PlayerIcon,
   };
 };

@@ -1,4 +1,4 @@
-import { Album, Artist, Playlist, Song } from "@prisma/client";
+import { Album, Artist, LikedSongs, Playlist, Song } from "@prisma/client";
 
 export type SongWithAllDependencies = Song & {
   artist: Artist;
@@ -12,4 +12,8 @@ export type AddSongFormType = {
   song_url: File[];
   albumId: null;
   artistId: number | null;
+};
+
+export type LikedSongsWithSong = LikedSongs & {
+  song: SongWithAllDependencies;
 };

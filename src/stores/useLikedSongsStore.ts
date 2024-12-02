@@ -1,9 +1,9 @@
-import { LikedSongs } from "@prisma/client";
+import { LikedSongsWithSong } from "@/types";
 import axios from "axios";
 import { create } from "zustand";
 
 interface UseLikedSongsStoreType {
-  likedSongs: LikedSongs[];
+  likedSongs: LikedSongsWithSong[];
   loading: boolean;
   error: boolean;
 

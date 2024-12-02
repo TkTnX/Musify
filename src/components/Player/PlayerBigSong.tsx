@@ -7,7 +7,6 @@ import {
 } from "../ui/sheet";
 import Image from "next/image";
 import { SongWithAllDependencies } from "@/types";
-import { usePlayerStore } from "@/stores/usePlayerStore";
 import { usePlayerControls } from "@/hooks/usePlayerControls";
 import SongButtons from "../Song/SongButtons";
 import SongLikeButton from "../Song/SongLikeButton";
@@ -18,17 +17,7 @@ interface PlayerBigSongProps {
 }
 
 const PlayerBigSong: React.FC<PlayerBigSongProps> = ({ children, song }) => {
-  const usePlayer = usePlayerStore();
-  const { onPlayNext, onPlayPrev } = usePlayerControls({ song });
-  const handlePlay = () => {
-    if (usePlayer.isPlaying) {
-      usePlayer.setIsPlaying(false);
-      usePlayer.audioPlayerRef?.current?.pause();
-    } else {
-      usePlayer.setIsPlaying(true);
-      usePlayer.audioPlayerRef?.current?.play();
-    }
-  };
+  const { onPlayNext, onPlayPrev, handlePlay } = usePlayerControls({ song });
 
   return (
     <Sheet>

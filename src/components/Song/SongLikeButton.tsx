@@ -8,6 +8,7 @@ interface SongLikeButtonProps {
   songId: number;
 }
 
+
 const SongLikeButton: React.FC<SongLikeButtonProps> = ({ size, songId }) => {
   const { likeSong, likedSongs, error, loading } = useLikedSongsStore();
   const isLiked = likedSongs.some((song) => song.songId === songId);
@@ -33,10 +34,7 @@ const SongLikeButton: React.FC<SongLikeButtonProps> = ({ size, songId }) => {
         "absolute bottom-2   bg-[#0e0e0e]/60 p-3 rounded-full": size === "lg",
       })}
     >
-      <Heart
-        fill={isLiked ? "#fff" : "none"}
-        size={size === "sm" ? 16 : 24}
-      />
+      <Heart fill={isLiked ? "#fff" : "none"} size={size === "sm" ? 16 : 24} />
     </button>
   );
 };
