@@ -22,3 +22,8 @@ export type AddArtistType = {
   name: string;
   avatar_url: File[];
 };
+
+export type ArtistWithAllDependencies = Artist & {
+  songs: Song[];
+  albums: Album[];
+};

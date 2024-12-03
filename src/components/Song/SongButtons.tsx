@@ -1,3 +1,4 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { usePlayerStore } from "@/stores/usePlayerStore";
 import { Pause, Play, SkipBack, SkipForward } from "lucide-react";
@@ -22,16 +23,19 @@ const SongButtons: React.FC<PlayerContolsButtonsProps> = ({
     usePlayer.isPlaying && usePlayer.currentSong?.id === songId ? Pause : Play;
   return (
     <>
-      <button
-        onClick={onPlayPrev}
-        type="button"
-        className={cn(
-          "hidden sm:block hover:opacity-80 hover:scale-110 transition",
-          { "bg-[#0e0e0e]/60 p-3 rounded-full": isBigSong }
-        )}
-      >
-        <SkipBack fill="#fff" size={isBigSong ? 24 : 16} />
-      </button>
+      {onPlayPrev && (
+        <button
+          onClick={onPlayPrev}
+          type="button"
+          className={cn(
+            "hidden sm:block hover:opacity-80 hover:scale-110 transition",
+            { "bg-[#0e0e0e]/60 p-3 rounded-full": isBigSong }
+          )}
+        >
+          <SkipBack fill="#fff" size={isBigSong ? 24 : 16} />
+        </button>
+      )}
+
       {isBigSong && (
         <button
           onClick={onClick}
@@ -42,16 +46,18 @@ const SongButtons: React.FC<PlayerContolsButtonsProps> = ({
           <PlayerIcon fill="#fff" size={isBigSong ? 32 : 16} />
         </button>
       )}
-      <button
-        onClick={onPlayNext}
-        type="button"
-        className={cn(
-          "hidden sm:block hover:opacity-80 hover:scale-110 transition",
-          { "bg-[#0e0e0e]/60 p-3 rounded-full": isBigSong }
-        )}
-      >
-        <SkipForward fill="#fff" size={isBigSong ? 24 : 16} />
-      </button>
+      {onPlayNext && (
+        <button
+          onClick={onPlayNext}
+          type="button"
+          className={cn(
+            "hidden sm:block hover:opacity-80 hover:scale-110 transition",
+            { "bg-[#0e0e0e]/60 p-3 rounded-full": isBigSong }
+          )}
+        >
+          <SkipForward fill="#fff" size={isBigSong ? 24 : 16} />
+        </button>
+      )}
     </>
   );
 };

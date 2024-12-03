@@ -6,6 +6,7 @@ import { SongWithAllDependencies } from "@/types";
 import { useUser } from "@clerk/nextjs";
 import { Pause, Play } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 interface SongProps {
@@ -70,9 +71,9 @@ const Song: React.FC<SongProps> = ({ song, isTitleSection }) => {
         <h5 className="font-semibold text-lg leading-6 relative z-10">
           {song.title}
         </h5>
-        <p className="font-semibold text-sm leading-5 text-[#9898a6] relative z-10 mt-1">
+        <Link href={`/artists/${song.artist.id}`} className="font-semibold text-sm leading-5 text-[#9898a6] relative z-10 mt-1 block  hover:text-white w-fit">
           {song.artist.name}
-        </p>
+        </Link>
         {song.album && (
           <p className="font-semibold text-sm leading-5 text-[#9898a6] relative z-10 mt-1">
             {song.album.title}

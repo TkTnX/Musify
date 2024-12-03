@@ -1,7 +1,9 @@
+"use client";
 import { SongWithAllDependencies } from "@/types";
 import Image from "next/image";
 import SongLikeButton from "../Song/SongLikeButton";
 import { usePlayerControls } from "@/hooks/usePlayerControls";
+import Link from "next/link";
 
 const FavoritesListItem = ({ song }: { song: SongWithAllDependencies }) => {
   const { handlePlay, PlayerIcon } = usePlayerControls({
@@ -9,7 +11,6 @@ const FavoritesListItem = ({ song }: { song: SongWithAllDependencies }) => {
   });
 
   if (!song) return null;
-
   return (
     <div className="flex justify-between items-center gap-3 p-2 rounded group hover:bg-[#252525] cursor-pointer transition">
       <div onClick={handlePlay} className="flex items-center gap-3 ">
@@ -27,7 +28,7 @@ const FavoritesListItem = ({ song }: { song: SongWithAllDependencies }) => {
         </div>
         <div className="text-xs">
           <h5 className="font-bold">{song.title}</h5>
-          <p className="text-[#909090]">{song.artist.name}</p>
+          <Link href={`/artists/${song.artist.id}`} className="text-[#909090] hover:text-white transition ">{song.artist.name}</Link>
         </div>
       </div>
       <SongLikeButton size="sm" songId={song.id} />

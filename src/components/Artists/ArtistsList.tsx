@@ -16,12 +16,8 @@ const ArtistsList = () => {
   if (error) return <Error />;
   if (loading || (artists.length === 0 && !error && loading))
     return <Loading />;
-  console.log(artists);
   return (
     <div className="mt-5 flex items-center gap-3 flex-wrap">
-      {!loading && artists.length === 0 && (
-        <div className=" text-sm text-[#909090]">No artists</div>
-      )}
       {artists.map((artist) => (
         <ArtistsListItem key={artist.id} artist={artist} />
       ))}

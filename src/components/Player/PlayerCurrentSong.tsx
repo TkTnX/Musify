@@ -1,6 +1,7 @@
 import { SongWithAllDependencies } from "@/types";
 import Image from "next/image";
 import SongLikeButton from "../Song/SongLikeButton";
+import Link from "next/link";
 
 interface PlayerCurrentSongProps {
   song: SongWithAllDependencies;
@@ -24,9 +25,12 @@ const PlayerCurrentSong: React.FC<PlayerCurrentSongProps> = ({ song }) => {
           </h6>
           <SongLikeButton songId={song.id} size="sm" />
         </div>
-        <p className="font-semibold text-sm leading-5 text-[#afafb0]">
+        <Link
+          href={`/artists/${song.artist.id}`}
+          className="font-semibold text-sm leading-5 text-[#afafb0] block transition hover:text-white w-fit"
+        >
           {song.artist.name}
-        </p>
+        </Link>
         {song.album && (
           <p className="font-semibold text-[10px] leading-5 text-[#afafb0]">
             PLAYING FROM: {song.album.title}

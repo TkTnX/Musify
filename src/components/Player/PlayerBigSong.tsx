@@ -10,6 +10,7 @@ import { SongWithAllDependencies } from "@/types";
 import { usePlayerControls } from "@/hooks/usePlayerControls";
 import SongButtons from "../Song/SongButtons";
 import SongLikeButton from "../Song/SongLikeButton";
+import Link from "next/link";
 
 interface PlayerBigSongProps {
   children: React.ReactNode;
@@ -48,7 +49,12 @@ const PlayerBigSong: React.FC<PlayerBigSongProps> = ({ children, song }) => {
           </div>
         </div>
         <SheetTitle className="text-white">{song.title}</SheetTitle>
-        <p>{song.artist.name}</p>
+        <Link
+          href={`/artists/${song.artist.id}`}
+          className="transition hover:opacity-80 w-fit"
+        >
+          {song.artist.name}
+        </Link>
         {song.album && <p>PLAYING FROM: {song.album.title}</p>}
         <SheetDescription></SheetDescription>
       </SheetContent>
