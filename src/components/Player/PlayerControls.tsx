@@ -5,7 +5,6 @@ import { useEffect, useRef } from "react";
 import { usePlayerControls } from "@/hooks/usePlayerControls";
 import SongButtons from "../Song/SongButtons";
 
-
 const PlayerControls = ({ song }: { song: SongWithAllDependencies }) => {
   const playerRef = useRef<AudioPlayerRef>(null);
   const usePlayer = usePlayerStore();
@@ -19,7 +18,7 @@ const PlayerControls = ({ song }: { song: SongWithAllDependencies }) => {
   return (
     <div
       key={song.id}
-      className="flex flex-row sm:flex-col items-center justify-center gap-6 w-full sm:w-auto  mx-auto flex-1 absolute left-1/2 transform -translate-x-1/2"
+      className="flex flex-row sm:flex-col items-center justify-center gap-6 w-full sm:w-auto   sm:mx-auto flex-1 sm:absolute left-1/2 transform sm:-translate-x-1/2"
     >
       {/* AUDIO PLAYER */}
       <AudioPlayer

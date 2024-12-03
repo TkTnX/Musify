@@ -113,16 +113,36 @@ html body[data-scroll-locked] {
 .rap-pp-button svg {
   width: 16px;
   height: 16px;
-
 }
 
 .rap-pp-button svg path {
   fill: #fff;
-
 }
 
 .rap-controls {
   width: 515px !important;
+}
+
+@media (max-width: 875px) {
+  .rap-controls {
+    width: 300px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .rap-container {
+    height: unset !important;
+    flex-direction: row;
+  }
+  .rap-controls {
+    width: 400px !important;
+    height: unset;
+  }
+}
+@media (max-width: 400px) {
+  .rap-controls {
+    width: 200px !important;
+  }
 }
 
 .rap-slider {
