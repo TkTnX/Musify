@@ -1,3 +1,6 @@
+import { addDataToDB } from "@/lib/addDataToDB";
+import { getDataFromDB } from "@/lib/getDataFromDB";
+import { AddArtistType } from "@/types";
 import { Artist } from "@prisma/client";
 import axios from "axios";
 import { create } from "zustand";
@@ -5,8 +8,8 @@ interface UseArtistsStoreType {
   artists: Artist[];
   loading: boolean;
   error: boolean;
-
   fetchArtists: () => Promise<void>;
+  addArtist: (data: AddArtistType) => Promise<void>;
 }
 
 export const useArtistsStore = create<UseArtistsStoreType>((set) => ({
@@ -28,4 +31,30 @@ export const useArtistsStore = create<UseArtistsStoreType>((set) => ({
       set({ loading: false });
     }
   },
+
+  addArtist: async (data) => {
+    try {
+      set({ loading: true });
+      const avatarFile = data.avatar_url[0];
+
+      const avatarNameInDB = await addDataToDB("images", avatarFile);
+      if (!avatarNameInDB) throw new Error("Error uploading avatar");
+
+      const avatarUrl = await getDataFromDB("images", avatarNameInDB);
+      if (!avatarUrl) throw new Error("Error getting avatar url");
+
+      const res = await axios.post("/api/artists", {
+        name: data.name,
+        avatar_url: avatarUrl,
+      });
+
+      console.log(res);
+    } catch (error) {
+      set({ error: true });
+      console.log(error);
+    } finally {
+      set({ loading: false });
+    }
+  },
+
 }));

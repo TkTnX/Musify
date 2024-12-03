@@ -9,7 +9,10 @@ interface SongLikeButtonProps {
 }
 
 
-const SongLikeButton: React.FC<SongLikeButtonProps> = ({ size, songId }) => {
+const SongLikeButton: React.FC<SongLikeButtonProps> = ({
+  size,
+  songId,
+}) => {
   const { likeSong, likedSongs, error, loading } = useLikedSongsStore();
   const isLiked = likedSongs.some((song) => song.songId === songId);
   const onClick = async () => {

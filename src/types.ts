@@ -17,3 +17,8 @@ export type AddSongFormType = {
 export type LikedSongsWithSong = LikedSongs & {
   song: SongWithAllDependencies;
 };
+
+export type AddArtistType = {
+  name: string;
+  avatar_url: File[];
+};

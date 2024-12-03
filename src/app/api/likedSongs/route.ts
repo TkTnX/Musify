@@ -23,7 +23,6 @@ export const GET = async () => {
     });
 
     if (!likedSongs) throw new Error("Liked songs not found");
-
     return NextResponse.json(likedSongs);
   } catch (error) {
     console.log(error);

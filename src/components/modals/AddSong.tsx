@@ -133,7 +133,7 @@ const AddSong: React.FC<AddSongProps> = ({ children, open, setOpen }) => {
               <input
                 hidden
                 type="file"
-                accept=".jpg, .png, .jpeg"
+                accept=".png, .jpg, .webp, .jpeg"
                 {...register("image_url")}
               />
             </label>

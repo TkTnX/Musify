@@ -8,11 +8,13 @@ import Loading from "@/app/loading";
 
 const FavoritesList = () => {
   const { fetchLikedSongs, likedSongs, error, loading } = useLikedSongsStore();
+
   useEffect(() => {
     fetchLikedSongs();
   }, [fetchLikedSongs]);
   if (error) return <Error />;
-  if (loading || (likedSongs.length === 0 && !error && loading)) return <Loading />;
+  if (loading || (likedSongs.length === 0 && !error && loading))
+    return <Loading />;
   return (
     <div className="mt-5">
       {!loading && likedSongs.length === 0 && (

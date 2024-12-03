@@ -8,6 +8,8 @@ const FavoritesListItem = ({ song }: { song: SongWithAllDependencies }) => {
     song: song as SongWithAllDependencies,
   });
 
+  if (!song) return null;
+
   return (
     <div className="flex justify-between items-center gap-3 p-2 rounded group hover:bg-[#252525] cursor-pointer transition">
       <div onClick={handlePlay} className="flex items-center gap-3 ">

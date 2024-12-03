@@ -1,5 +1,5 @@
-import { addSongData } from "@/lib/addSongData";
-import { getSongData } from "@/lib/getSongData";
+import { addDataToDB } from "@/lib/addDataToDB";
+import { getDataFromDB } from "@/lib/getDataFromDB";
 import { AddSongFormType, SongWithAllDependencies } from "@/types";
 import { Song } from "@prisma/client";
 import axios from "axios";
@@ -24,19 +24,19 @@ export const useSongsStore = create<UseSongsStoreType>((set) => ({
 
       //   GETTING IMAGE
       const imageFile = data.image_url[0] ?? null;
-      const imagePath = await addSongData("images", imageFile);
+      const imagePath = await addDataToDB("images", imageFile);
 
       //   GETTING SONG
       const songFile = data.song_url[0] ?? null;
-      const songPath = await addSongData("songs", songFile);
+      const songPath = await addDataToDB("songs", songFile);
 
       if (!imagePath || !songPath) {
         console.log("Error uploading files");
         throw new Error("Error uploading files");
       }
 
-      const imagePublicUrl = await getSongData("images", imagePath);
-      const songPublicUrl = await getSongData("songs", songPath);
+      const imagePublicUrl = await getDataFromDB("images", imagePath);
+      const songPublicUrl = await getDataFromDB("songs", songPath);
 
       if (!imagePublicUrl || !songPublicUrl) {
         console.log("Error getting public url");
