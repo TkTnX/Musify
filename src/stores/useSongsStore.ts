@@ -9,7 +9,7 @@ interface UseSongsStoreType {
   loading: boolean;
   error: boolean;
 
-  addSong: (data: AddSongFormType) => Promise<void>;
+  addSong: (data: AddSongFormType) => Promise<void | null>;
   fetchSong: (id: number) => Promise<SongWithAllDependencies>;
 }
 
@@ -20,7 +20,7 @@ export const useSongsStore = create<UseSongsStoreType>((set) => ({
 
   addSong: async (data) => {
     try {
-      set({ loading: true });
+      set({ loading: true, error: false });
 
       //   GETTING IMAGE
       const imageFile = data.image_url[0] ?? null;
@@ -32,7 +32,8 @@ export const useSongsStore = create<UseSongsStoreType>((set) => ({
 
       if (!imagePath || !songPath) {
         console.log("Error uploading files");
-        throw new Error("Error uploading files");
+        set({ error: true });
+        return null;
       }
 
       const imagePublicUrl = await getDataFromDB("images", imagePath);
@@ -40,7 +41,9 @@ export const useSongsStore = create<UseSongsStoreType>((set) => ({
 
       if (!imagePublicUrl || !songPublicUrl) {
         console.log("Error getting public url");
-        throw new Error("Error getting public url");
+
+        set({ error: true });
+        return null;
       }
 
       await axios.post("/api/song", {
@@ -52,13 +55,13 @@ export const useSongsStore = create<UseSongsStoreType>((set) => ({
       console.log(error);
       set({ error: true });
     } finally {
+
       set({ loading: false });
     }
   },
 
   fetchSong: async (id) => {
     try {
-  
       set({ loading: true });
       if (!id) throw new Error("Id not found");
 

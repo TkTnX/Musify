@@ -28,7 +28,7 @@ export default function RootLayout({
         <body
           className={`${font.className} antialiased flex flex-col sm:flex-row items-start bg-[#171719] text-white h-full `}
         >
-          <ToastContainer />
+          <ToastContainer autoClose={1000} position={"top-center"} theme="dark" />
           <ClerkProvider
             signInUrl="/sign-in"
             signUpUrl="/sign-up"

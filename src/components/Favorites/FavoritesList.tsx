@@ -3,7 +3,6 @@
 import { useLikedSongsStore } from "@/stores/useLikedSongsStore";
 import { useEffect } from "react";
 import FavoritesListItem from "./FavoritesListItem";
-import Error from "@/app/error";
 import Loading from "@/app/loading";
 
 const FavoritesList = () => {
@@ -12,7 +11,6 @@ const FavoritesList = () => {
   useEffect(() => {
     fetchLikedSongs();
   }, [fetchLikedSongs]);
-  if (error) return <Error />;
   if (loading || (likedSongs.length === 0 && !error && loading))
     return <Loading />;
   return (

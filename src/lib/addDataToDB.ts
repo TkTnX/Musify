@@ -8,7 +8,7 @@ export const addDataToDB = async (bucketName: string, file: File) => {
 
   if (error) {
     console.log(error);
-    return;
+    return null;
   }
 
   return data.path;

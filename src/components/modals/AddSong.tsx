@@ -41,7 +41,7 @@ const AddSong: React.FC<AddSongProps> = ({ children, open, setOpen }) => {
     error,
   } = useArtistsStore();
 
-  const { addSong, loading } = useSongsStore();
+  const { addSong, loading, error: songError } = useSongsStore();
 
   const router = useRouter();
   const {
@@ -71,14 +71,13 @@ const AddSong: React.FC<AddSongProps> = ({ children, open, setOpen }) => {
       if (!artistId) {
         return toast.error("Please select an artist");
       }
-      await addSong({ ...data, artistId });
-
-      if (error) {
-        throw new Error("Error adding song");
+      const res = await addSong({ ...data, artistId });
+      if (error || songError || res === null) {
+        return toast.error("Something went wrong");
+      } else {
+        toast.success("Song added successfully! ");
       }
-
-      toast.success("Song added successfully! ");
-
+      console.log(res);
       setOpen(false);
       router.refresh();
     } catch (error) {
@@ -115,7 +114,7 @@ const AddSong: React.FC<AddSongProps> = ({ children, open, setOpen }) => {
                       alt={artist.name}
                       width={40}
                       height={40}
-                      className="rounded-full object-cover"
+                      className="rounded-full object-cover h-10 w-10"
                     />
                     <p>{artist.name}</p>
                   </div>

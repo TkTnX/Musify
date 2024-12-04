@@ -18,12 +18,6 @@ const ArtistTop = ({ artist }: { artist: ArtistWithAllDependencies }) => {
     fetchLikedArtists();
   }, [fetchLikedArtists]);
 
-  useEffect(() => {
-    console.log(likedArtists);
-    console.log(likedArtists.some((artist) => artist.artistId === artist.id));
-    setIsLiked(likedArtists.some((artist) => artist.artistId === artist.id));
-  }, [likedArtists]);
-
   const handlePlayArtistSongs = () => {
     if (usePlayer.isPlaying) {
       usePlayer.setIsPlaying(false);
@@ -49,6 +43,13 @@ const ArtistTop = ({ artist }: { artist: ArtistWithAllDependencies }) => {
       toast.error("Something went wrong");
     }
   };
+
+  useEffect(() => {
+    console.log({ likedArtists, artist });
+    console.log();
+    const likedIds = likedArtists.map((artist) => artist.artistId);
+    setIsLiked(likedIds.some((id) => id === artist.id));
+  }, [artist, likedArtists]);
 
   return (
     <div className="flex flex-col md:flex-row items-start gap-5">
