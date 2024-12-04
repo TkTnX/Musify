@@ -2,8 +2,6 @@ import ArtistSongs from "@/components/Artists/ArtistSongs";
 import ArtistTop from "@/components/Artists/ArtistTop";
 import prisma from "@/prisma/prismaClient";
 
-// TODO: Кнопка listen у артиста которая будет включать все его треки,
-// TODO: Страница с треками пользователя
 
 const ArtistPage = async ({ params }: { params: { id: string } }) => {
   const { id } = await params;
@@ -13,6 +11,11 @@ const ArtistPage = async ({ params }: { params: { id: string } }) => {
     },
     include: {
       songs: {
+        include: {
+          artist: true,
+          album: true,
+          playlist: true,
+        },
         orderBy: {
           createdAt: "desc",
         },

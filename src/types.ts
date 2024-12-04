@@ -1,4 +1,11 @@
-import { Album, Artist, LikedSongs, Playlist, Song } from "@prisma/client";
+import {
+  Album,
+  Artist,
+  LikedArtists,
+  LikedSongs,
+  Playlist,
+  Song,
+} from "@prisma/client";
 
 export type SongWithAllDependencies = Song & {
   artist: Artist;
@@ -24,6 +31,10 @@ export type AddArtistType = {
 };
 
 export type ArtistWithAllDependencies = Artist & {
-  songs: Song[];
+  songs: SongWithAllDependencies[];
   albums: Album[];
+};
+
+export type LikedArtistsWithArtist = LikedArtists & {
+  artist: Artist;
 };
