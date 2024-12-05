@@ -14,7 +14,7 @@ const ArtistsListItem = ({ artist }: { artist: Artist }) => {
           alt={artist.name}
           width={250}
           height={250}
-          className="object-cover rounded-full w-[250px] h-[250px]"
+          className="object-cover rounded-full min-w-[250px] min-h-[250px] w-[250px] h-[250px]"
         />
         <h2 className="font-bold text-xl absolute bottom-5 left-1/2 -translate-x-1/2 text-center">
           {artist.name}

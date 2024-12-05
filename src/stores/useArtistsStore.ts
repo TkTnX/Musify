@@ -43,12 +43,10 @@ export const useArtistsStore = create<UseArtistsStoreType>((set) => ({
       const avatarUrl = await getDataFromDB("images", avatarNameInDB);
       if (!avatarUrl) throw new Error("Error getting avatar url");
 
-      const res = await axios.post("/api/artists", {
+      await axios.post("/api/artists", {
         name: data.name,
         avatar_url: avatarUrl,
       });
-
-      console.log(res);
     } catch (error) {
       set({ error: true });
       console.log(error);
@@ -56,5 +54,4 @@ export const useArtistsStore = create<UseArtistsStoreType>((set) => ({
       set({ loading: false });
     }
   },
-
 }));

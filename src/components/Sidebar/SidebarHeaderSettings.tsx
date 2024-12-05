@@ -10,6 +10,7 @@ import { Button } from "../ui/button";
 import AddSong from "../modals/AddSong";
 import { useEffect, useState } from "react";
 import { useAuth } from "@clerk/nextjs";
+import AddAlbum from "../modals/AddAlbum";
 
 interface SidebarHeaderSettingsProps {
   children: React.ReactNode;
@@ -38,6 +39,12 @@ const SidebarHeaderSettings: React.FC<SidebarHeaderSettingsProps> = ({
             Add a Song
           </Button>
         </AddSong>
+        <AddAlbum>
+          <Button variant="ghost" className="flex items-center gap-3 ">
+            <Plus />
+            Add an Album
+          </Button>
+        </AddAlbum>
       </DropdownMenuContent>
     </DropdownMenu>
   );

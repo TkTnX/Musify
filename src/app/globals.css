@@ -71,6 +71,7 @@
   .scrollbar::-webkit-scrollbar {
     background-color: #888;
     width: 10px;
+    height: 10px;
   }
 
   .scrollbar::-webkit-scrollbar-track-piece {

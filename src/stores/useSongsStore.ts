@@ -55,7 +55,6 @@ export const useSongsStore = create<UseSongsStoreType>((set) => ({
       console.log(error);
       set({ error: true });
     } finally {
-
       set({ loading: false });
     }
   },

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 
 import { useForm } from "react-hook-form";
 import { useArtistsStore } from "@/stores/useArtistsStore";
@@ -16,15 +15,11 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { toast } from "react-toastify";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-import { Loader2, Plus } from "lucide-react";
+
+import { Loader2 } from "lucide-react";
 import { AddSongFormType } from "@/types";
+import ArtistsSelector from "./elements/ArtistsSelector";
+import AddImage from "./elements/AddFile";
 
 interface AddSongProps {
   children: React.ReactNode;
@@ -77,7 +72,6 @@ const AddSong: React.FC<AddSongProps> = ({ children, open, setOpen }) => {
       } else {
         toast.success("Song added successfully! ");
       }
-      console.log(res);
       setOpen(false);
       router.refresh();
     } catch (error) {
@@ -97,60 +91,29 @@ const AddSong: React.FC<AddSongProps> = ({ children, open, setOpen }) => {
           {errors.title && (
             <p className="text-red-500">{errors.title.message}</p>
           )}
-          <Select
-            disabled={loading || artistsLoading}
-            onValueChange={(value) => setArtistId(Number(value))}
-            name="artistId"
-          >
-            <SelectTrigger className="w-full h-auto disabled:opacity-50 disabled:pointer-events-none">
-              <SelectValue placeholder="Choose an Artist" />
-            </SelectTrigger>
-            <SelectContent>
-              {artists.map((artist) => (
-                <SelectItem value={String(artist.id)} key={artist.id}>
-                  <div className="flex items-center gap-3 cursor-pointer">
-                    <Image
-                      src={artist.avatar_url}
-                      alt={artist.name}
-                      width={40}
-                      height={40}
-                      className="rounded-full object-cover h-10 w-10"
-                    />
-                    <p>{artist.name}</p>
-                  </div>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <ArtistsSelector
+            loading={loading || artistsLoading}
+            artists={artists}
+            setArtistId={setArtistId}
+          />
           {errors.artistId && (
             <p className="text-red-500">{errors.artistId.message}</p>
           )}
 
           <div className="flex items-center ">
-            <label className="flex items-center gap-2 cursor-pointer border p-2 flex-1 justify-center hover:bg-white hover:text-black transition">
-              <Plus /> <p>Add an Image</p>
-              <input
-                hidden
-                type="file"
-                accept=".png, .jpg, .webp, .jpeg"
-                {...register("image_url")}
-              />
-            </label>
+            <AddImage
+              label="Add an Image"
+              register={register}
+              name="image_url"
+            />
             {errors.image_url && (
               <p className="text-red-500">{errors.image_url.message}</p>
             )}
-            <label className="flex items-center gap-2 cursor-pointer border p-2 flex-1 justify-center hover:bg-white hover:text-black transition">
-              <Plus /> <p>Add a Song</p>
-              <input
-                hidden
-                type="file"
-                accept=".mp3"
-                {...register("song_url")}
-              />
-              {errors.song_url && (
-                <p className="text-red-500">{errors.song_url.message}</p>
-              )}
-            </label>
+            <AddImage label="Add a Song" register={register} name="song_url" />
+
+            {errors.song_url && (
+              <p className="text-red-500">{errors.song_url.message}</p>
+            )}
           </div>
           <Button
             disabled={loading || artistsLoading}

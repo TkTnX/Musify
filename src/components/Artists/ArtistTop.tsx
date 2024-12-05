@@ -45,8 +45,6 @@ const ArtistTop = ({ artist }: { artist: ArtistWithAllDependencies }) => {
   };
 
   useEffect(() => {
-    console.log({ likedArtists, artist });
-    console.log();
     const likedIds = likedArtists.map((artist) => artist.artistId);
     setIsLiked(likedIds.some((id) => id === artist.id));
   }, [artist, likedArtists]);

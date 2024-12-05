@@ -15,7 +15,7 @@ const FavoritesArtistsList = () => {
     return <Loading />;
   if (!loading && error) return null;
   return (
-    <div className="mt-5 flex items-center gap-3">
+    <div className="mt-5 flex items-center gap-3 overflow-x-auto scrollbar pb-3">
       {!error && likedArtists.length === 0 && (
         <p className="text-sm text-[#909090]">No liked artists yet</p>
       )}

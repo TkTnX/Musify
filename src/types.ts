@@ -17,7 +17,7 @@ export type AddSongFormType = {
   title: string;
   image_url: File[];
   song_url: File[];
-  albumId: null;
+  albumId: number | null;
   artistId: number | null;
 };
 
@@ -37,4 +37,10 @@ export type ArtistWithAllDependencies = Artist & {
 
 export type LikedArtistsWithArtist = LikedArtists & {
   artist: Artist;
+};
+
+export type AddAlbumType = {
+  title: string;
+  image_url: File[];
+  songs: Song[];
 };
