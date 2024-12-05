@@ -8,11 +8,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: "Data not found" });
     }
 
-    await prisma.song.create({
+    const song = await prisma.song.create({
       data,
     });
-      
-    return NextResponse.json({ message: "Song created successfully" });
+
+    if (!song) return NextResponse.json({ message: "Song not created" });
+
+    return NextResponse.json(song);
   } catch (error) {
     console.log(error);
     return NextResponse.json(

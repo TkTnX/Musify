@@ -21,7 +21,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../ui/accordion";
-import AddSongForm from "./elements/AddSongForm";
+import { useSongsStore } from "@/stores/useSongsStore";
+import { useAlbumsStore } from "@/stores/useAlbumsStore";
 
 interface AddAlbumProps {
   children: React.ReactNode;
@@ -30,7 +31,12 @@ interface AddAlbumProps {
 const AddAlbum: React.FC<AddAlbumProps> = ({ children }) => {
   const [artistId, setArtistId] = useState<number | null>(null);
   const [addedSongs, setAddedSongs] = useState<AddSongFormType[]>([]);
-
+  const addAlbum = useAlbumsStore((state) => state.addAlbum);
+  const {
+    loading: addSongLoading,
+    addSong,
+    error: addSongError,
+  } = useSongsStore();
   const {
     fetchArtists,
     artists,
@@ -66,20 +72,35 @@ const AddAlbum: React.FC<AddAlbumProps> = ({ children }) => {
 
   const onAddSong = async (data: AddSongFormType) => {
     try {
-      console.log(data);
       setAddedSongs([...addedSongs, data]);
-
-      console.log(data);
     } catch (error) {
       console.log(error);
       toast.error("Couldn't add song");
     }
   };
 
+  console.log(addedSongs);
   const onSubmit = async (data: AddAlbumType) => {
     try {
-      if (!data || !artistId) return toast.error("Please fill all the fields");
-      console.log(data, artistId);
+      if (!data || !artistId || addedSongs.length === 0)
+        return toast.error("Please fill all the fields");
+
+      const album = await addAlbum({
+        ...data,
+        artistId,
+        image_url: "",
+      });
+
+      if (!album) return toast.error("Album not created");
+
+      addedSongs.forEach(async (song) => {
+        const newSong = await addSong({ ...song, artistId, albumId: album.id });
+        if (newSong) {
+          data.songs.push(newSong);
+        }
+      });
+
+      if (addSongError) return toast.error("Something went wrong");
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
@@ -155,6 +176,7 @@ const AddAlbum: React.FC<AddAlbumProps> = ({ children }) => {
                   )}
                 </div>
                 <Button
+                  onClick={() => onAddSong(addSongForm.getValues())}
                   type="button"
                   className="w-full flex items-center justify-center"
                 >
@@ -173,7 +195,7 @@ const AddAlbum: React.FC<AddAlbumProps> = ({ children }) => {
             </AccordionItem>
           </Accordion>
           <Button
-            disabled={artistsLoading}
+            disabled={artistsLoading || addSongLoading}
             type="submit"
             className="w-full flex items-center justify-center"
           >

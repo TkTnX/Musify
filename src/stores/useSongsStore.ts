@@ -9,7 +9,7 @@ interface UseSongsStoreType {
   loading: boolean;
   error: boolean;
 
-  addSong: (data: AddSongFormType) => Promise<void | null>;
+  addSong: (data: AddSongFormType) => Promise<Song | null>;
   fetchSong: (id: number) => Promise<SongWithAllDependencies>;
 }
 
@@ -19,6 +19,7 @@ export const useSongsStore = create<UseSongsStoreType>((set) => ({
   error: false,
 
   addSong: async (data) => {
+    console.log(data);
     try {
       set({ loading: true, error: false });
 
@@ -46,11 +47,13 @@ export const useSongsStore = create<UseSongsStoreType>((set) => ({
         return null;
       }
 
-      await axios.post("/api/song", {
+      const res = await axios.post("/api/song", {
         ...data,
         image_url: imagePublicUrl,
         song_url: songPublicUrl,
       });
+
+      return res.data;
     } catch (error) {
       console.log(error);
       set({ error: true });
