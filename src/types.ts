@@ -43,5 +43,9 @@ export type AddAlbumType = {
   title: string;
   cover_url: File[];
   songs: Song[];
-  
+};
+
+export type AlbumWithAllDependencies = Album & {
+  artist: Artist ;
+  songs: SongWithAllDependencies[];
 };
