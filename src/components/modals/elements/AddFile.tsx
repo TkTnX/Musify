@@ -14,7 +14,7 @@ const AddFile: React.FC<AddFileType> = ({ register, name, label }) => {
       <input
         hidden
         type="file"
-        accept={name === "image_url" ? ".png, .jpg, .webp, .jpeg" : ".mp3"}
+        accept={name === "song_url" ? ".mp3" : ".png, .jpg, .webp, .jpeg"}
         {...register(name)}
       />
     </label>

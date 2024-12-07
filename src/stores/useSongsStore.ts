@@ -19,7 +19,6 @@ export const useSongsStore = create<UseSongsStoreType>((set) => ({
   error: false,
 
   addSong: async (data) => {
-    console.log(data);
     try {
       set({ loading: true, error: false });
 

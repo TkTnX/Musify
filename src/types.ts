@@ -41,6 +41,7 @@ export type LikedArtistsWithArtist = LikedArtists & {
 
 export type AddAlbumType = {
   title: string;
-  image_url: File[];
+  cover_url: File[];
   songs: Song[];
+  
 };

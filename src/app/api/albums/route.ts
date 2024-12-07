@@ -18,10 +18,8 @@ export const GET = async () => {
 
 export const POST = async (req: NextRequest) => {
   try {
-    const data = await req.json();
+    const { data } = await req.json();
     if (!data) return NextResponse.json({ message: "Data not found" });
-
-    console.log(data);
 
     const album = await prisma.album.create({
       data: {

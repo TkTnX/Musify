@@ -7,10 +7,9 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { toast } from "react-toastify";
-import { AddAlbumType, AddSongFormType } from "@/types";
 import { Input } from "../ui/input";
 import ArtistsSelector from "./elements/ArtistsSelector";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useArtistsStore } from "@/stores/useArtistsStore";
 import AddFile from "./elements/AddFile";
 import { Button } from "../ui/button";
@@ -21,91 +20,47 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../ui/accordion";
-import { useSongsStore } from "@/stores/useSongsStore";
-import { useAlbumsStore } from "@/stores/useAlbumsStore";
+import { useAddAlbum } from "@/hooks/useAddAlbum";
+import { Song } from "@prisma/client";
+import { AddAlbumType, AddSongFormType } from "@/types";
 
 interface AddAlbumProps {
   children: React.ReactNode;
 }
 
 const AddAlbum: React.FC<AddAlbumProps> = ({ children }) => {
-  const [artistId, setArtistId] = useState<number | null>(null);
-  const [addedSongs, setAddedSongs] = useState<AddSongFormType[]>([]);
-  const addAlbum = useAlbumsStore((state) => state.addAlbum);
-  const {
-    loading: addSongLoading,
-    addSong,
-    error: addSongError,
-  } = useSongsStore();
-  const {
-    fetchArtists,
-    artists,
-    loading: artistsLoading,
-    error,
-  } = useArtistsStore();
-
-  useEffect(() => {
-    fetchArtists();
-
-    if (error) {
-      toast.error("Something went wrong");
-    }
-  }, [error, fetchArtists]);
-
-  const addAlbumForm = useForm({
+  const addAlbumForm = useForm<AddAlbumType>({
     defaultValues: {
       title: "",
-      image_url: [],
-      songs: [],
+      cover_url: [] as File[],
+      songs: [] as Song[],
     },
   });
 
-  const addSongForm = useForm({
+  const addSongForm = useForm<AddSongFormType>({
     defaultValues: {
       title: "",
-      image_url: [],
-      song_url: [],
+      image_url: [] as File[],
+      song_url: [] as File[],
       albumId: null,
       artistId: null,
     },
   });
 
-  const onAddSong = async (data: AddSongFormType) => {
-    try {
-      setAddedSongs([...addedSongs, data]);
-    } catch (error) {
-      console.log(error);
-      toast.error("Couldn't add song");
-    }
-  };
+  const { addedSongs, onAddAlbum, setArtistId, loading } = useAddAlbum(
+    addAlbumForm,
+    addSongForm
+  );
 
-  console.log(addedSongs);
-  const onSubmit = async (data: AddAlbumType) => {
-    try {
-      if (!data || !artistId || addedSongs.length === 0)
-        return toast.error("Please fill all the fields");
+  const artistsStore = useArtistsStore();
 
-      const album = await addAlbum({
-        ...data,
-        artistId,
-        image_url: "",
-      });
+  useEffect(() => {
+    artistsStore.fetchArtists();
 
-      if (!album) return toast.error("Album not created");
-
-      addedSongs.forEach(async (song) => {
-        const newSong = await addSong({ ...song, artistId, albumId: album.id });
-        if (newSong) {
-          data.songs.push(newSong);
-        }
-      });
-
-      if (addSongError) return toast.error("Something went wrong");
-    } catch (error) {
-      console.log(error);
+    if (artistsStore.error) {
       toast.error("Something went wrong");
     }
-  };
+  }, []);
 
   return (
     <Dialog>
@@ -114,7 +69,7 @@ const AddAlbum: React.FC<AddAlbumProps> = ({ children }) => {
         <DialogTitle>Add an Album</DialogTitle>
         <DialogDescription></DialogDescription>
         <form
-          onSubmit={addAlbumForm.handleSubmit(onSubmit)}
+          onSubmit={addAlbumForm.handleSubmit(onAddAlbum)}
           className="grid gap-3"
         >
           <Input
@@ -129,12 +84,12 @@ const AddAlbum: React.FC<AddAlbumProps> = ({ children }) => {
           )}
           <ArtistsSelector
             setArtistId={setArtistId}
-            loading={artistsLoading}
-            artists={artists}
+            loading={loading}
+            artists={artistsStore.artists}
           />
           <AddFile
             register={addAlbumForm.register}
-            name="image_url"
+            name="cover_url"
             label="Album Cover"
           />
           {/* SONGS LIST */}
@@ -176,7 +131,6 @@ const AddAlbum: React.FC<AddAlbumProps> = ({ children }) => {
                   )}
                 </div>
                 <Button
-                  onClick={() => onAddSong(addSongForm.getValues())}
                   type="button"
                   className="w-full flex items-center justify-center"
                 >
@@ -187,19 +141,39 @@ const AddAlbum: React.FC<AddAlbumProps> = ({ children }) => {
             <AccordionItem value="2">
               <AccordionTrigger>Added Songs</AccordionTrigger>
               <AccordionContent>
-                <div>
-                  1
-                  <br />2
-                </div>
+                {addedSongs.length > 0 ? (
+                  addedSongs.map((song, index) => (
+                    <div className="flex items-center gap-3" key={index}>
+                      <span>{index + 1}. </span>
+                      <p>{song.title}</p>
+                      <div>
+                        <p className="text-xs text-[#909090]">
+                          Audio file:{" "}
+                          {song.image_url[0] && song.song_url[0]?.name}
+                        </p>
+                        <p className="text-xs text-[#909090]">
+                          Image file:{" "}
+                          {song.image_url[0] && song.image_url[0].name}
+                        </p>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-sm text-[#909090]">No songs added yet</p>
+                )}
               </AccordionContent>
             </AccordionItem>
           </Accordion>
           <Button
-            disabled={artistsLoading || addSongLoading}
+            disabled={loading || artistsStore.loading}
             type="submit"
             className="w-full flex items-center justify-center"
           >
-            {artistsLoading ? <Loader2 className="animate-spin" /> : "Add"}
+            {artistsStore.loading || loading ? (
+              <Loader2 className="animate-spin" />
+            ) : (
+              "Add"
+            )}
           </Button>
         </form>
       </DialogContent>
