@@ -75,9 +75,9 @@ const Song: React.FC<SongProps> = ({ song, isTitleSection }) => {
           {song.artist.name}
         </Link>
         {song.album && (
-          <p className="font-semibold text-sm leading-5 text-[#9898a6] relative z-10 mt-1">
+          <Link href={`/albums/${song.album.id}`} className="font-semibold text-sm leading-5 text-[#9898a6] relative z-10 mt-1 hover:text-white">
             {song.album.title}
-          </p>
+          </Link>
         )}
       </div>
     </div>

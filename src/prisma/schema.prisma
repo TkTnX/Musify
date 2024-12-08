@@ -18,6 +18,8 @@ model User {
     likedSongs   LikedSongs[]
     songs        Song[]
     likedArtists LikedArtists[]
+    likedAlbums  LikedAlbums[]
+    
     createdAt    DateTime       @default(now())
     updatedAt    DateTime       @updatedAt
 }
@@ -39,10 +41,12 @@ model Album {
     songs     Song[]
     image_url String
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    artist    Artist?  @relation(fields: [artistId], references: [id])
-    artistId  Int?
+    artist      Artist?       @relation(fields: [artistId], references: [id])
+    artistId    Int?
+    likedAlbums LikedAlbums[]
+
+    createdAt   DateTime      @default(now())
+    updatedAt   DateTime      @updatedAt
 }
 
 model Song {
@@ -93,6 +97,16 @@ model LikedArtists {
     userId    String
     artist    Artist   @relation(fields: [artistId], references: [id], onDelete: Cascade)
     artistId  Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model LikedAlbums {
+    id        Int      @id @default(autoincrement())
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    String
+    album     Album    @relation(fields: [albumId], references: [id], onDelete: Cascade)
+    albumId   Int
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }

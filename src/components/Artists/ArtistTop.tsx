@@ -1,12 +1,12 @@
 "use client";
 import { ArtistWithAllDependencies } from "@/types";
 import Image from "next/image";
-import { Button } from "../ui/button";
-import { Heart, Pause, Play } from "lucide-react";
+import { Heart } from "lucide-react";
 import { usePlayerStore } from "@/stores/usePlayerStore";
 import { toast } from "react-toastify";
 import { useLikedArtists } from "@/stores/useLikedArtistsStore";
 import { useEffect, useState } from "react";
+import ListenButton from "../ui/ListenButton";
 
 const ArtistTop = ({ artist }: { artist: ArtistWithAllDependencies }) => {
   const usePlayer = usePlayerStore();
@@ -64,18 +64,7 @@ const ArtistTop = ({ artist }: { artist: ArtistWithAllDependencies }) => {
         <h2 className="font-bold text-3xl">{artist.name}</h2>
         <div className="flex items-center gap-3 mt-3">
           {artist.songs.length > 0 && (
-            <Button
-              onClick={handlePlayArtistSongs}
-              className="bg-[#00ffff] hover:opacity-80 hover:bg-[#00ffff] rounded-2xl h-12"
-            >
-              {usePlayer.isPlaying ? (
-                <Pause fill="#000" />
-              ) : (
-                <Play fill="#000" />
-              )}
-
-              <span>Listen</span>
-            </Button>
+            <ListenButton onClick={handlePlayArtistSongs} />
           )}
           <button
             onClick={handleLikeArtist}

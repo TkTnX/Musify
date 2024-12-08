@@ -33,7 +33,8 @@ const PlayerCurrentSong: React.FC<PlayerCurrentSongProps> = ({ song }) => {
         </Link>
         {song.album && (
           <p className="font-semibold text-[10px] leading-5 text-[#afafb0]">
-            PLAYING FROM: {song.album.title}
+            PLAYING FROM:{" "}
+            <Link className="hover:text-white" href={`/albums/${song.album.id}`}>{song.album.title}</Link>
           </p>
         )}
       </div>

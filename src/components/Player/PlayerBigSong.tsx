@@ -55,7 +55,17 @@ const PlayerBigSong: React.FC<PlayerBigSongProps> = ({ children, song }) => {
         >
           {song.artist.name}
         </Link>
-        {song.album && <p>PLAYING FROM: {song.album.title}</p>}
+        {song.album && (
+          <p>
+            PLAYING FROM:{" "}
+            <Link
+              className="hover:text-white"
+              href={`/albums/${song.album.id}`}
+            >
+              {song.album.title}
+            </Link>
+          </p>
+        )}
         <SheetDescription></SheetDescription>
       </SheetContent>
     </Sheet>

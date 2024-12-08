@@ -8,6 +8,10 @@ interface ArtistAlbumsProps {
   artistId: number;
 }
 
+// TODO: Страница альбома и отображать там список песен
+// TODO: Кнопка Play в альбоме
+// TODO: Кнопка Like в альбоме
+// TODO: На главной выводить альбомы
 const ArtistAlbums: React.FC<ArtistAlbumsProps> = ({ albums, artistId }) => {
   return (
     <div className="mt-10">
