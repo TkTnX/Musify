@@ -4,18 +4,19 @@ import Link from "next/link";
 
 const ArtistsListItem = ({ artist }: { artist: Artist }) => {
   return (
-    <div>
+    <div className="justify-self-center md:justify-self-start">
       <Link
         href={`/artists/${artist.id}`}
         className="relative block w-fit hover:opacity-50 transition "
       >
-        <Image
-          src={artist.avatar_url}
-          alt={artist.name}
-          width={250}
-          height={250}
-          className="object-cover rounded-full min-w-[250px] min-h-[250px] w-[250px] h-[250px]"
-        />
+        <div className="relative  w-[200px] h-[200px] lg:w-[250px] lg:h-[250px]">
+          <Image
+            src={artist.avatar_url}
+            alt={artist.name}
+            fill
+            className="object-cover rounded-full "
+          />
+        </div>
         <h2 className="font-bold text-xl absolute bottom-5 left-1/2 -translate-x-1/2 text-center">
           {artist.name}
         </h2>

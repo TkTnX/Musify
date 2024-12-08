@@ -16,6 +16,11 @@ export const GET = async () => {
         album: {
           include: {
             artist: true,
+            songs: {
+              include: {
+                artist: true,
+              },
+            },
           },
         },
       },

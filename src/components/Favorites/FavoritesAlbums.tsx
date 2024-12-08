@@ -4,7 +4,6 @@ import Loading from "@/app/loading";
 import { useLikedAlbumsStore } from "@/stores/useLikedAlbumsStore";
 import { useEffect } from "react";
 import AlbumsListItem from "../Albums/AlbumsListItem";
-import { AlbumWithAllDependencies } from "@/types";
 
 const FavoritesAlbums = () => {
   const { error, likedAlbums, fetchLikedAlbums, loading } =
@@ -12,20 +11,19 @@ const FavoritesAlbums = () => {
 
   useEffect(() => {
     fetchLikedAlbums();
-  }, [fetchLikedAlbums]);
+  }, []);
+  if (loading) return <Loading />;
+  if (!loading && error) return null;
+  if (!loading && !likedAlbums.length)
+    return <div className="text-sm text-[#909090]">No liked albums yet</div>;
 
-  if (loading || (likedAlbums.length === 0 && !error && loading))
-    return <Loading />;
   return (
-    <div className="mt-5">
+    <div className="mt-5 flex items-center gap-3 overflow-x-auto scrollbar pb-3">
       {!loading && likedAlbums.length === 0 && (
         <div className=" text-sm text-[#909090]">No liked albums yet</div>
       )}
       {likedAlbums.map((album) => (
-        <AlbumsListItem
-          key={album.id}
-          album={album.album as AlbumWithAllDependencies}
-        />
+        <AlbumsListItem key={album.id} album={album.album} />
       ))}
     </div>
   );

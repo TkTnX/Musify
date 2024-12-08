@@ -4,21 +4,23 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { useRef } from "react";
 import { cn } from "@/lib/utils";
-import { SongWithAllDependencies } from "@/types";
+import { AlbumWithAllDependencies, SongWithAllDependencies } from "@/types";
 import Song from "../Song/Song";
+import AlbumsListItem from "../Albums/AlbumsListItem";
 
 interface MainSectionProps {
   title: string;
-  items: SongWithAllDependencies[];
+  songs?: SongWithAllDependencies[];
+  albums?: AlbumWithAllDependencies[];
   isTitleSection?: boolean;
 }
 
 const MainSection: React.FC<MainSectionProps> = ({
   title,
-  items,
+  songs,
+  albums,
   isTitleSection = false,
 }) => {
-
   const sliderRef = useRef(null);
   return (
     <div className={cn("mt-14", { "mt-5": isTitleSection })}>
@@ -58,21 +60,28 @@ const MainSection: React.FC<MainSectionProps> = ({
             slidesPerView: 1,
           },
           480: {
-            slidesPerView: isTitleSection ? 2 : 3,
+            slidesPerView: 2,
           },
           960: {
-            slidesPerView: isTitleSection ? 3 : 4,
+            slidesPerView: 3,
           },
           1270: {
-            slidesPerView: isTitleSection ? 4 : 5,
+            slidesPerView: 4,
           },
         }}
       >
-        {items.map((song) => (
-          <SwiperSlide key={song.id}>
-            <Song song={song} isTitleSection={isTitleSection} />
-          </SwiperSlide>
-        ))}
+        {songs
+          ? songs.map((song) => (
+              <SwiperSlide key={song.id}>
+                <Song song={song} isTitleSection={isTitleSection} />
+              </SwiperSlide>
+            ))
+          : albums &&
+            albums.map((album) => (
+              <SwiperSlide key={album.id}>
+                <AlbumsListItem isSlider album={album} />
+              </SwiperSlide>
+            ))}
       </Swiper>
     </div>
   );

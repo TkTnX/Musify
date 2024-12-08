@@ -2,14 +2,12 @@
 import { ArtistWithAllDependencies } from "@/types";
 import Image from "next/image";
 import { Heart } from "lucide-react";
-import { usePlayerStore } from "@/stores/usePlayerStore";
 import { toast } from "react-toastify";
 import { useLikedArtists } from "@/stores/useLikedArtistsStore";
 import { useEffect, useState } from "react";
 import ListenButton from "../ui/ListenButton";
 
 const ArtistTop = ({ artist }: { artist: ArtistWithAllDependencies }) => {
-  const usePlayer = usePlayerStore();
   const [isLiked, setIsLiked] = useState(false);
   const { error, loading, likeArtist, likedArtists, fetchLikedArtists } =
     useLikedArtists();
@@ -17,18 +15,6 @@ const ArtistTop = ({ artist }: { artist: ArtistWithAllDependencies }) => {
   useEffect(() => {
     fetchLikedArtists();
   }, [fetchLikedArtists]);
-
-  const handlePlayArtistSongs = () => {
-    if (usePlayer.isPlaying) {
-      usePlayer.setIsPlaying(false);
-      usePlayer.audioPlayerRef?.current?.pause();
-    } else {
-      usePlayer.setIsPlaying(true);
-      usePlayer.setCurrentSong(artist.songs[0]);
-      usePlayer.setCurrentSongs(artist.songs);
-      usePlayer.audioPlayerRef?.current?.play();
-    }
-  };
 
   const handleLikeArtist = async () => {
     try {
@@ -63,9 +49,7 @@ const ArtistTop = ({ artist }: { artist: ArtistWithAllDependencies }) => {
         <p className="text-[#9b9b9b] text-sm">Musician</p>
         <h2 className="font-bold text-3xl">{artist.name}</h2>
         <div className="flex items-center gap-3 mt-3">
-          {artist.songs.length > 0 && (
-            <ListenButton onClick={handlePlayArtistSongs} />
-          )}
+          {artist.songs.length > 0 && <ListenButton songs={artist.songs} />}
           <button
             onClick={handleLikeArtist}
             className="bg-[#404040] p-3 rounded-full"

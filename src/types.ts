@@ -46,6 +46,6 @@ export type AddAlbumType = {
 };
 
 export type AlbumWithAllDependencies = Album & {
-  artist: Artist ;
+  artist: Artist;
   songs: SongWithAllDependencies[];
 };

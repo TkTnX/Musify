@@ -19,6 +19,7 @@ const AlbumsList = () => {
 
   if (loading) return <Loading />;
 
+
   return (
     <div className="flex items-center gap-3 mt-10 flex-wrap">
       {!loading && albums.length > 0 ? (

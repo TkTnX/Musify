@@ -21,7 +21,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isSmall, onClick }) => {
   return (
     <div
       className={cn(
-        "bg-[#212124]  sm:min-w-[150px]  md:min-w-[240px] md:w-[240px] px-3 py-4 h-[calc(100%-100px)] sm:h-full overflow-hidden overflow-y-auto scrollbar",
+        "bg-[#212124]   sm:min-w-[150px]  md:min-w-[240px] md:w-[240px] px-3 py-4 h-full sm:h-full overflow-hidden overflow-y-auto scrollbar",
         { "hidden sm:block": !isSmall },
         { "fixed inset-0 z-10": isSmall }
       )}

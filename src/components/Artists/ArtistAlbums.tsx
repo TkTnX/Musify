@@ -8,10 +8,6 @@ interface ArtistAlbumsProps {
   artistId: number;
 }
 
-// TODO: Кнопка Play в альбоме
-// TODO: Кнопка Like в альбоме
-// TODO: На главной выводить альбомы
-// TODO: Выводить лайкнутые альбомы в favorites
 const ArtistAlbums: React.FC<ArtistAlbumsProps> = ({ albums, artistId }) => {
   return (
     <div className="mt-10">

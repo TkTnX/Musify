@@ -4,7 +4,7 @@ import FavoritesList from "@/components/Favorites/FavoritesList";
 
 const FavoritesPage = () => {
   return (
-    <div className="">
+    <div className="mb-[100px]">
       <div>
         <h2 className="font-bold text-2xl">Liked Artists</h2>
 
