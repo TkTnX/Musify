@@ -12,6 +12,13 @@ export const GET = async () => {
       where: {
         userId,
       },
+      include: {
+        album: {
+          include: {
+            artist: true,
+          },
+        },
+      },
     });
 
     if (!likedAlbums)

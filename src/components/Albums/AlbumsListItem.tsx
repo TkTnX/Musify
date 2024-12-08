@@ -2,7 +2,8 @@ import { AlbumWithAllDependencies } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 
-const AlbumsListItem = ({album}: {album: AlbumWithAllDependencies}) => {
+const AlbumsListItem = ({ album }: { album: AlbumWithAllDependencies }) => {
+  console.log(album)
   return (
     <div key={album.id} className="border border-[#29292d] rounded-2xl w-fit">
       <Link

@@ -1,9 +1,12 @@
+import { AlbumWithAllDependencies } from "@/types";
 import { LikedAlbums } from "@prisma/client";
 import axios from "axios";
 import { create } from "zustand";
 
+type LikedAlbumsWithAlbum = LikedAlbums & { album: AlbumWithAllDependencies };
+
 interface UseLikedAlbumsStoreType {
-  likedAlbums: LikedAlbums[];
+  likedAlbums: LikedAlbumsWithAlbum[];
   loading: boolean;
   error: boolean;
 
