@@ -50,6 +50,7 @@ const Song: React.FC<SongProps> = ({ song, isTitleSection }) => {
           src={song.image_url}
           alt={song.title}
           fill
+          priority
           className="object-cover"
         />
       </Link>
@@ -67,6 +68,7 @@ const Song: React.FC<SongProps> = ({ song, isTitleSection }) => {
           src={song.image_url}
           alt={song.title}
           fill
+          priority
           className="object-cover blur-[72px]"
         />
         <h5 className="font-semibold text-lg leading-6 relative z-10">

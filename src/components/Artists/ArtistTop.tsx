@@ -43,6 +43,7 @@ const ArtistTop = ({ artist }: { artist: ArtistWithAllDependencies }) => {
           alt={artist.name}
           className="object-cover rounded-full"
           fill
+          priority
         />
       </div>
       <div>

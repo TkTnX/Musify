@@ -49,3 +49,12 @@ export type AlbumWithAllDependencies = Album & {
   artist: Artist;
   songs: SongWithAllDependencies[];
 };
+
+export type AddNewPlaylistType = {
+  title: string;
+  image_url: File[] | null;
+};
+
+export type UserWithDependencies = {
+  playlists: Playlist[];
+};

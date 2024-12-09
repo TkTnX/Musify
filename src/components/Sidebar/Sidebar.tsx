@@ -6,18 +6,15 @@ import SidebarNavbarItems from "./SidebarNavbarItems";
 import { cn } from "@/lib/utils";
 import SidebarUserButton from "./SidebarUserButton";
 import SidebarHeaderSettings from "./SidebarHeaderSettings";
+import { useUserStore } from "@/stores/useUserStore";
+import SidebarPlaylists from "./SidebarPlaylists";
 interface SidebarProps {
   isSmall: boolean;
   onClick?: () => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isSmall, onClick }) => {
-  const userPlaylists = [
-    {
-      name: "Playlist 1",
-      href: "/playlists/playlist1",
-    },
-  ];
+  const user = useUserStore((state) => state.user);
   return (
     <div
       className={cn(
@@ -49,11 +46,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isSmall, onClick }) => {
       />
 
       {/* Sidebar my playlists */}
-      <SidebarCategories
-        title="MY PLAYLISTS"
-        items={userPlaylists}
-        onClick={onClick}
-      />
+      {user && <SidebarPlaylists playlists={user.playlists} />}
     </div>
   );
 };

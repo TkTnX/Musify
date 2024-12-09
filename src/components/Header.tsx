@@ -1,6 +1,7 @@
 "use client";
 
 import { useLikedSongsStore } from "@/stores/useLikedSongsStore";
+import { useUserStore } from "@/stores/useUserStore";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -8,9 +9,11 @@ import { useEffect } from "react";
 const Header = () => {
   const router = useRouter();
   const fetchLikedSongs = useLikedSongsStore((state) => state.fetchLikedSongs);
+  const fetchUser = useUserStore((state) => state.fetchUser);
   useEffect(() => {
     fetchLikedSongs();
-  }, [fetchLikedSongs]);
+    fetchUser();
+  }, []);
 
   const handleMovePage = (page: "back" | "forward") => {
     if (page === "back") {

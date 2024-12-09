@@ -1,12 +1,14 @@
 "use client";
 import { cn } from "@/lib/utils";
+import { Playlist } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 interface SidebarCategoriesProps {
   title: string;
-  items: { name: string; href: string; icon?: string }[];
+  items?: { name: string; href: string; icon?: string }[];
+  playlists?: Playlist[];
   onClick?: () => void;
 }
 
@@ -17,7 +19,7 @@ const SidebarCategories: React.FC<SidebarCategoriesProps> = ({
 }) => {
   const pathname = usePathname();
 
-  if (items.length === 0) return null;
+  if (items === undefined || items.length === 0) return null;
 
   return (
     <div className="mt-8 text-center sm:text-left">

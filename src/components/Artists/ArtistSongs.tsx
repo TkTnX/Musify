@@ -48,6 +48,7 @@ const ArtistSongs = ({ artist }: { artist: ArtistWithAllDependencies }) => {
                 src={artist.songs[0].image_url}
                 alt={artist.songs[0].title}
                 fill
+                priority
                 className="object-cover"
               />
               <div className="absolute opacity-0 group-hover:opacity-100 transition left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">

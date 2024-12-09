@@ -37,6 +37,7 @@ const AlbumPage = async ({ params }: { params: Promise<{ id: string }> }) => {
             alt={album.title}
             fill
             className="object-cover rounded-lg"
+            priority
           />
         </div>
         <div>

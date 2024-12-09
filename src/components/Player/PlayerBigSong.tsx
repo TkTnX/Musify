@@ -29,11 +29,15 @@ const PlayerBigSong: React.FC<PlayerBigSongProps> = ({ children, song }) => {
         side="bottom"
         className="w-full h-full bg-[#1f1f22] flex flex-col items-center justify-center border-t-0"
       >
-        <Link href={`/songs/${song.id}`} className="w-[300px] h-[300px] relative group block">
+        <Link
+          href={`/songs/${song.id}`}
+          className="w-[300px] h-[300px] relative group block"
+        >
           <Image
             src={song.image_url}
             alt={song.title}
             fill
+            priority
             className="object-cover"
           />
 

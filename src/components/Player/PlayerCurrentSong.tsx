@@ -10,11 +10,15 @@ interface PlayerCurrentSongProps {
 const PlayerCurrentSong: React.FC<PlayerCurrentSongProps> = ({ song }) => {
   return (
     <div className="flex items-center gap-4 max-w-[240px]">
-      <Link href={`/songs/${song.id}`} className="relative w-8 sm:w-16 h-8 sm:h-16 block">
+      <Link
+        href={`/songs/${song.id}`}
+        className="relative w-8 sm:w-16 h-8 sm:h-16 block"
+      >
         <Image
           src={song.image_url}
           alt={song.title}
           fill
+          priority
           className="object-cover"
         />
       </Link>
@@ -34,7 +38,12 @@ const PlayerCurrentSong: React.FC<PlayerCurrentSongProps> = ({ song }) => {
         {song.album && (
           <p className="font-semibold text-[10px] leading-5 text-[#afafb0]">
             PLAYING FROM:{" "}
-            <Link className="hover:text-white" href={`/albums/${song.album.id}`}>{song.album.title}</Link>
+            <Link
+              className="hover:text-white"
+              href={`/albums/${song.album.id}`}
+            >
+              {song.album.title}
+            </Link>
           </p>
         )}
       </div>

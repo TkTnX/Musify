@@ -32,6 +32,7 @@ const ArtistAlbums: React.FC<ArtistAlbumsProps> = ({ albums, artistId }) => {
                 src={album.image_url}
                 alt={album.title}
                 fill
+                priority
                 className="object-cover"
               />
             </Link>

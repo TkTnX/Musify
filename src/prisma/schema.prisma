@@ -19,17 +19,18 @@ model User {
     songs        Song[]
     likedArtists LikedArtists[]
     likedAlbums  LikedAlbums[]
-    
-    createdAt    DateTime       @default(now())
-    updatedAt    DateTime       @updatedAt
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model Playlist {
-    id     Int    @id @default(autoincrement())
-    title  String
-    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId String
-    songs  Song[]
+    id        Int    @id @default(autoincrement())
+    title     String
+    image_url String
+    user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    String
+    songs     Song[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -45,8 +46,8 @@ model Album {
     artistId    Int?
     likedAlbums LikedAlbums[]
 
-    createdAt   DateTime      @default(now())
-    updatedAt   DateTime      @updatedAt
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model Song {

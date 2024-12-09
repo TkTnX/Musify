@@ -14,6 +14,7 @@ const ArtistsListItem = ({ artist }: { artist: Artist }) => {
             src={artist.avatar_url}
             alt={artist.name}
             fill
+            priority
             className="object-cover rounded-full "
           />
         </div>

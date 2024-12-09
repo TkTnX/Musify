@@ -30,6 +30,7 @@ const AlbumsListItem = ({
             src={album.image_url}
             alt={album.title}
             fill
+            priority
             className="object-cover rounded-2xl "
           />
         </Link>
