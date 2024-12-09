@@ -1,3 +1,4 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { useLikedSongsStore } from "@/stores/useLikedSongsStore";
 import { Heart } from "lucide-react";
@@ -6,12 +7,13 @@ import { toast } from "react-toastify";
 interface SongLikeButtonProps {
   size: "sm" | "lg";
   songId: number;
+  className?: string;
 }
-
 
 const SongLikeButton: React.FC<SongLikeButtonProps> = ({
   size,
   songId,
+  className,
 }) => {
   const { likeSong, likedSongs, error, loading } = useLikedSongsStore();
   const isLiked = likedSongs.some((song) => song.songId === songId);
@@ -33,9 +35,13 @@ const SongLikeButton: React.FC<SongLikeButtonProps> = ({
   return (
     <button
       onClick={onClick}
-      className={cn("hover:scale-110 transition", {
-        "absolute bottom-2   bg-[#0e0e0e]/60 p-3 rounded-full": size === "lg",
-      })}
+      className={cn(
+        "hover:scale-110 transition",
+        {
+          "absolute bottom-2   bg-[#0e0e0e]/60 p-3 rounded-full": size === "lg",
+        },
+        className
+      )}
     >
       <Heart fill={isLiked ? "#fff" : "none"} size={size === "sm" ? 16 : 24} />
     </button>

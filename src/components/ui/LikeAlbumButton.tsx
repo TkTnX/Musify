@@ -1,3 +1,4 @@
+"use client";
 import { useLikedAlbumsStore } from "@/stores/useLikedAlbumsStore";
 import { Heart } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -5,8 +6,7 @@ import { toast } from "react-toastify";
 
 const LikeAlbumButton = ({ albumId }: { albumId: number }) => {
   const [isLiked, setIsLiked] = useState(false);
-  const { likeAlbum, error, loading, likedAlbums } =
-    useLikedAlbumsStore();
+  const { likeAlbum, error, loading, likedAlbums } = useLikedAlbumsStore();
 
   useEffect(() => {
     const likedIds = likedAlbums.map((album) => album.albumId);

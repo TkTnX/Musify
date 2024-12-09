@@ -36,7 +36,8 @@ const ListenButton: React.FC<ListenButtonProps> = ({ songs, isRounded }) => {
         }
       )}
     >
-      {usePlayer.isPlaying ? (
+      {usePlayer.isPlaying &&
+      usePlayer.currentSong?.album === songs[0].album ? (
         <Pause fill={isRounded ? "#fff" : "#000"} size={32} stroke="none" />
       ) : (
         <Play fill={isRounded ? "#fff" : "#000"} size={32} stroke="none" />

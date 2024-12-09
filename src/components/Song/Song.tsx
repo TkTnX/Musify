@@ -40,8 +40,9 @@ const Song: React.FC<SongProps> = ({ song, isTitleSection }) => {
         { "h-[375px]": isTitleSection }
       )}
     >
-      <div
-        className={cn("relative w-full h-[200px]", {
+      <Link
+        href={`/songs/${song.id}`}
+        className={cn("relative w-full h-[200px] block", {
           "h-[250px]": isTitleSection,
         })}
       >
@@ -51,7 +52,7 @@ const Song: React.FC<SongProps> = ({ song, isTitleSection }) => {
           fill
           className="object-cover"
         />
-      </div>
+      </Link>
       <div className="p-4 relative">
         <button
           key={song.id}
@@ -71,11 +72,17 @@ const Song: React.FC<SongProps> = ({ song, isTitleSection }) => {
         <h5 className="font-semibold text-lg leading-6 relative z-10">
           {song.title}
         </h5>
-        <Link href={`/artists/${song.artist.id}`} className="font-semibold text-sm leading-5 text-[#9898a6] relative z-10 mt-1 block  hover:text-white w-fit">
+        <Link
+          href={`/artists/${song.artist.id}`}
+          className="font-semibold text-sm leading-5 text-[#9898a6] relative z-10 mt-1 block  hover:text-white w-fit"
+        >
           {song.artist.name}
         </Link>
         {song.album && (
-          <Link href={`/albums/${song.album.id}`} className="font-semibold text-sm leading-5 text-[#9898a6] relative z-10 mt-1 hover:text-white">
+          <Link
+            href={`/albums/${song.album.id}`}
+            className="font-semibold text-sm leading-5 text-[#9898a6] relative z-10 mt-1 hover:text-white"
+          >
             {song.album.title}
           </Link>
         )}

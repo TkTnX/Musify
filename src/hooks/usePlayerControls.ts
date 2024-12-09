@@ -1,6 +1,8 @@
 import { usePlayerStore } from "@/stores/usePlayerStore";
 import { SongWithAllDependencies } from "@/types";
+import { useUser } from "@clerk/nextjs";
 import { Pause, Play } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export const usePlayerControls = ({
   song,
@@ -8,6 +10,9 @@ export const usePlayerControls = ({
   song: SongWithAllDependencies;
 }) => {
   const usePlayer = usePlayerStore();
+  const router = useRouter();
+  const user = useUser();
+
   const onPlayNext = () => {
     usePlayer.setIsPlaying(true);
     const currentIndex = usePlayer.currentSongs.findIndex(
@@ -50,13 +55,27 @@ export const usePlayerControls = ({
     }
   };
 
-   const PlayerIcon =
-     usePlayer.isPlaying && usePlayer.currentSong?.id === song.id ? Pause : Play;
+  const PlayerIcon =
+    usePlayer.isPlaying && usePlayer.currentSong?.id === song.id ? Pause : Play;
+
+  const togglePlayer = () => {
+    if (!user) return router.push("/sign-in");
+    if (usePlayer.isPlaying && usePlayer.currentSong?.id === song.id) {
+      usePlayer.setIsPlaying(false);
+      usePlayer.audioPlayerRef?.current?.pause();
+    } else {
+      usePlayer.setIsPlaying(true);
+      usePlayer.audioPlayerRef?.current?.play();
+    }
+    usePlayer.setCurrentSong(song);
+    usePlayer.setCurrentSongs([...usePlayer.currentSongs, song]);
+  };
 
   return {
     onPlayNext,
     onPlayPrev,
     handlePlay,
     PlayerIcon,
+    togglePlayer,
   };
 };

@@ -5,6 +5,8 @@ import { useEffect, useRef } from "react";
 import { usePlayerControls } from "@/hooks/usePlayerControls";
 import SongButtons from "../Song/SongButtons";
 
+
+
 const PlayerControls = ({ song }: { song: SongWithAllDependencies }) => {
   const playerRef = useRef<AudioPlayerRef>(null);
   const usePlayer = usePlayerStore();

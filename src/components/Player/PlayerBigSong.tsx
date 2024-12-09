@@ -29,7 +29,7 @@ const PlayerBigSong: React.FC<PlayerBigSongProps> = ({ children, song }) => {
         side="bottom"
         className="w-full h-full bg-[#1f1f22] flex flex-col items-center justify-center border-t-0"
       >
-        <div className="w-[300px] h-[300px] relative group">
+        <Link href={`/songs/${song.id}`} className="w-[300px] h-[300px] relative group block">
           <Image
             src={song.image_url}
             alt={song.title}
@@ -47,7 +47,7 @@ const PlayerBigSong: React.FC<PlayerBigSongProps> = ({ children, song }) => {
             />
             <SongLikeButton songId={song.id} size="lg" />
           </div>
-        </div>
+        </Link>
         <SheetTitle className="text-white">{song.title}</SheetTitle>
         <Link
           href={`/artists/${song.artist.id}`}
