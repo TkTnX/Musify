@@ -4,7 +4,7 @@ import ArtistTop from "@/components/Artists/ArtistTop";
 import prisma from "@/prisma/prismaClient";
 import { AlbumWithAllDependencies } from "@/types";
 
-const ArtistPage = async ({ params }: { params: { id: string } }) => {
+const ArtistPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
   const artist = await prisma.artist.findFirst({
     where: {

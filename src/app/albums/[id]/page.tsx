@@ -6,7 +6,7 @@ import { Dot } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-const AlbumPage = async ({ params }: { params: { id: string } }) => {
+const AlbumPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
 
   const album = await prisma.album.findFirst({

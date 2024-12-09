@@ -7,7 +7,7 @@ import { Dot } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-const SongPage = async ({ params }: { params: { id: string } }) => {
+const SongPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
 
   if (!id) return <div className="text-sm text-[#909090]">Song not found</div>;

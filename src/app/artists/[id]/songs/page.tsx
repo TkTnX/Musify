@@ -1,7 +1,7 @@
 import FavoritesListItem from "@/components/Favorites/FavoritesListItem";
 import prisma from "@/prisma/prismaClient";
 
-const ArtistSongsPage = async ({ params }: { params: { id: string } }) => {
+const ArtistSongsPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
 
   const artist = await prisma.artist.findFirst({

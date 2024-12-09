@@ -2,7 +2,11 @@ import AlbumsListItem from "@/components/Albums/AlbumsListItem";
 import prisma from "@/prisma/prismaClient";
 import { AlbumWithAllDependencies } from "@/types";
 
-const ArtistAlbumsPage = async ({ params }: { params: { id: string } }) => {
+const ArtistAlbumsPage = async ({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) => {
   const { id } = await params;
 
   const artist = await prisma.artist.findFirst({
