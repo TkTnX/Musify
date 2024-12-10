@@ -18,8 +18,8 @@ import { Button } from "../ui/button";
 import { usePlaylistsStore } from "@/stores/usePlaylistsStore";
 import { Loader2 } from "lucide-react";
 
-// TODO: Добавление треков в плейлист
 // TODO: Удаление треков из плейлиста
+// TODO: Возможность создавать плейлист без картинки
 // TODO: Возможность при включении трека сразу добавить его в определенный плейлист
 
 interface AddPlaylistProps {

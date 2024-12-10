@@ -26,7 +26,7 @@ const PlaylistSongsList = ({ songs }: { songs: SongWithAllDependencies[] }) => {
       <div className="grid gap-3 mt-4">
         {filteredSongs.length > 0 ? (
           filteredSongs.map((song) => (
-            <FavoritesListItem key={song.id} song={song} />
+            <FavoritesListItem key={song.id} song={song} isInPlaylists={true} />
           ))
         ) : (
           <p className="text-sm text-[#909090] mt-5">No songs found</p>

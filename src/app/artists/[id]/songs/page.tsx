@@ -13,7 +13,6 @@ const ArtistSongsPage = async ({ params }: { params: Promise<{ id: string }> }) 
         include: {
           artist: true,
           album: true,
-          playlist: true,
         },
         orderBy: {
           createdAt: "desc",

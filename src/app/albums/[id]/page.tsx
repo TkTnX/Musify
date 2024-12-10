@@ -19,7 +19,6 @@ const AlbumPage = async ({ params }: { params: Promise<{ id: string }> }) => {
         include: {
           artist: true,
           album: true,
-          playlist: true,
         },
       },
     },

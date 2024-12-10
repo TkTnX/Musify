@@ -15,11 +15,15 @@ const PlaylistPage = async ({
   const playlist = await prisma.playlist.findFirst({
     where: { id: Number(id), userId: userId },
     include: {
-      songs: {
+      playlistSongs: {
         include: {
-          album: true,
-          artist: true,
-          playlist: true,
+          song: {
+            include: {
+              artist: true,
+              album: true,
+              playlist: true,
+            },
+          },
         },
       },
     },
@@ -27,16 +31,17 @@ const PlaylistPage = async ({
 
   if (!playlist)
     return <p className="text-sm text-[#909090]">Playlist not found</p>;
-
   return (
     <div className="">
       {/* TOP */}
       <PlaylistTop playlist={playlist} />
       {/* SONGS LIST */}
-      {playlist.songs.length > 0 ? (
-        <PlaylistSongsList songs={playlist.songs} />
+      {playlist.playlistSongs.length > 0 ? (
+        <PlaylistSongsList
+          songs={playlist.playlistSongs.map((song) => song.song)}
+        />
       ) : (
-        <p className="text-sm text-[#909090]">No songs in playlist</p>
+        <p className="text-sm text-[#909090] mt-10">No songs in playlist</p>
       )}
     </div>
   );

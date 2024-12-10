@@ -6,7 +6,7 @@ export const revalidate = 0;
 
 export default async function Home() {
   const songs = await prisma.song.findMany({
-    include: { artist: true, album: true, playlist: true },
+    include: { artist: true, album: true },
   });
 
   const albums = await prisma.album.findMany({
@@ -15,7 +15,6 @@ export default async function Home() {
         include: {
           artist: true,
           album: true,
-          playlist: true,
         },
       },
       artist: true,

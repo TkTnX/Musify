@@ -3,7 +3,6 @@ import AlbumControls from "../Albums/AlbumControls";
 import { PlaylistWithAllDependencies } from "@/types";
 import { Pen } from "lucide-react";
 import EditPlaylist from "../modals/EditPlaylist";
-import { Button } from "../ui/button";
 
 const PlaylistTop = ({
   playlist,
@@ -31,10 +30,9 @@ const PlaylistTop = ({
             </button>
           </EditPlaylist>
         </div>
-        <div className="flex items-center justify-between mt-10">
-          <AlbumControls songs={playlist.songs} className="mt-0" />
-          <Button>Add a Song</Button>
-        </div>
+        <AlbumControls
+          songs={playlist.playlistSongs.map((song) => song.song)}
+        />
       </div>
     </div>
   );

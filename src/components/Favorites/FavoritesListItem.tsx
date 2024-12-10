@@ -4,8 +4,16 @@ import Image from "next/image";
 import SongLikeButton from "../Song/SongLikeButton";
 import { usePlayerControls } from "@/hooks/usePlayerControls";
 import Link from "next/link";
+import AddToPlaylistButton from "../ui/AddToPlaylistButton";
+import RemoveFromPlaylistButton from "../ui/RemoveFromPlaylistButton";
 
-const FavoritesListItem = ({ song }: { song: SongWithAllDependencies }) => {
+const FavoritesListItem = ({
+  song,
+  isInPlaylists,
+}: {
+  song: SongWithAllDependencies;
+  isInPlaylists?: boolean;
+}) => {
   const { togglePlayer, PlayerIcon } = usePlayerControls({
     song: song as SongWithAllDependencies,
   });
@@ -36,7 +44,10 @@ const FavoritesListItem = ({ song }: { song: SongWithAllDependencies }) => {
           </Link>
         </div>
       </div>
-      <SongLikeButton size="sm" songId={song.id} />
+      <div className="flex items-center gap-3">
+        <SongLikeButton size="sm" songId={song.id} />
+        {isInPlaylists ? <RemoveFromPlaylistButton songId={song.id} /> : <AddToPlaylistButton songId={song.id} />}
+      </div>
     </div>
   );
 };

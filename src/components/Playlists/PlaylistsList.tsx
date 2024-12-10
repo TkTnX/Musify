@@ -6,7 +6,7 @@ import { Plus } from "lucide-react";
 
 const PlaylistsList = () => {
   const user = useUserStore((state) => state.user);
-  if (!user) return null;
+  if (!user ) return null;
   return (
     <div className="flex items-center gap-3 flex-wrap mt-10">
       <AddPlaylist className="cursor-pointer hover:opacity-80 transition">
@@ -17,7 +17,7 @@ const PlaylistsList = () => {
           <h4 className="mt-2 font-bold text-lg">Add an Playlist</h4>
         </div>
       </AddPlaylist>
-      {user.playlists.length > 0 ? (
+      {user.playlists && user.playlists.length > 0 ? (
         user.playlists.map((playlist) => (
           <PlaylistsListItem key={playlist.id} playlist={playlist} />
         ))
