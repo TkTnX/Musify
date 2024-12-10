@@ -8,10 +8,10 @@ import {
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
 import AddSong from "../modals/AddSong";
-import { useEffect, useState } from "react";
-import { useAuth } from "@clerk/nextjs";
+import { useState } from "react";
 import AddAlbum from "../modals/AddAlbum";
 import AddPlaylist from "../modals/AddPlaylist";
+import { useUserStore } from "@/stores/useUserStore";
 
 interface SidebarHeaderSettingsProps {
   children: React.ReactNode;
@@ -21,14 +21,8 @@ const SidebarHeaderSettings: React.FC<SidebarHeaderSettingsProps> = ({
   children,
 }) => {
   const [open, setOpen] = useState(false);
-  const user = useAuth();
-
-  useEffect(() => {
-    if (!user.sessionId) {
-      setOpen(false);
-      return;
-    }
-  }, [user]);
+  const user = useUserStore((state) => state.user);
+  if (!user || !user.id) return null;
 
   return (
     <DropdownMenu>

@@ -49,7 +49,7 @@ const AlbumPage = async ({ params }: { params: Promise<{ id: string }> }) => {
               alt={album.artist.name}
               width={25}
               height={25}
-              className="rounded-full object-cover"
+              className="rounded-full object-cover w-[25px] h-[25px]"
             />
             <Link
               href={`/artists/${album.artist.id}`}

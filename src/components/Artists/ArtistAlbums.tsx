@@ -21,7 +21,7 @@ const ArtistAlbums: React.FC<ArtistAlbumsProps> = ({ albums, artistId }) => {
           className="group-hover:translate-x-1  transition"
         />
       </Link>
-      <div className="mt-3">
+      <div className="mt-3 flex items-center gap-3 flex-wrap">
         {albums.map((album) => (
           <div key={album.id}>
             <Link

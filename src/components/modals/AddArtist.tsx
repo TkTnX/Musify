@@ -12,12 +12,16 @@ import { Plus } from "lucide-react";
 import { Button } from "../ui/button";
 import { toast } from "react-toastify";
 import { useArtistsStore } from "@/stores/useArtistsStore";
+import { useUserStore } from "@/stores/useUserStore";
+import { useRouter } from "next/navigation";
 
 interface AddArtistProps {
   children: React.ReactNode;
 }
 
 const AddArtist: React.FC<AddArtistProps> = ({ children }) => {
+  const user = useUserStore((state) => state.user);
+  const router = useRouter();
   const { addArtist, loading, error } = useArtistsStore();
   const {
     register,
@@ -31,7 +35,7 @@ const AddArtist: React.FC<AddArtistProps> = ({ children }) => {
   });
 
   const onSubmit = async (data: AddArtistType) => {
-
+    if (!user || !user.id) return router.push("/sign-in");
     try {
       if (!data.avatar_url) return toast.error("Please upload an avatar");
 

@@ -6,7 +6,7 @@ export const GET = async () => {
   try {
     const { userId } = await auth();
 
-    if (!userId) throw new Error("User not found");
+    if (!userId) return NextResponse.json(null);
 
     const likedSongs = await prisma.likedSongs.findMany({
       where: {

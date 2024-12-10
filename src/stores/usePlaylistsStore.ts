@@ -1,6 +1,6 @@
 import { addDataToDB } from "@/lib/addDataToDB";
 import { getDataFromDB } from "@/lib/getDataFromDB";
-import { AddNewPlaylistType } from "@/types";
+import { AddNewPlaylistType, EditPlaylistType } from "@/types";
 import { Playlist } from "@prisma/client";
 import axios from "axios";
 import { create } from "zustand";
@@ -11,6 +11,7 @@ interface PlaylistsStore {
   error: boolean;
   fetchPlaylists: () => void;
   addPlaylist: (data: AddNewPlaylistType) => Promise<Playlist>;
+  editPlaylist: (data: EditPlaylistType) => Promise<Playlist>;
 }
 
 export const usePlaylistsStore = create<PlaylistsStore>((set) => ({
@@ -34,6 +35,35 @@ export const usePlaylistsStore = create<PlaylistsStore>((set) => ({
         data: {
           title: data.title,
           image_url: imagePublicUrl,
+        },
+      });
+      if (!playlist) throw new Error("Playlist not created");
+
+      return playlist.data;
+    } catch (error) {
+      console.log(error);
+      set({ error: true });
+    } finally {
+      set({ loading: false });
+    }
+  },
+  editPlaylist: async (data) => {
+    try {
+      set({ loading: true, error: false });
+      let imagePublicUrl = data.image_url;
+      if (data.image_url && typeof data.image_url === "object") {
+        const imageUrl = await addDataToDB("images", data.image_url[0]);
+        if (!imageUrl) throw new Error("Error uploading image");
+
+        imagePublicUrl = await getDataFromDB("images", imageUrl);
+        if (!imagePublicUrl) throw new Error("Error getting image public url");
+      }
+
+      const playlist = await axios.patch("/api/playlists", {
+        data: {
+          title: data.title,
+          image_url: imagePublicUrl,
+          id: data.id,
         },
       });
       if (!playlist) throw new Error("Playlist not created");

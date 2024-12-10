@@ -1,6 +1,6 @@
 import { usePlayerStore } from "@/stores/usePlayerStore";
+import { useUserStore } from "@/stores/useUserStore";
 import { SongWithAllDependencies } from "@/types";
-import { useUser } from "@clerk/nextjs";
 import { Pause, Play } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -11,7 +11,7 @@ export const usePlayerControls = ({
 }) => {
   const usePlayer = usePlayerStore();
   const router = useRouter();
-  const user = useUser();
+  const user = useUserStore((state) => state.user);
 
   const onPlayNext = () => {
     usePlayer.setIsPlaying(true);
@@ -59,7 +59,7 @@ export const usePlayerControls = ({
     usePlayer.isPlaying && usePlayer.currentSong?.id === song.id ? Pause : Play;
 
   const togglePlayer = () => {
-    if (!user) return router.push("/sign-in");
+    if (!user || !user.id) return router.push("/sign-in");
     if (usePlayer.isPlaying && usePlayer.currentSong?.id === song.id) {
       usePlayer.setIsPlaying(false);
       usePlayer.audioPlayerRef?.current?.pause();

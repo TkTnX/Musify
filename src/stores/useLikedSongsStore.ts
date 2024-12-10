@@ -23,8 +23,7 @@ export const useLikedSongsStore = create<UseLikedSongsStoreType>(
 
         const likedSongs = await axios.get("/api/likedSongs");
 
-        if (!likedSongs) throw new Error("Liked songs not found");
-
+        if (!likedSongs.data) throw new Error("Liked songs not found");
         set({ likedSongs: likedSongs.data });
       } catch (error) {
         console.log(error);

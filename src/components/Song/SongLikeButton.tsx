@@ -1,6 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { useLikedSongsStore } from "@/stores/useLikedSongsStore";
+import { useUserStore } from "@/stores/useUserStore";
 import { Heart } from "lucide-react";
 import { toast } from "react-toastify";
 
@@ -15,8 +16,11 @@ const SongLikeButton: React.FC<SongLikeButtonProps> = ({
   songId,
   className,
 }) => {
+  const user = useUserStore((state) => state.user);
   const { likeSong, likedSongs, error, loading } = useLikedSongsStore();
-  const isLiked = likedSongs.some((song) => song.songId === songId);
+  if (!user || !user.id) return null;
+  const isLiked =
+    likedSongs.length > 0 && likedSongs.some((song) => song.songId === songId);
   const onClick = async () => {
     try {
       await likeSong(songId);

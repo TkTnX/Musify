@@ -5,6 +5,7 @@ import {
   LikedSongs,
   Playlist,
   Song,
+  User,
 } from "@prisma/client";
 
 export type SongWithAllDependencies = Song & {
@@ -55,6 +56,16 @@ export type AddNewPlaylistType = {
   image_url: File[] | null;
 };
 
-export type UserWithDependencies = {
+export type EditPlaylistType = {
+  title?: string;
+  image_url?: File[] | string | null;
+  id: number;
+};
+
+export type UserWithDependencies = User & {
   playlists: Playlist[];
+};
+
+export type PlaylistWithAllDependencies = Playlist & {
+  songs: SongWithAllDependencies[];
 };

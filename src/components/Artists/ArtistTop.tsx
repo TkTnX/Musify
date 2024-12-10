@@ -6,15 +6,17 @@ import { toast } from "react-toastify";
 import { useLikedArtists } from "@/stores/useLikedArtistsStore";
 import { useEffect, useState } from "react";
 import ListenButton from "../ui/ListenButton";
+import { useUserStore } from "@/stores/useUserStore";
 
 const ArtistTop = ({ artist }: { artist: ArtistWithAllDependencies }) => {
+  const user = useUserStore((state) => state.user);
   const [isLiked, setIsLiked] = useState(false);
   const { error, loading, likeArtist, likedArtists, fetchLikedArtists } =
     useLikedArtists();
-
   useEffect(() => {
+    if (!user || !user.id) return;
     fetchLikedArtists();
-  }, [fetchLikedArtists]);
+  }, [fetchLikedArtists, user]);
 
   const handleLikeArtist = async () => {
     try {
@@ -51,12 +53,14 @@ const ArtistTop = ({ artist }: { artist: ArtistWithAllDependencies }) => {
         <h2 className="font-bold text-3xl">{artist.name}</h2>
         <div className="flex items-center gap-3 mt-3">
           {artist.songs.length > 0 && <ListenButton songs={artist.songs} />}
-          <button
-            onClick={handleLikeArtist}
-            className="bg-[#404040] p-3 rounded-full"
-          >
-            {isLiked ? <Heart fill="#fff" size={24} /> : <Heart size={24} />}
-          </button>
+          {user && user.id && (
+            <button
+              onClick={handleLikeArtist}
+              className="bg-[#404040] p-3 rounded-full"
+            >
+              {isLiked ? <Heart fill="#fff" size={24} /> : <Heart size={24} />}
+            </button>
+          )}
         </div>
       </div>
     </div>

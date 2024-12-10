@@ -18,16 +18,16 @@ import { Button } from "../ui/button";
 import { usePlaylistsStore } from "@/stores/usePlaylistsStore";
 import { Loader2 } from "lucide-react";
 
-// TODO: Возможность изменять плейлист (треки, название, картинка)
+// TODO: Добавление треков в плейлист
+// TODO: Удаление треков из плейлиста
 // TODO: Возможность при включении трека сразу добавить его в определенный плейлист
 
-const AddPlaylist = ({
-  children,
-  className,
-}: {
+interface AddPlaylistProps {
   children: React.ReactNode;
   className?: string;
-}) => {
+}
+
+const AddPlaylist: React.FC<AddPlaylistProps> = ({ children, className }) => {
   const [open, setOpen] = useState(false);
   const user = useUser();
   const router = useRouter();
