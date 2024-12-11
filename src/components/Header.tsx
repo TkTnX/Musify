@@ -2,9 +2,10 @@
 
 import { useLikedSongsStore } from "@/stores/useLikedSongsStore";
 import { useUserStore } from "@/stores/useUserStore";
-import { ChevronLeft, ChevronRight, Search } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import SearchInput from "./ui/SearchInput";
 
 const Header = () => {
   const router = useRouter();
@@ -39,16 +40,7 @@ const Header = () => {
           <ChevronRight size={16} className="w-4 h-4" />
         </button>
       </div>
-      <div className="w-full vsm:w-auto">
-        <form className="flex items-center bg-[#1f1f22] border border-[#29292d] pl-2 rounded-xl lg:w-[390px] overflow-hidden">
-          <Search size={16} className="text-white" />
-          <input
-            type="text"
-            placeholder="Search"
-            className="text-sm p-2 bg-inherit outline-none placeholder:text-white w-full"
-          />
-        </form>
-      </div>
+      <SearchInput />
     </header>
   );
 };

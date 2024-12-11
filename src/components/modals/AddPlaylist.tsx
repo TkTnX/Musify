@@ -19,7 +19,6 @@ import { usePlaylistsStore } from "@/stores/usePlaylistsStore";
 import { Loader2 } from "lucide-react";
 import { useUserStore } from "@/stores/useUserStore";
 
-// TODO: Возможность создавать плейлист без картинки
 
 interface AddPlaylistProps {
   children: React.ReactNode;

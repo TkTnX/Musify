@@ -7,6 +7,7 @@ import {
   PlaylistSongs,
   Song,
   User,
+  Video,
 } from "@prisma/client";
 
 export type SongWithAllDependencies = Song & {
@@ -73,3 +74,12 @@ export type PlaylistSongsWithSong = PlaylistSongs & {
 export type PlaylistWithAllDependencies = Playlist & {
   playlistSongs: PlaylistSongsWithSong[];
 };
+
+export type VideoWithSong = Video & {
+  song: Song;
+};
+
+export type AddVideoType = {
+  video_url: File[];
+  songId: number;
+}

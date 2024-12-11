@@ -28,7 +28,7 @@ export const usePlaylistsStore = create<PlaylistsStore>((set) => ({
   addPlaylist: async (data) => {
     try {
       set({ loading: true, error: false });
-      let imagePublicUrl = null;
+      let imagePublicUrl: string = "";
       if (data.image_url) {
         const imageUrl = await addDataToDB("images", data.image_url[0]);
         if (!imageUrl) throw new Error("Error uploading image");

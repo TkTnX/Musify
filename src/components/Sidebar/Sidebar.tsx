@@ -17,6 +17,7 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ isSmall, onClick }) => {
   const user = useUserStore((state) => state.user);
   const currentSong = usePlayerStore((state) => state.currentSong);
+
   return (
     <div
       className={cn(

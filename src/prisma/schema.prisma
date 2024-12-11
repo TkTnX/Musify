@@ -25,16 +25,16 @@ model User {
 }
 
 model Playlist {
-    id        Int    @id @default(autoincrement())
-    title     String
-    image_url String
-    user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId    String
-    songs     Song[]
+    id            Int             @id @default(autoincrement())
+    title         String
+    image_url     String
+    user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId        String
+    songs         Song[]
     playlistSongs PlaylistSongs[]
 
-    createdAt     DateTime        @default(now())
-    updatedAt     DateTime        @updatedAt
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model Album {
@@ -65,11 +65,12 @@ model Song {
     artist   Artist @relation(fields: [artistId], references: [id])
     artistId Int
 
-    likedSongs LikedSongs[]
+    likedSongs    LikedSongs[]
     playlistSongs PlaylistSongs[]
+    video     Video[]
 
-    createdAt     DateTime        @default(now())
-    updatedAt     DateTime        @updatedAt
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 model LikedSongs {
@@ -121,4 +122,13 @@ model PlaylistSongs {
     song       Song     @relation(fields: [songId], references: [id], onDelete: Cascade)
     songId     Int
     createdAt  DateTime @default(now())
+}
+
+model Video {
+    id        Int      @id @default(autoincrement())
+    video_url String
+    song      Song     @relation(fields: [songId], references: [id], onDelete: Cascade)
+    songId    Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
