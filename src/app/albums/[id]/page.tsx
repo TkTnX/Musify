@@ -27,9 +27,9 @@ const AlbumPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   if (!album || !album.artist) return <Error />;
 
   return (
-    <div className="">
+    <div className="mb-[100px]">
       {/* TOP */}
-      <div className="flex items-start gap-10">
+      <div className="flex items-start flex-col sm:flex-row gap-10">
         <div className="relative w-[250px] h-[250px] rounded-lg">
           <Image
             src={album.image_url}

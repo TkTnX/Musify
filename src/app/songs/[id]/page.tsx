@@ -40,7 +40,7 @@ const SongPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   return (
     <div className="mb-[100px]">
       {/* SONG INFO */}
-      <div className="flex flex-col items-center sm:flex-row  sm:items-start gap-10">
+      <div className="flex flex-col  sm:flex-row  items-start gap-10">
         <div className="relative w-[200px] lg:min-w-[250px] h-[200px] lg:min-h-[250px] rounded-lg">
           <Image
             src={song.image_url}
@@ -62,7 +62,7 @@ const SongPage = async ({ params }: { params: Promise<{ id: string }> }) => {
               alt={song.artist.name}
               width={25}
               height={25}
-              className="rounded-full object-cover"
+              className="rounded-full object-cover w-[25px] h-[25px]"
             />
             <Link
               href={`/artists/${song.artist.id}`}

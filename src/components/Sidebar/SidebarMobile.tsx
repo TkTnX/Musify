@@ -8,7 +8,7 @@ import SidebarUserButton from "./SidebarUserButton";
 const SidebarMobile = () => {
   const [open, setOpen] = useState(false);
   return (
-    <div className="flex items-center gap-3 sm:hidden bg-[#212124] p-4 w-full">
+    <div className="flex items-center gap-3 sm:hidden bg-[#212124] p-4 w-full rounded-b-xl">
       {/* Sidebar header */}
       <div className="flex items-center justify-between w-full relative z-20">
         <SidebarUserButton />

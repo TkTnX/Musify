@@ -9,7 +9,7 @@ interface PlayerCurrentSongProps {
 
 const PlayerCurrentSong: React.FC<PlayerCurrentSongProps> = ({ song }) => {
   return (
-    <div className="flex items-center gap-4 max-w-[240px]">
+    <div className="flex items-center  gap-4  sm:max-w-[240px]">
       <Link
         href={`/songs/${song.id}`}
         className="relative w-8 sm:w-16 h-8 sm:h-16 block"
@@ -24,9 +24,12 @@ const PlayerCurrentSong: React.FC<PlayerCurrentSongProps> = ({ song }) => {
       </Link>
       <div>
         <div className="flex items-center gap-2">
-          <h6 className="font-semibold text-sm leading-[14px] tracking-tighter no-text-wrap">
+          <Link
+            href={`/songs/${song.id}`}
+            className="font-semibold text-sm leading-[14px] tracking-tighter no-text-wrap hover:opacity-80"
+          >
             {song.title}
-          </h6>
+          </Link>
           <SongLikeButton songId={song.id} size="sm" />
         </div>
         <Link
