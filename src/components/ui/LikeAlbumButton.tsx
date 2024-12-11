@@ -30,8 +30,9 @@ const LikeAlbumButton = ({ albumId }: { albumId: number }) => {
   };
   return (
     <button
+      disabled={loading}
       onClick={onLike}
-      className="bg-[#0e0e0e]/80 p-4 rounded-full hover:opacity-80 hover:scale-110 transition"
+      className="bg-[#0e0e0e]/80 p-4 rounded-full hover:opacity-80 hover:scale-110 transition disabled:opacity-50 disabled:cursor-not-allowed"
     >
       {isLiked ? <Heart fill="#fff" size={24} /> : <Heart size={24} />}
     </button>

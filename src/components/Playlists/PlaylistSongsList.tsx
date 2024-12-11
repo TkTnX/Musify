@@ -5,7 +5,13 @@ import { Input } from "../ui/input";
 import { useState } from "react";
 import { Search } from "lucide-react";
 
-const PlaylistSongsList = ({ songs }: { songs: SongWithAllDependencies[] }) => {
+const PlaylistSongsList = ({
+  songs,
+  playlistId,
+}: {
+  songs: SongWithAllDependencies[];
+  playlistId: number;
+}) => {
   const [value, setValue] = useState("");
 
   const filteredSongs = songs.filter((song) =>
@@ -26,7 +32,12 @@ const PlaylistSongsList = ({ songs }: { songs: SongWithAllDependencies[] }) => {
       <div className="grid gap-3 mt-4">
         {filteredSongs.length > 0 ? (
           filteredSongs.map((song) => (
-            <FavoritesListItem key={song.id} song={song} isInPlaylists={true} />
+            <FavoritesListItem
+              key={song.id}
+              song={song}
+              playlistId={playlistId}
+              isInPlaylists={true}
+            />
           ))
         ) : (
           <p className="text-sm text-[#909090] mt-5">No songs found</p>

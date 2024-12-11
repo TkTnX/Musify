@@ -52,6 +52,7 @@ const Song: React.FC<SongProps> = ({ song, isTitleSection }) => {
           fill
           priority
           className="object-cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </Link>
       <div className="p-4 relative">
@@ -70,6 +71,7 @@ const Song: React.FC<SongProps> = ({ song, isTitleSection }) => {
           fill
           priority
           className="object-cover blur-[72px]"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         <h5 className="font-semibold text-lg leading-6 relative z-10">
           {song.title}

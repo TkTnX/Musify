@@ -16,6 +16,7 @@ const ArtistsListItem = ({ artist }: { artist: Artist }) => {
             fill
             priority
             className="object-cover rounded-full "
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
         <h2 className="font-bold text-xl absolute bottom-5 left-1/2 -translate-x-1/2 text-center">

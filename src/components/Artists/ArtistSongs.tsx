@@ -50,6 +50,7 @@ const ArtistSongs = ({ artist }: { artist: ArtistWithAllDependencies }) => {
                 fill
                 priority
                 className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
               <div className="absolute opacity-0 group-hover:opacity-100 transition left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
                 <SongButtons

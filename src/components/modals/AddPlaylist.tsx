@@ -17,10 +17,10 @@ import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { usePlaylistsStore } from "@/stores/usePlaylistsStore";
 import { Loader2 } from "lucide-react";
+import { useUserStore } from "@/stores/useUserStore";
 
-// TODO: Удаление треков из плейлиста
 // TODO: Возможность создавать плейлист без картинки
-// TODO: Возможность при включении трека сразу добавить его в определенный плейлист
+// TODO: Проверить адаптив на всех страницах
 
 interface AddPlaylistProps {
   children: React.ReactNode;
@@ -30,6 +30,7 @@ interface AddPlaylistProps {
 const AddPlaylist: React.FC<AddPlaylistProps> = ({ children, className }) => {
   const [open, setOpen] = useState(false);
   const user = useUser();
+  const fetchUser = useUserStore((state) => state.fetchUser);
   const router = useRouter();
   const { error, loading, addPlaylist } = usePlaylistsStore();
 
@@ -57,6 +58,7 @@ const AddPlaylist: React.FC<AddPlaylistProps> = ({ children, className }) => {
       if (!playlist || error) return toast.error("Playlist not created");
       setOpen(false);
       toast.success("Playlist created successfully!");
+      fetchUser();
       return router.push(`/playlists/${playlist.id}`);
     } catch (error) {
       console.log(error);

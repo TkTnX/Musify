@@ -10,9 +10,11 @@ import RemoveFromPlaylistButton from "../ui/RemoveFromPlaylistButton";
 const FavoritesListItem = ({
   song,
   isInPlaylists,
+  playlistId,
 }: {
   song: SongWithAllDependencies;
   isInPlaylists?: boolean;
+  playlistId?: number;
 }) => {
   const { togglePlayer, PlayerIcon } = usePlayerControls({
     song: song as SongWithAllDependencies,
@@ -46,7 +48,11 @@ const FavoritesListItem = ({
       </div>
       <div className="flex items-center gap-3">
         <SongLikeButton size="sm" songId={song.id} />
-        {isInPlaylists ? <RemoveFromPlaylistButton songId={song.id} /> : <AddToPlaylistButton songId={song.id} />}
+        {isInPlaylists ? (
+          <RemoveFromPlaylistButton playlistId={playlistId!} songId={song.id} />
+        ) : (
+          <AddToPlaylistButton songId={song.id} />
+        )}
       </div>
     </div>
   );

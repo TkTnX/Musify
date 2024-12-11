@@ -3,6 +3,7 @@ import { AddNewPlaylistType, PlaylistWithAllDependencies } from "@/types";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
@@ -15,6 +16,7 @@ import { Loader2 } from "lucide-react";
 import { usePlaylistsStore } from "@/stores/usePlaylistsStore";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useUserStore } from "@/stores/useUserStore";
 
 interface EditPlaylistProps {
   children: React.ReactNode;
@@ -22,7 +24,8 @@ interface EditPlaylistProps {
 }
 
 const EditPlaylist: React.FC<EditPlaylistProps> = ({ children, playlist }) => {
-  const { error, loading, editPlaylist } = usePlaylistsStore();
+  const { error, loading, editPlaylist, deletePlaylist } = usePlaylistsStore();
+  const fetchUser = useUserStore((state) => state.fetchUser);
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const {
@@ -55,11 +58,23 @@ const EditPlaylist: React.FC<EditPlaylistProps> = ({ children, playlist }) => {
     }
   };
 
+  const deletePlaylistFunc = async () => {
+    try {
+      deletePlaylist(playlist.id);
+      fetchUser();
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
+  };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogTitle>Edit {playlist.title}</DialogTitle>
+        <DialogDescription></DialogDescription>
         <form className="grid gap-3" onSubmit={handleSubmit(onSubmit)}>
           <Input
             {...register("title")}
@@ -80,6 +95,13 @@ const EditPlaylist: React.FC<EditPlaylistProps> = ({ children, playlist }) => {
             {loading ? <Loader2 className="animate-spin" /> : "Update Playlist"}
           </Button>
         </form>
+        <button
+          type="button"
+          onClick={deletePlaylistFunc}
+          className="text-left text-sm text-[#909090] hover:text-red-500 transition w-fit"
+        >
+          Delete Playlist
+        </button>
       </DialogContent>
     </Dialog>
   );

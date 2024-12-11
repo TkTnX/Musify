@@ -38,7 +38,7 @@ const SongPage = async ({ params }: { params: Promise<{ id: string }> }) => {
     return <div className="text-sm text-[#909090]">Song not found</div>;
 
   return (
-    <div>
+    <div className="mb-[100px]">
       {/* SONG INFO */}
       <div className="flex flex-col items-center sm:flex-row  sm:items-start gap-10">
         <div className="relative w-[200px] lg:min-w-[250px] h-[200px] lg:min-h-[250px] rounded-lg">
@@ -48,6 +48,7 @@ const SongPage = async ({ params }: { params: Promise<{ id: string }> }) => {
             fill
             className="object-cover rounded-lg"
             priority={true}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
         <div>

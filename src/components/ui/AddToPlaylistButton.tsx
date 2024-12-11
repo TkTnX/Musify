@@ -40,8 +40,9 @@ const AddToPlaylistButton = ({ songId }: { songId: number }) => {
         <TooltipContent className="grid  bg-[#171719] text-white border">
           {user.playlists.map((playlist) => (
             <button
+              disabled={loading}
               onClick={() => onClick(playlist.id)}
-              className="flex items-center gap-3 hover:bg-[#2f2f2f] p-2 rounded transition"
+              className="flex items-center gap-3 hover:bg-[#2f2f2f] p-2 rounded transition disabled:opacity-50 disabled:cursor-not-allowed"
               key={playlist.id}
             >
               <div>

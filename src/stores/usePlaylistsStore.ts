@@ -17,6 +17,7 @@ interface PlaylistsStore {
     playlistId: number;
     songId: number;
   }) => void;
+  deletePlaylist: (id: number) => void;
 }
 
 export const usePlaylistsStore = create<PlaylistsStore>((set) => ({
@@ -87,7 +88,7 @@ export const usePlaylistsStore = create<PlaylistsStore>((set) => ({
       set({ loading: true, error: false });
       if (!data) throw new Error("Data not found");
 
-      await axios.post(`/api/playlists/${data.playlistId}`, {
+      await axios.post(`/api/playlistSongs/${data.playlistId}`, {
         songId: data.songId,
       });
     } catch (error) {
@@ -97,16 +98,28 @@ export const usePlaylistsStore = create<PlaylistsStore>((set) => ({
       set({ loading: false });
     }
   },
-  // TODO: ДОДЕЛАТЬ
   removeSongFromPlaylist: async (data) => {
     try {
       set({ loading: true, error: false });
       if (!data) throw new Error("Data not found");
 
+      await axios.delete(`/api/playlistSongs/${data.playlistId}`, {
+        data,
+      });
+    } catch (error) {
+      console.log(error);
+      set({ error: true });
+    } finally {
+      set({ loading: false });
+    }
+  },
 
+  deletePlaylist: async (id) => {
+    try {
+      if (!id) throw new Error("Id not found");
+      set({ loading: true, error: false });
 
-
-      await axios.delete(`/api/playlists/${data.playlistId}`);
+      await axios.delete(`/api/playlists/${id}`);
     } catch (error) {
       console.log(error);
       set({ error: true });

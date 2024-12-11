@@ -34,6 +34,7 @@ const ArtistAlbums: React.FC<ArtistAlbumsProps> = ({ albums, artistId }) => {
                 fill
                 priority
                 className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             </Link>
             <h5 className="font-bold text-sm text-white mt-2">{album.title}</h5>

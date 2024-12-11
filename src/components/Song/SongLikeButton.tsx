@@ -38,9 +38,10 @@ const SongLikeButton: React.FC<SongLikeButtonProps> = ({
 
   return (
     <button
+      disabled={loading}
       onClick={onClick}
       className={cn(
-        "hover:scale-110 transition",
+        "hover:scale-110 transition disabled:opacity-50 disabled:cursor-not-allowed",
         {
           "absolute bottom-2   bg-[#0e0e0e]/60 p-3 rounded-full": size === "lg",
         },

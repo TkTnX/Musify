@@ -38,6 +38,7 @@ const PlaylistPage = async ({
       {/* SONGS LIST */}
       {playlist.playlistSongs.length > 0 ? (
         <PlaylistSongsList
+          playlistId={playlist.id}
           songs={playlist.playlistSongs.map((song) => song.song)}
         />
       ) : (

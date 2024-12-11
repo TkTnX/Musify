@@ -37,6 +37,7 @@ const AlbumPage = async ({ params }: { params: Promise<{ id: string }> }) => {
             fill
             className="object-cover rounded-lg"
             priority
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
         <div>

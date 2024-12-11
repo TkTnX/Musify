@@ -32,6 +32,7 @@ const AlbumsListItem = ({
             fill
             priority
             className="object-cover rounded-2xl "
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </Link>
         <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition flex items-center justify-between">
