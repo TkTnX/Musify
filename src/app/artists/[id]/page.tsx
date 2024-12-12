@@ -1,6 +1,7 @@
 import ArtistAlbums from "@/components/Artists/ArtistAlbums";
 import ArtistSongs from "@/components/Artists/ArtistSongs";
 import ArtistTop from "@/components/Artists/ArtistTop";
+import VideosList from "@/components/Videos/VideosList";
 import prisma from "@/prisma/prismaClient";
 import { AlbumWithAllDependencies } from "@/types";
 
@@ -15,6 +16,7 @@ const ArtistPage = async ({ params }: { params: Promise<{ id: string }> }) => {
         include: {
           artist: true,
           album: true,
+          video: true,
         },
         orderBy: {
           createdAt: "desc",
@@ -31,7 +33,6 @@ const ArtistPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   });
   if (!artist)
     return <div className="text-sm text-[#909090]">Artist not found</div>;
-
   return (
     <div className="mb-[100px]">
       <ArtistTop artist={artist} />
@@ -45,6 +46,10 @@ const ArtistPage = async ({ params }: { params: Promise<{ id: string }> }) => {
           albums={artist.albums as unknown as AlbumWithAllDependencies[]}
         />
       )}
+      {artist.songs.length > 0 &&
+        artist.songs.find((song) => song.video.length > 0) && (
+          <VideosList songs={artist.songs} />
+        )}
     </div>
   );
 };

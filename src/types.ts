@@ -12,7 +12,8 @@ import {
 
 export type SongWithAllDependencies = Song & {
   artist: Artist;
-  album: Album | null;
+  album?: Album | null;
+  video?: Video[];
 };
 
 export type AddSongFormType = {
@@ -82,4 +83,4 @@ export type VideoWithSong = Video & {
 export type AddVideoType = {
   video_url: File[];
   songId: number | null;
-}
+};

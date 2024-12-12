@@ -1,15 +1,23 @@
+import { cn } from "@/lib/utils";
 import { VideoWithSong } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 
-const VideoItem = ({ video }: { video: VideoWithSong }) => {
+interface VideoItemProps {
+  video: VideoWithSong;
+  isAll?: boolean;
+}
+
+const VideoItem: React.FC<VideoItemProps> = ({ video, isAll }) => {
   return (
-    <div className="rounded-lg ">
+    <div
+      className={cn("rounded-lg ", { "border border-[#29292d] p-2": isAll })}
+    >
       <video
         src={video.video_url}
         controls
         preload="metadata"
-        className="sm:min-w-[450px] rounded-lg"
+        className={cn("sm:min-w-[450px] rounded-lg", { "w-full": isAll })}
       >
         <source src={video.video_url} />
       </video>

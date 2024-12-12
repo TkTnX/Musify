@@ -1,6 +1,7 @@
 import AlbumControls from "@/components/Albums/AlbumControls";
 import AlbumsListItem from "@/components/Albums/AlbumsListItem";
 import SongLikeButton from "@/components/Song/SongLikeButton";
+import VideosList from "@/components/Videos/VideosList";
 import prisma from "@/prisma/prismaClient";
 import { AlbumWithAllDependencies, SongWithAllDependencies } from "@/types";
 import { Dot } from "lucide-react";
@@ -17,6 +18,7 @@ const SongPage = async ({ params }: { params: Promise<{ id: string }> }) => {
       id: Number(id),
     },
     include: {
+      video: true,
       artist: {
         include: {
           albums: {
@@ -36,7 +38,6 @@ const SongPage = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   if (!song)
     return <div className="text-sm text-[#909090]">Song not found</div>;
-
   return (
     <div className="mb-[100px]">
       {/* SONG INFO */}
@@ -98,6 +99,9 @@ const SongPage = async ({ params }: { params: Promise<{ id: string }> }) => {
           ))}
         </div>
       </div>
+      {/* SONG VIDEO */}
+
+      {song.video && song.video.length > 0 && <VideosList songs={[song]} />}
     </div>
   );
 };
