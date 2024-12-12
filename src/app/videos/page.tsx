@@ -3,10 +3,6 @@ import LikedSongsVideosList from "@/components/Videos/LikedSongsVideosList";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
-// * TODO: Страницы all and liked
-// * TODO: На странице песни выводить видео, если есть
-// * TODO: На странице артиста выводить видео, если есть
-
 const VideosPage = () => {
   return (
     <div className="mb-[100px]">
