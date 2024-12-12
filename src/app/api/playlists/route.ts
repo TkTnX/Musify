@@ -33,7 +33,6 @@ export const POST = async (req: NextRequest) => {
 export const PATCH = async (req: NextRequest) => {
   try {
     const { data } = await req.json();
-    console.log(data);
     const { userId } = await auth();
     if (!data) return NextResponse.json({ message: "Data not found" });
     if (!userId) return NextResponse.json({ message: "User not found" });

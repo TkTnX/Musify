@@ -9,6 +9,7 @@ interface UseSongsStoreType {
   loading: boolean;
   error: boolean;
 
+  fetchSongs: () => void;
   addSong: (data: AddSongFormType) => Promise<Song | null>;
   fetchSong: (id: number) => Promise<SongWithAllDependencies>;
 }
@@ -17,6 +18,23 @@ export const useSongsStore = create<UseSongsStoreType>((set) => ({
   songs: [],
   loading: false,
   error: false,
+
+  fetchSongs: async () => {
+    try {
+      set({ loading: true, error: false });
+
+      const songs = await axios.get("/api/songs");
+
+      if (!songs) throw new Error("Songs not found");
+
+      set({ songs: songs.data });
+    } catch (error) {
+      console.log(error);
+      set({ error: true });
+    } finally {
+      set({ loading: false });
+    }
+  },
 
   addSong: async (data) => {
     try {

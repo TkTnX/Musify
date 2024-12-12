@@ -76,10 +76,10 @@ export type PlaylistWithAllDependencies = Playlist & {
 };
 
 export type VideoWithSong = Video & {
-  song: Song;
+  song: SongWithAllDependencies;
 };
 
 export type AddVideoType = {
   video_url: File[];
-  songId: number;
+  songId: number | null;
 }

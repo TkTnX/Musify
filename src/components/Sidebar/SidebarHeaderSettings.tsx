@@ -12,6 +12,7 @@ import { useState } from "react";
 import AddAlbum from "../modals/AddAlbum";
 import AddPlaylist from "../modals/AddPlaylist";
 import { useUserStore } from "@/stores/useUserStore";
+import AddVideo from "../modals/AddVideo";
 
 interface SidebarHeaderSettingsProps {
   children: React.ReactNode;
@@ -46,6 +47,12 @@ const SidebarHeaderSettings: React.FC<SidebarHeaderSettingsProps> = ({
             Add an Playlist
           </Button>
         </AddPlaylist>
+        <AddVideo>
+          <Button variant="ghost" className="flex items-center gap-3 ">
+            <Plus />
+            Add a Video
+          </Button>
+        </AddVideo>
       </DropdownMenuContent>
     </DropdownMenu>
   );

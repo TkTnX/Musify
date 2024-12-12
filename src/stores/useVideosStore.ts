@@ -6,17 +6,51 @@ import { create } from "zustand";
 
 interface useVideosStoreType {
   videos: VideoWithSong[];
+  likedSongsVideos: VideoWithSong[];
   loading: boolean;
   error: boolean;
   fetchVideos: () => void;
+  fetchLikedSongsVideos: () => void;
   addVideo: (data: AddVideoType) => Promise<VideoWithSong | null>;
 }
 
 export const useVideosStore = create<useVideosStoreType>((set) => ({
   videos: [],
+  likedSongsVideos: [],
   loading: false,
   error: false,
-  fetchVideos: () => {},
+  fetchVideos: async () => {
+    try {
+      set({ loading: true, error: false });
+
+      const videos = await axios.get("/api/videos");
+
+      if (!videos) throw new Error("Videos not found");
+
+      set({ videos: videos.data });
+    } catch (error) {
+      console.log(error);
+      set({ error: true });
+    } finally {
+      set({ loading: false });
+    }
+  },
+  fetchLikedSongsVideos: async () => {
+    try {
+      set({ loading: true, error: false });
+
+      const videos = await axios.get("/api/videos/likedSongsVideos");
+
+      if (!videos) throw new Error("Videos not found");
+
+      set({ likedSongsVideos: videos.data });
+    } catch (error) {
+      console.log(error);
+      set({ error: true });
+    } finally {
+      set({ loading: false });
+    }
+  },
   addVideo: async (data) => {
     try {
       set({ loading: true, error: false });
