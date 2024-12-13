@@ -13,6 +13,16 @@ interface ExploreSectionProps {
 const ExploreSection: React.FC<ExploreSectionProps> = ({ title, type }) => {
   const [value, setValue] = useState("");
 
+  // TODO: Поиск по сайту (найти что-то в интернете)
+  // TODO: На главной подгружать сначала 5 песен, потом дополнять. Можно будет внедрить это везде
+  // TODO: Проверить, чтобы везде всё включалось
+
+  const componentsMap = {
+    songs: <ExploreSongs value={value} />,
+    albums: <ExploreAlbums value={value} />,
+    artists: <ExploreArtists value={value} />,
+  };
+
   return (
     <div className="mt-10">
       <h4 className="font-bold text-xl">Look for {title}</h4>
@@ -22,21 +32,7 @@ const ExploreSection: React.FC<ExploreSectionProps> = ({ title, type }) => {
         placeholder={`Search for ${title}`}
         className="mt-4"
       />
-      {type === "songs" && (
-        <div className="mt-3">
-          <ExploreSongs value={value} />
-        </div>
-      )}
-      {type === "albums" && (
-        <div className="mt-3">
-          <ExploreAlbums value={value} />
-        </div>
-      )}
-      {type === "artists" && (
-        <div className="mt-3">
-          <ExploreArtists value={value} />
-        </div>
-      )}
+      <div className="mt-3">{componentsMap[type]}</div>
     </div>
   );
 };

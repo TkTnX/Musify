@@ -84,3 +84,9 @@ export type AddVideoType = {
   video_url: File[];
   songId: number | null;
 };
+
+
+export type SearchResultItem =
+  | (Song & { type: "song" })
+  | (Album & { type: "album" })
+  | (Artist & { type: "artist" });
