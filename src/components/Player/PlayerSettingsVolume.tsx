@@ -31,7 +31,7 @@ const PlayerSettingsVolume = () => {
         <TooltipTrigger onClick={handleClick}>
           <VolumeIcon size={24} />
         </TooltipTrigger>
-        <TooltipContent className="w-[160px]  px-5 py-2 flex flex-col gap-3">
+        <TooltipContent className="w-[160px]  px-5 py-2 flex flex-col gap-3 bg-[#1f1f22] text-white">
           <p>Volume: </p>
           <Slider
             value={volume}

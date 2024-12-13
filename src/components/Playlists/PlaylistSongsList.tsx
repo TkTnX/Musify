@@ -15,7 +15,7 @@ const PlaylistSongsList = ({
   const [value, setValue] = useState("");
 
   const filteredSongs = songs.filter((song) =>
-    value !== "" ? song.title.toLowerCase() === value.toLowerCase() : song
+    song.title.toLowerCase().includes(value.toLowerCase())
   );
 
   return (
