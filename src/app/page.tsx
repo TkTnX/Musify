@@ -1,15 +1,18 @@
 import MainSection from "@/components/MainSection/MainSection";
+import MainSectionSongs from "@/components/MainSection/MainSectionSongs";
 import prisma from "@/prisma/prismaClient";
 import { AlbumWithAllDependencies } from "@/types";
 
 export const revalidate = 0;
 
 export default async function Home() {
-  const songs = await prisma.song.findMany({
+  const initialSongs = await prisma.song.findMany({
     include: { artist: true, album: true },
+    take: 5,
   });
 
   const albums = await prisma.album.findMany({
+    take: 5,
     include: {
       songs: {
         include: {
@@ -23,7 +26,7 @@ export default async function Home() {
   return (
     <main className="mb-[100px]">
       {/* Title section */}
-      <MainSection title="Trending" songs={songs} isTitleSection />
+      <MainSectionSongs title="Songs" initialSongs={initialSongs} />
 
       {/* Albums section */}
       <MainSection
