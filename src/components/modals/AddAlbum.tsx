@@ -23,6 +23,7 @@ import {
 import { useAddAlbum } from "@/hooks/useAddAlbum";
 import { Song } from "@prisma/client";
 import { AddAlbumType, AddSongFormType } from "@/types";
+import { addSongToArray } from "@/lib/addSongToArray";
 
 interface AddAlbumProps {
   children: React.ReactNode;
@@ -131,6 +132,8 @@ const AddAlbum: React.FC<AddAlbumProps> = ({ children }) => {
                   )}
                 </div>
                 <Button
+                  disabled={loading}
+                  onClick={() => addSongToArray(addSongForm.getValues())}
                   type="button"
                   className="w-full flex items-center justify-center"
                 >

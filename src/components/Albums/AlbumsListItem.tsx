@@ -44,12 +44,14 @@ const AlbumsListItem = ({
         <h5 className="font-semibold text-2xl    tracking-wider mt-3 no-text-wrap">
           {album.title}
         </h5>
-        <Link
-          href={`/artists/${album.artist.id}`}
-          className="text-sm text-[#909090] hover:text-white"
-        >
-          {album.artist.name}
-        </Link>
+        {album.artist && (
+          <Link
+            href={`/artists/${album.artist.id}`}
+            className="text-sm text-[#909090] hover:text-white"
+          >
+            {album.artist.name}
+          </Link>
+        )}
       </div>
     </div>
   );

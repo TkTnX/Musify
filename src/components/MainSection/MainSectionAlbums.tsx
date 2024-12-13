@@ -1,29 +1,47 @@
 "use client";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-import { AlbumWithAllDependencies, SongWithAllDependencies } from "@/types";
-import Song from "../Song/Song";
+import { AlbumWithAllDependencies } from "@/types";
+import axios from "axios";
 import AlbumsListItem from "../Albums/AlbumsListItem";
 
-interface MainSectionProps {
+interface MainSectionAlbumsProps {
   title: string;
-  songs?: SongWithAllDependencies[];
-  albums?: AlbumWithAllDependencies[];
-  isTitleSection?: boolean;
+  initialAlbums?: AlbumWithAllDependencies[];
 }
 
-const MainSection: React.FC<MainSectionProps> = ({
+const MainSectionAlbums: React.FC<MainSectionAlbumsProps> = ({
   title,
-  songs,
-  albums,
-  isTitleSection = false,
+  initialAlbums = [],
 }) => {
   const sliderRef = useRef(null);
+  const [albums, setAlbums] = useState(initialAlbums);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [allDataLoaded, setAllDataLoaded] = useState(false);
+
+  const loadMoreSongs = async () => {
+    if (loading || allDataLoaded) return;
+
+    setLoading(true);
+
+    const albums = await axios.get(`/api/albums?page=${currentPage + 1}`);
+    const newAlbums: AlbumWithAllDependencies[] = await albums.data;
+
+    setAlbums((prev) => [...prev, ...newAlbums]);
+    setCurrentPage((prev) => prev + 1);
+    setLoading(false);
+    if (newAlbums.length < 5) {
+      setAllDataLoaded(true);
+      return;
+    }
+  };
+
   return (
-    <div className={cn("mt-14", { "mt-5": isTitleSection })}>
+    <div className={cn("mt-5")}>
       {/* section top */}
       <div className="flex items-center justify-between">
         <h4 className="font-semibold text-lg leading-6">{title}</h4>
@@ -51,8 +69,9 @@ const MainSection: React.FC<MainSectionProps> = ({
       {/* section content */}
 
       <Swiper
+        onReachEnd={loadMoreSongs}
         ref={sliderRef}
-        spaceBetween={isTitleSection ? 24 : 12}
+        spaceBetween={24}
         slidesPerView={1}
         className="mt-2"
         breakpoints={{
@@ -70,21 +89,21 @@ const MainSection: React.FC<MainSectionProps> = ({
           },
         }}
       >
-        {songs
-          ? songs.map((song) => (
-              <SwiperSlide key={song.id}>
-                <Song song={song} isTitleSection={isTitleSection} />
-              </SwiperSlide>
-            ))
-          : albums &&
-            albums.map((album) => (
-              <SwiperSlide key={album.id}>
-                <AlbumsListItem isSlider album={album} />
-              </SwiperSlide>
-            ))}
+        {albums.map((album) => (
+          <SwiperSlide key={album.id}>
+            <AlbumsListItem isSlider album={album} />
+          </SwiperSlide>
+        ))}
+        {loading && (
+          <SwiperSlide className="flex items-center justify-center min-h-[344px] w-full bg-[#212124]">
+            <div className="flex items-center justify-center h-[344px]">
+              <Loader2 className="animate-spin" />
+            </div>
+          </SwiperSlide>
+        )}
       </Swiper>
     </div>
   );
 };
 
-export default MainSection;
+export default MainSectionAlbums;

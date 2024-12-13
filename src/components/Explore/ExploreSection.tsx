@@ -13,8 +13,6 @@ interface ExploreSectionProps {
 const ExploreSection: React.FC<ExploreSectionProps> = ({ title, type }) => {
   const [value, setValue] = useState("");
 
-  // TODO: На главной подгружать сначала 5 песен, потом дополнять. Можно будет внедрить это везде
-  // TODO: Для поиска проверить, чтобы всегда подгружалось всё
   // TODO: Проверить, чтобы везде всё включалось
   // TODO: В localhost добавлять уровень громкости
 

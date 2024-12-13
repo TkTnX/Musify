@@ -21,9 +21,10 @@ const MainSectionSongs: React.FC<MainSectionSongsProps> = ({
   const [songs, setSongs] = useState(initialSongs);
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [allDataLoaded, setAllDataLoaded] = useState(false);
 
   const loadMoreSongs = async () => {
-    if (loading) return;
+    if (loading || allDataLoaded) return;
 
     setLoading(true);
 
@@ -33,10 +34,12 @@ const MainSectionSongs: React.FC<MainSectionSongsProps> = ({
     setSongs((prev) => [...prev, ...newSongs]);
     setCurrentPage((prev) => prev + 1);
     setLoading(false);
-    if (newSongs.length < 5) return;
+    if (newSongs.length < 5) {
+      setAllDataLoaded(true);
+      return;
+    }
   };
 
-  console.log(currentPage);
   return (
     <div className={cn("mt-5")}>
       {/* section top */}

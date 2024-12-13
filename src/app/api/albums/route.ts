@@ -1,13 +1,28 @@
 import prisma from "@/prisma/prismaClient";
 import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async () => {
+export const GET = async (req: NextRequest) => {
   try {
+    const { searchParams } = new URL(req.url);
+    let page;
+    let pageSize;
+    if (searchParams.get("page") || searchParams.get("pageSize")) {
+      page = parseInt(searchParams.get("page") || "0", 10);
+      pageSize = parseInt(searchParams.get("pageSize") || "5", 10);
+    }
+
     const albums = await prisma.album.findMany({
       include: {
-        songs: true,
+        songs: {
+          include: {
+            artist: true,
+            album: true,
+          },
+        },
         artist: true,
       },
+      skip: page && pageSize ? page * pageSize : 0,
+      take: pageSize,
     });
 
     return NextResponse.json(albums);
