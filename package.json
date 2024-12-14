@@ -9,6 +9,7 @@
     "lint": "next lint",
     "db:push": "prisma db push --schema src/prisma/schema.prisma"
   },
+  
   "dependencies": {
     "@clerk/nextjs": "^6.5.0",
     "@clerk/themes": "^2.1.48",
