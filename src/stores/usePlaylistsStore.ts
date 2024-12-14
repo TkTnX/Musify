@@ -20,6 +20,7 @@ interface PlaylistsStore {
   deletePlaylist: (id: number) => void;
 }
 
+
 export const usePlaylistsStore = create<PlaylistsStore>((set) => ({
   playlists: [],
   loading: false,
