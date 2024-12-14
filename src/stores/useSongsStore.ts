@@ -1,6 +1,6 @@
 import { addDataToDB } from "@/lib/addDataToDB";
 import { getDataFromDB } from "@/lib/getDataFromDB";
-import { Song } from "@/prisma/generated/client";
+import { Song } from "@prisma/client";
 import { AddSongFormType, SongWithAllDependencies } from "@/types";
 import axios from "axios";
 import { create } from "zustand";

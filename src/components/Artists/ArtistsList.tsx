@@ -5,9 +5,7 @@ import Loading from "@/app/loading";
 import { useArtistsStore } from "@/stores/useArtistsStore";
 import { useEffect } from "react";
 import ArtistsListItem from "./ArtistsListItem";
-import { Artist } from "@/prisma/generated/client";
-
-
+import { Artist } from "@prisma/client";
 
 const ArtistsList = () => {
   const { fetchArtists, artists, error, loading } = useArtistsStore();

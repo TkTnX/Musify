@@ -1,4 +1,4 @@
-import { LikedAlbums } from "@/prisma/generated/client";
+import { LikedAlbums } from "@prisma/client";
 import { AlbumWithAllDependencies } from "@/types";
 import axios from "axios";
 import { create } from "zustand";

@@ -8,7 +8,7 @@ import {
   Song,
   User,
   Video,
-} from "@/prisma/generated/client";
+} from "@prisma/client";
 
 export type SongWithAllDependencies = Song & {
   artist: Artist;
