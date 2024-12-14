@@ -38,7 +38,9 @@ const ArtistAlbums: React.FC<ArtistAlbumsProps> = ({ albums, artistId }) => {
               />
             </Link>
             <h5 className="font-bold text-sm text-white mt-2">{album.title}</h5>
-            <p className="text-sm text-[#909090]">{album.artist.name}</p>
+            {album.artist && (
+              <p className="text-sm text-[#909090]">{album.artist.name}</p>
+            )}
             <p className="text-sm text-[#909090]">
               {album.createdAt.getFullYear()}
             </p>

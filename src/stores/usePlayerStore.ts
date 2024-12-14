@@ -20,7 +20,7 @@ export const usePlayerStore = create<PlayerStoreType>((set) => ({
   currentSong: null,
   currentSongs: [],
   isPlaying: false,
-  volume: JSON.parse(localStorage.getItem("volume")!) || [50],
+  volume: [50],
   audioPlayerRef: { current: null },
 
   setCurrentSong: (song) => set({ currentSong: song }),
