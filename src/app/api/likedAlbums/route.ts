@@ -32,6 +32,6 @@ export const GET = async () => {
     return NextResponse.json(likedAlbums);
   } catch (error) {
     console.log(error);
-    NextResponse.json({ error: (error as Error).message }, { status: 500 });
+    return NextResponse.json({ error: (error as Error).message }, { status: 500 });
   }
 };

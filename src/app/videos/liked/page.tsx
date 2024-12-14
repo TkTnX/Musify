@@ -1,5 +1,6 @@
 import VideoItem from "@/components/Videos/VideoItem";
 import prisma from "@/prisma/prismaClient";
+import { VideoWithSong } from "@/types";
 import { auth } from "@clerk/nextjs/server";
 
 const LikedSongsVideosPage = async () => {
@@ -34,7 +35,7 @@ const LikedSongsVideosPage = async () => {
     <div>
       <h2 className="font-bold text-2xl">Liked Songs Videos</h2>
       <div className="grid xl:grid-cols-2 gap-y-4 gap-x-2 mt-10">
-        {videos.map((video) => (
+        {videos.map((video: VideoWithSong) => (
           <VideoItem key={video.id} video={video} isAll={true} />
         ))}
       </div>

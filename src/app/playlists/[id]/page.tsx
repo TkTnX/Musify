@@ -1,6 +1,7 @@
 import PlaylistSongsList from "@/components/Playlists/PlaylistSongsList";
 import PlaylistTop from "@/components/Playlists/PlaylistTop";
 import prisma from "@/prisma/prismaClient";
+import { SongWithAllDependencies } from "@/types";
 import { auth } from "@clerk/nextjs/server";
 
 const PlaylistPage = async ({
@@ -39,7 +40,9 @@ const PlaylistPage = async ({
       {playlist.playlistSongs.length > 0 ? (
         <PlaylistSongsList
           playlistId={playlist.id}
-          songs={playlist.playlistSongs.map((song) => song.song)}
+          songs={playlist.playlistSongs.map(
+            (song: { song: SongWithAllDependencies }) => song.song
+          )}
         />
       ) : (
         <p className="text-sm text-[#909090] mt-10">No songs in playlist</p>

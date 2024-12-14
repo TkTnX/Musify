@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../ui/select";
-import { Artist } from "@prisma/client";
+import { Artist } from "@/prisma/generated/client";
 
 interface ArtistsSelectorProps {
   loading: boolean;

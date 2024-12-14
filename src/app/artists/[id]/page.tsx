@@ -3,7 +3,7 @@ import ArtistSongs from "@/components/Artists/ArtistSongs";
 import ArtistTop from "@/components/Artists/ArtistTop";
 import VideosList from "@/components/Videos/VideosList";
 import prisma from "@/prisma/prismaClient";
-import { AlbumWithAllDependencies } from "@/types";
+import { AlbumWithAllDependencies, SongWithAllDependencies } from "@/types";
 
 const ArtistPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
@@ -47,9 +47,9 @@ const ArtistPage = async ({ params }: { params: Promise<{ id: string }> }) => {
         />
       )}
       {artist.songs.length > 0 &&
-        artist.songs.find((song) => song.video.length > 0) && (
-          <VideosList songs={artist.songs} />
-        )}
+        artist.songs.find(
+          (song: SongWithAllDependencies) => song.video && song.video.length > 0
+        ) && <VideosList songs={artist.songs} />}
     </div>
   );
 };

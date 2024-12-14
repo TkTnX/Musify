@@ -19,11 +19,14 @@ export async function GET(
       },
     });
 
-    if (!song) NextResponse.json({ message: "Song not found" });
+    if (!song) return NextResponse.json({ message: "Song not found" });
 
     return NextResponse.json(song);
   } catch (error) {
     console.log(error);
-    NextResponse.json({ error: (error as Error).message }, { status: 500 });
+    return NextResponse.json(
+      { error: (error as Error).message },
+      { status: 500 }
+    );
   }
 }

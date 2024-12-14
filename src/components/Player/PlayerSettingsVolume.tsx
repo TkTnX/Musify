@@ -25,7 +25,6 @@ const PlayerSettingsVolume = () => {
     localStorage.setItem("volume", JSON.stringify(values));
   };
 
-  console.log({ volume, sessionVolume });
   const handleClick = () => {
     if (volume[0] === 0) {
       setVolume([100]);

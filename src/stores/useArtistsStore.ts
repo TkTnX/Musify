@@ -1,7 +1,7 @@
 import { addDataToDB } from "@/lib/addDataToDB";
 import { getDataFromDB } from "@/lib/getDataFromDB";
+import { Artist } from "@/prisma/generated/client";
 import { AddArtistType } from "@/types";
-import { Artist } from "@prisma/client";
 import axios from "axios";
 import { create } from "zustand";
 interface UseArtistsStoreType {

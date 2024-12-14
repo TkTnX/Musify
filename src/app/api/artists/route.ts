@@ -10,7 +10,10 @@ export async function GET() {
     return NextResponse.json(artists);
   } catch (error) {
     console.log(error);
-    NextResponse.json({ error: (error as Error).message }, { status: 500 });
+    return NextResponse.json(
+      { error: (error as Error).message },
+      { status: 500 }
+    );
   }
 }
 
@@ -19,11 +22,14 @@ export async function POST(req: NextRequest) {
     const data = await req.json();
     if (!data) return NextResponse.json({ message: "Data not found" });
 
-   const artist = await prisma.artist.create({ data });
+    const artist = await prisma.artist.create({ data });
 
     return NextResponse.json(artist);
   } catch (error) {
     console.log(error);
-    NextResponse.json({ error: (error as Error).message }, { status: 500 });
+    return NextResponse.json(
+      { error: (error as Error).message },
+      { status: 500 }
+    );
   }
 }
