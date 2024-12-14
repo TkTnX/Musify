@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { Playlist } from "@prisma/client";
+import { Playlist } from "@/prisma/generated/client";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

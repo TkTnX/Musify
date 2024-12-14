@@ -1,4 +1,4 @@
-import { Artist } from "@prisma/client";
+import { Artist } from "@/prisma/generated/client";
 import Image from "next/image";
 import Link from "next/link";
 

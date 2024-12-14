@@ -23,7 +23,7 @@ import {
 import { useAddAlbum } from "@/hooks/useAddAlbum";
 import { AddAlbumType, AddSongFormType } from "@/types";
 import { addSongToArray } from "@/lib/addSongToArray";
-import { Song } from "@prisma/client";
+import { Song } from "@/prisma/generated/client";
 
 interface AddAlbumProps {
   children: React.ReactNode;
