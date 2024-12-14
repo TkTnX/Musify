@@ -28,7 +28,7 @@ const ArtistSongs = ({ artist }: { artist: ArtistWithAllDependencies }) => {
               className="group-hover:translate-x-1  transition"
             />
           </Link>
-          {artist.songs.map((song) => (
+          {artist.songs.map((song: SongWithAllDependencies) => (
             <FavoritesListItem
               key={song.id}
               song={

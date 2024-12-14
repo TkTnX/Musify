@@ -4,6 +4,7 @@ import Loading from "@/app/loading";
 import { useAlbumsStore } from "@/stores/useAlbumsStore";
 import { useEffect } from "react";
 import AlbumsListItem from "./AlbumsListItem";
+import { AlbumWithAllDependencies } from "@/types";
 
 
 
@@ -23,7 +24,7 @@ const AlbumsList = () => {
   return (
     <div className="flex items-center gap-3 mt-10 flex-wrap">
       {!loading && albums.length > 0 ? (
-        albums.map((album) => (
+        albums.map((album: AlbumWithAllDependencies) => (
           <AlbumsListItem key={album.id} album={album} />
         ))
       ) : (

@@ -91,7 +91,7 @@ const SongPage = async ({ params }: { params: Promise<{ id: string }> }) => {
           More from {song.artist.name}
         </h3>
         <div className="flex items-start gap-10 mt-5 overflow-x-auto">
-          {song.artist.albums.map((album) => (
+          {song.artist.albums.map((album: AlbumWithAllDependencies) => (
             <AlbumsListItem
               key={album.id}
               album={album as AlbumWithAllDependencies}

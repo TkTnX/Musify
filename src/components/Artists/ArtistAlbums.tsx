@@ -22,7 +22,7 @@ const ArtistAlbums: React.FC<ArtistAlbumsProps> = ({ albums, artistId }) => {
         />
       </Link>
       <div className="mt-3 flex items-center gap-3 flex-wrap">
-        {albums.map((album) => (
+        {albums.map((album: AlbumWithAllDependencies) => (
           <div key={album.id}>
             <Link
               href={`/albums/${album.id}`}
