@@ -8,6 +8,7 @@ import ArtistsListItem from "./ArtistsListItem";
 import { Artist } from "@prisma/client";
 
 
+
 const ArtistsList = () => {
   const { fetchArtists, artists, error, loading } = useArtistsStore();
 
