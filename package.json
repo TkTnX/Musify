@@ -7,9 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:push": "prisma db push --schema src/prisma/schema.prisma",
-    "postinstall": "prisma generate --schema src/prisma/schema.prisma",
-    "vercel-build": "prisma generate --schema src/prisma/schema.prisma && prisma migrate deploy --schema src/prisma/schema.prisma && next build"
+    "db:push": "prisma db push --schema ./src/prisma/schema.prisma",
+    "postinstall": "prisma generate --schema ./src/prisma/schema.prisma",
+    "vercel-build": "prisma generate --schema ./src/prisma/schema.prisma && prisma migrate deploy --schema src/prisma/schema.prisma && next build"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.5.0",
