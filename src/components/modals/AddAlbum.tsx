@@ -21,9 +21,9 @@ import {
   AccordionTrigger,
 } from "../ui/accordion";
 import { useAddAlbum } from "@/hooks/useAddAlbum";
-import { Song } from "@prisma/client";
 import { AddAlbumType, AddSongFormType } from "@/types";
 import { addSongToArray } from "@/lib/addSongToArray";
+import { Song } from "@/prisma/generated/client";
 
 interface AddAlbumProps {
   children: React.ReactNode;

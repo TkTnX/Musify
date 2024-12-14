@@ -8,7 +8,7 @@ import {
   Song,
   User,
   Video,
-} from "@prisma/client";
+} from "@/prisma/generated/client";
 
 export type SongWithAllDependencies = Song & {
   artist: Artist;
@@ -84,7 +84,6 @@ export type AddVideoType = {
   video_url: File[];
   songId: number | null;
 };
-
 
 export type SearchResultItem =
   | (Song & { type: "song" })
