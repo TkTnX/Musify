@@ -16,7 +16,12 @@ const ArtistAlbumsPage = async ({
     include: {
       albums: {
         include: {
-          songs: true,
+          songs: {
+            include: {
+              artist: true,
+              album: true,
+            },
+          },
           artist: true,
         },
       },
@@ -29,7 +34,7 @@ const ArtistAlbumsPage = async ({
     <div className="">
       <h2 className="font-bold text-2xl">{artist.name}&apos;s Albums</h2>
       <div className="mt-10 flex items-center gap-3">
-        {artist.albums.map((album) => (
+        {artist.albums.map((album: AlbumWithAllDependencies) => (
           <AlbumsListItem
             key={album.id}
             album={album as AlbumWithAllDependencies}
