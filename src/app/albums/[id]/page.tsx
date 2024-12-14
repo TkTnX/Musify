@@ -2,6 +2,7 @@ import Error from "@/app/error";
 import AlbumControls from "@/components/Albums/AlbumControls";
 import FavoritesListItem from "@/components/Favorites/FavoritesListItem";
 import prisma from "@/prisma/prismaClient";
+import { SongWithAllDependencies } from "@/types";
 import { Dot } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -68,7 +69,7 @@ const AlbumPage = async ({ params }: { params: Promise<{ id: string }> }) => {
       </div>
       {/* SONGS LIST */}
       <div className="mt-10">
-        {album.songs.map((song) => (
+        {album.songs.map((song: SongWithAllDependencies) => (
           <FavoritesListItem song={song} key={song.id} />
         ))}
       </div>
