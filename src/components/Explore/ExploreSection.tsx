@@ -13,8 +13,6 @@ interface ExploreSectionProps {
 const ExploreSection: React.FC<ExploreSectionProps> = ({ title, type }) => {
   const [value, setValue] = useState("");
 
-  // TODO: Проверить, чтобы везде всё включалось
-  // TODO: В localhost добавлять уровень громкости
 
   const componentsMap = {
     songs: <ExploreSongs value={value} />,
