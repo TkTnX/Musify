@@ -1,4 +1,3 @@
-import { addSongToArray } from "@/lib/addSongToArray";
 import { useAlbumsStore } from "@/stores/useAlbumsStore";
 import { useSongsStore } from "@/stores/useSongsStore";
 import { AddAlbumType, AddSongFormType } from "@/types";
@@ -10,12 +9,11 @@ export const useAddAlbum = (
   addAlbumForm: UseFormReturn<AddAlbumType>,
   addSongForm: UseFormReturn<AddSongFormType>
 ) => {
+  const [open, setOpen] = useState(false);
   const [artistId, setArtistId] = useState<number | null>(null);
+  const [addedSongs, setAddedSongs] = useState([] as AddSongFormType[]);
   const albumsStore = useAlbumsStore();
   const songsStore = useSongsStore();
-
-  // ADD SONG FUNCTION
-  const addedSongs = addSongToArray(addSongForm.getValues());
 
   // CREATE NEW ALBUM FUNCTION
   const onAddAlbum = async (data: AddAlbumType) => {
@@ -43,6 +41,7 @@ export const useAddAlbum = (
         return toast.error("Something went wrong");
 
       toast.success("Album created successfully");
+      setOpen(false);
       addAlbumForm.reset();
       addSongForm.reset();
     } catch (error) {
@@ -55,6 +54,9 @@ export const useAddAlbum = (
     addedSongs,
     onAddAlbum,
     setArtistId,
+    setAddedSongs,
+    open,
+    setOpen,
     loading: songsStore.loading || albumsStore.loading,
   };
 };

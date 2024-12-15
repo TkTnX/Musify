@@ -22,7 +22,6 @@ import {
 } from "../ui/accordion";
 import { useAddAlbum } from "@/hooks/useAddAlbum";
 import { AddAlbumType, AddSongFormType } from "@/types";
-import { addSongToArray } from "@/lib/addSongToArray";
 import { Song } from "@/prisma/generated/client";
 
 interface AddAlbumProps {
@@ -48,10 +47,8 @@ const AddAlbum: React.FC<AddAlbumProps> = ({ children }) => {
     },
   });
 
-  const { addedSongs, onAddAlbum, setArtistId, loading } = useAddAlbum(
-    addAlbumForm,
-    addSongForm
-  );
+  const { addedSongs, onAddAlbum, setArtistId, loading, setAddedSongs, open, setOpen } =
+    useAddAlbum(addAlbumForm, addSongForm);
 
   const artistsStore = useArtistsStore();
 
@@ -63,8 +60,12 @@ const AddAlbum: React.FC<AddAlbumProps> = ({ children }) => {
     }
   }, []);
 
+  const addSongToArray = (data: AddSongFormType) => {
+    setAddedSongs([...addedSongs, data]);
+  };
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogTitle>Add an Album</DialogTitle>
@@ -97,7 +98,7 @@ const AddAlbum: React.FC<AddAlbumProps> = ({ children }) => {
           <Accordion type="single" collapsible>
             <AccordionItem value="1">
               <AccordionTrigger>Add Song Form</AccordionTrigger>
-              <AccordionContent>
+              <AccordionContent className="grid gap-3">
                 <Input
                   placeholder="Song Name"
                   {...addSongForm.register("title")}
